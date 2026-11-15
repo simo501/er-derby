@@ -20,7 +20,10 @@
   let page = '';
   let rosterKey = '';
   let liveBall;
-  const stadiumAudio = new window.StadiumAudio();
+  const stadiumAudio = new window.StadiumAudio({
+    onStatus: message => { $('audio-status').textContent = message; },
+    onInterrupted: () => { $('audio-toggle').textContent = '◖ Riprendi audio'; }
+  });
   document.body.dataset.lineupView = 'pitch';
 
   function badge(club) {
@@ -377,7 +380,13 @@
   $('odds-info').addEventListener('click', () => openDialog('<div class="eyebrow">LEGGERE LE PROBABILITÀ</div><h2 id="dialog-title">Una quota racconta una possibilità.</h2><p>Una probabilità del 40% corrisponde a una quota teorica di 2,50: 1 ÷ 0,40. Il modello non aggiunge margini commerciali.</p><p>1 indica la vittoria della squadra di casa; X il pareggio; 2 la vittoria della squadra in trasferta. Roma e Lazio si alternano in casa a ogni incontro. Gol significa che segnano entrambe; over 2,5 significa almeno tre reti complessive.</p><p>Le quote sono calcolate prima dell’incontro e restano fisse durante la diretta. A fine partita il pannello passa al prossimo derby. Le percentuali visualizzate sono arrotondate.</p><p>Risultati esatti: vengono mostrati soltanto i nove punteggi più probabili, perciò le percentuali non sommano al 100%.</p><p>Non sono quote per incontri reali. Nessuna scommessa: qui si guarda soltanto il calcio immaginato.</p>'));
   $('audio-toggle').addEventListener('click',async()=>{
     const button=$('audio-toggle');button.disabled=true;
-    try {const enabled=await stadiumAudio.toggle();button.setAttribute('aria-pressed',String(enabled));button.textContent=enabled?'◖ Audio acceso':'◖ Audio spento';$('audio-status').textContent=enabled?'Pubblico, cori sintetici e fischi':'Atmosfera sonora opzionale';}
+    try {
+      const enabled = await stadiumAudio.toggle();
+      button.setAttribute('aria-pressed', String(enabled));
+      button.textContent = enabled ? '◖ Audio acceso' : '◖ Audio spento';
+      if (enabled) refresh();
+      else $('audio-status').textContent = 'Atmosfera sonora opzionale';
+    }
     catch(error){$('audio-status').textContent=error.message;}
     finally{button.disabled=false;}
   });

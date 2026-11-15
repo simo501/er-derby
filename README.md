@@ -4,15 +4,16 @@ Simulatore statico Roma–Lazio: una partita ogni cinque minuti, 90 secondi di d
 
 ## Apertura e sviluppo
 
-Aprire `index.html` nel browser: funziona anche con `file://`, senza server, installazioni o connessione. Script, dati e stemmi sono locali; i caratteri sono quelli di sistema. In alternativa `npm start` avvia un server su `http://127.0.0.1:4173` (richiede Python 3). Node serve soltanto per i test; Python per rigenerare dati e pacchetto.
+Aprire `index.html` nel browser: la simulazione funziona anche con `file://`, senza server o connessione. Per ascoltare gli MP3 serve HTTP/HTTPS: `npm start` avvia un server su `http://127.0.0.1:4173` (richiede Python 3). Script, dati, stemmi e audio sono locali; i caratteri sono quelli di sistema. Node serve soltanto per i test; Python per rigenerare dati e pacchetto.
 
 ```sh
 npm test
 npm run data
+npm run audio
 npm run build
 ```
 
-`dist/` contiene l’intero sito distribuibile su qualsiasi hosting statico, GitHub Pages compreso. Può essere ospitata anche la cartella sorgente. `.openai/hosting.json` contiene l’identità per Sites; non contiene credenziali. Nessuna dipendenza JavaScript di produzione o compilazione.
+`dist/` contiene l’intero sito distribuibile su qualsiasi hosting statico, GitHub Pages compreso. Può essere ospitata anche la cartella sorgente. L’eventuale configurazione locale `.openai/` è esclusa da Git. Nessuna dipendenza JavaScript di produzione o compilazione.
 
 ## Contratti e architettura
 
@@ -27,7 +28,7 @@ npm run build
 
 L’epoca fissa è il 1 gennaio 2025 UTC; `slot = floor((Date.now() - epoch) / 300000)`. L’offset nel ciclo determina la fase. I primi 43 secondi rappresentano il primo tempo, i successivi quattro l’intervallo, gli ultimi 43 il secondo tempo. A 90 secondi arriva il triplice fischio; a 300 parte il prossimo derby.
 
-Ogni blocco di 144 slot contiene tutti gli abbinamenti Roma × Lazio, mescolati con Fisher–Yates e un generatore con seed. Ogni coppia appare una sola volta per blocco; stagioni adiacenti possono ripetersi contro avversari diversi. La parità dello slot determina la squadra in casa: Roma negli slot pari, Lazio negli slot dispari. Tabellone, programma, archivio, campo e quote seguono casa/trasferta. Il seed di ciascuna partita include versione e slot. Il motore non usa `Math.random()`; soltanto il rumore audio locale usa casualità non condivisa, senza influire sulla partita.
+Ogni blocco di 144 slot contiene tutti gli abbinamenti Roma × Lazio, mescolati con Fisher–Yates e un generatore con seed. Ogni coppia appare una sola volta per blocco; stagioni adiacenti possono ripetersi contro avversari diversi. La parità dello slot determina la squadra in casa: Roma negli slot pari, Lazio negli slot dispari. Tabellone, programma, archivio, campo e quote seguono casa/trasferta. Il seed di ciascuna partita include versione e slot. Il motore non usa `Math.random()`; soltanto la selezione e il punto iniziale dei cori usano casualità non condivisa, senza influire sulla partita.
 
 Il browser ricostruisce subito il copione completo, poi mostra solo gli eventi con `at <= elapsed`. Il risultato completo è conoscibile ispezionando il codice: in un’app statica non è possibile nasconderlo a chi controlla il proprio browser. L’interfaccia non anticipa gli esiti futuri. Non esistono denaro o scommesse.
 
@@ -67,7 +68,19 @@ Le riserve entrano nel posto tattico del giocatore sostituito. Si sceglie un usc
 
 ## Suoni, classifiche e pagelle
 
-`audio.js` produce una base di pubblico, cori senza parole e fischi mediante Web Audio. Non usa registrazioni o servizi esterni. L’audio è sempre spento inizialmente, richiede un gesto dell’utente e ha un volume regolabile. La scheda nascosta sospende l’audio; al rientro non vengono riprodotti gol arretrati. Le sorgenti brevi si disconnettono al termine. Il pulsante mostra un messaggio se il browser non supporta l’audio.
+`audio.js` riproduce gli MP3 locali con Web Audio, senza dipendenze o servizi esterni. L’audio è spento inizialmente e richiede un gesto dell’utente; il volume è regolabile. La scheda nascosta ferma le sorgenti; al rientro riparte soltanto la finestra corrente, senza gol arretrati. Mute e fischio finale interrompono anche richieste di riproduzione ancora in caricamento.
+
+La gara ha quattro finestre audio, incluso l’intervallo. Ogni coro dura da 18 a 27 secondi: i cambi nominali a 22,5, 45 e 67,5 secondi vengono anticipati o posticipati in base a punteggio e azioni recenti. Le decisioni sono fissate 4,5 secondi prima dei cambi nominali, usando solo gli eventi già avvenuti a quel momento. Anche chi entra tardi ricostruisce gli stessi confini dai prefissi della cronaca. Inizia la curva di casa e il secondo coro va all’avversaria. Gli ultimi due cori seguono normalmente l’alternanza, ma con almeno due gol di vantaggio possono andare alla curva in testa: il rapporto può diventare 3:1. Il risultato considerato è quello all’inizio del coro; nessun gol successivo riscrive ciò che si è già ascoltato. Se il vantaggio arriva soltanto molto tardi, potrebbe restare 2:2. Ogni finestra sceglie casualmente un MP3 del club, evitando di ripetere l’ultima traccia scelta per quella curva. I cori e gli offset sono locali allo spettatore e non modificano la partita.
+
+Ogni coro parte da un punto casuale dell’intera registrazione. L’estratto è circolare: può arrivare alla fine e riprendere dall’inizio, sempre entro la sua finestra. Anche una traccia breve riempie la propria finestra senza introdurre un quinto coro; una lunga può far sentire la coda. Ingresso tardivo, mute o ritorno alla scheda conservano il punto della finestra. Al gol il coro viene fermato subito e parte `assets/goal.mp3`; dopo il gol riprende l’estratto previsto per quell’istante, senza un nuovo sorteggio. Anche il gol viene tagliato al termine dei 90 secondi. Brevi rampe di volume evitano scatti ai tagli.
+
+Il catalogo `assets/audio-manifest.js` è generato da `scripts/build_audio.py` e comprende le cartelle `assets/tracce roma/`, `assets/tracce lazio/` e l’effetto gol. Le URL contengono un hash SHA-256 del contenuto: un MP3 aggiornato ottiene una nuova chiave. Dopo aver aggiunto o sostituito tracce eseguire `npm run audio`; `npm run build` lo esegue automaticamente e copia tutti gli audio in `dist/`.
+
+Nessun MP3 viene scaricato prima di accendere l’audio. Si preparano effetto gol, coro corrente e un candidato per quello successivo, senza precaricare il catalogo completo. Il candidato viene verificato all’inizio della finestra: se il punteggio ha cambiato la curva prevista, si sceglie il club corretto e la traccia già scaricata resta in cache. I file validi vengono conservati nella Cache API in HTTPS/localhost, con rimozione delle versioni obsolete; se lo storage non è disponibile si usa la cache HTTP (`force-cache`). Le richieste contemporanee per uno stesso file sono accorpate. La memoria decodificata conserva al massimo tre cori e il gol; gli MP3 non vengono ricodificati. La cache è un’ottimizzazione soggetta allo spazio disponibile nel browser, non una garanzia di conservazione permanente. Dettagli API: [Cache](https://developer.mozilla.org/en-US/docs/Web/API/Cache), [decodeAudioData](https://developer.mozilla.org/en-US/docs/Web/API/BaseAudioContext/decodeAudioData).
+
+Su Safari iOS, l’attivazione richiede la sessione `playback` quando l’API è disponibile e avvia un buffer silenzioso direttamente nel gesto dell’utente, prima dei caricamenti asincroni. Gli stati `interrupted`/`suspended` rendono disponibile il pulsante “Riprendi audio”, che tenta la ripresa con un solo tap. La sessione torna ad `auto` quando si spegne l’audio. Sono misure di compatibilità: l’ascolto su iPhone reale va verificato separatamente. Riferimenti: [AudioSession.type](https://developer.mozilla.org/en-US/docs/Web/API/AudioSession/type), [interruzioni di Safari](https://developer.mozilla.org/en-US/docs/Web/API/BaseAudioContext/state).
+
+`tests/audio.test.js` verifica quattro finestre adattive, soglia di due gol e rapporto 3:1, alternanza e casualità, offset e loop, gol prioritari, mute e scheda nascosta, richieste tardive, riuso e invalidazione della cache, limiti di memoria e corrispondenza del catalogo ai file MP3.
 
 `dailyStandings(now)` ricostruisce solo i derby conclusi dalla mezzanotte di Roma. Gestisce giornate di 23 e 25 ore al cambio di ora; non serve storage o backend. Squadre ordinate per punti, differenza reti, gol fatti, identificativo; marcatori aggregati per nome e club, sommando le versioni storiche. La cache conserva soltanto l’ultima classifica e non cresce nel tempo.
 

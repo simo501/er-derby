@@ -1,8 +1,10 @@
 """Package only static runtime files; no dependencies or network needed."""
 from pathlib import Path
 import shutil
+from build_audio import build_audio_manifest
 
 root = Path(__file__).resolve().parents[1]
+build_audio_manifest(root)
 destination = root / 'dist'
 if destination.exists():
     shutil.rmtree(destination)

@@ -579,7 +579,7 @@ dialog .small-muted { font-size: 10px; }
 .stadium-controls button { padding: 6px 9px; border: 1px solid #51554e; font-size: 10px; color: #d7cdb5; }
 .stadium-controls button[aria-pressed=true] { background: #29342b; color: #cce1bc; }
 .stadium-controls input { width: 75px; accent-color: #c5b18b; }
-.stadium-controls [role=status] { margin-left: auto; font-size: 8px; }
+.stadium-controls [role=status] { margin-left: auto; font-size: 8px; min-width: 0; overflow-wrap: anywhere; }
 .live-field-section { order: 1; min-width: 0; border: 1px solid var(--line); background: #111516; }
 #live-field { padding: 12px 22px 22px; max-width: 565px; width: 100%; margin: auto; }
 .animated-field .formation-player { transition: left .25s linear, top .25s linear; }
