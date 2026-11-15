@@ -653,3 +653,113 @@ dialog .small-muted { font-size: 10px; }
 @keyframes terrace-celebration { to { transform: translateY(-5px) rotate(-8deg); } }
 @media(max-width:700px) { .formation-field.animated-field { height: 540px; } }
 @media(prefers-reduced-motion:reduce) { .animated-field[data-goal=true] .player-in-action .formation-shirt { animation: none; } }
+
+/* Mobile reading sizes: body copy, supporting labels and compact pitch names. */
+@media (max-width: 700px) {
+  body { font-size: 16px; line-height: 1.6; }
+  small, .small-muted, .eyebrow, .brand small,
+  .page-heading .eyebrow, .section-heading .eyebrow,
+  .next-card .eyebrow, .venue-label, .match-topline, .state,
+  .score-center .small-muted, .time-pill, .tiny-pill,
+  .section-topline, .live-indicator, .tabs button > span,
+  .next-card .countdown-caption, .versus,
+  .odds-cell > span, .odds-cell > small, .market-label, .exact-note,
+  .odds-footnote, .history-totals span, .history-card .model-balance,
+  .result-date, .result-date > span, .result-row small,
+  .team-card-top, .team-card-bottom, .method-number,
+  .rating-note span, .goal-line span, dialog .small-muted,
+  .formation-note, .formation-source, .formation-source p,
+  .formation-direction, .combined-legend small, .lineup h4,
+  .player-role, .player-number, .stats .small-muted,
+  .stadium-controls, .stadium-controls [role=status],
+  .mvp-card small, .ratings-list small, .daily-summary,
+  .standings-table thead, .scorers-table li > span:first-child,
+  .footer-brand, footer p, footer > a:last-child { font-size: 13px; }
+
+  .page-heading p, .action-strip strong, .action-strip p,
+  .event strong, .event p, .player-list li,
+  .lineup .text-button, .text-button, .team-card p,
+  .method-card p, .method-card a, dialog p, .rating-note,
+  .report-card > p, .empty-state { font-size: 16px; line-height: 1.65; }
+
+  .topbar nav, .tabs button, .market-tabs button,
+  .card-caption, .history-card p, .text-link,
+  .section-heading > .text-link, .continuous,
+  .schedule-row > div, .team-side p, .scorer-list,
+  .scorer-list .no-goals, .next-pair, .lineup-heading h3,
+  .lineup-heading p, .lineup-tools button, .lineup-bench,
+  .combined-legend b, .stats-clubs, .stat-row > div:first-child,
+  .result-row, .result-link, .club-filters button,
+  .source-link, .archive-pair, .stadium-controls button,
+  .ratings-grid h4, .ratings-list li, .standings-table,
+  .table-team, .scorers-table li { font-size: 14px; }
+
+  .brand small { letter-spacing: .4px; font-size: 11px; }
+  .topbar { column-gap: 12px; }
+  .header-clock time { font-size: 16px; }
+  .topbar nav { gap: 20px; }
+  .topbar nav a, .market-tabs button { padding-top: 10px; padding-bottom: 13px; }
+  .page-heading p { max-width: none; }
+  .page-heading h1 { font-size: clamp(30px, 8vw, 38px); }
+  .match-topline, .section-topline, .lineup-tools, .combined-legend { flex-wrap: wrap; row-gap: 10px; letter-spacing: .2px; }
+  .team-side h2 { font-size: 20px; letter-spacing: .4px; }
+  .team-side .season { font-size: 15px; letter-spacing: 0; padding: 2px 0; }
+  .team-side p { line-height: 1.5; }
+  .minute { font-size: 17px; }
+  .score-center .small-muted { font-size: 12px; }
+  .score { font-size: clamp(38px, 11vw, 53px); gap: 4px; letter-spacing: -2px; }
+  .score-separator { font-size: 24px; }
+  .scorers { gap: 12px; }
+  .scorer-list li { align-items: flex-start; gap: 5px; padding: 6px 0; border-color: var(--line); }
+  .action-strip { align-items: flex-start; flex-wrap: wrap; }
+  .action-strip > div { flex: 1 1 160px; }
+  .action-icon { width: 30px; height: 32px; }
+  .action-strip > span:last-child { font-size: 18px; }
+  .card-heading h2 { font-size: 19px; }
+  .tabs { gap: 24px; }
+  .tabs button { min-height: 48px; }
+  .commentary { max-height: 480px; }
+  .event time { width: 30px; font-size: 16px; }
+  .event-icon { font-size: 16px; }
+  .event p { margin-top: 5px; }
+  .next-card { grid-template-columns: minmax(0, 1fr); }
+  .next-card .countdown { text-align: center; font-size: 52px; }
+  .next-card .countdown-caption { text-align: center; margin-bottom: 8px; }
+  .next-pair { grid-column: 1; grid-row: 4; gap: 16px; flex-wrap: wrap; }
+  .next-pair b { font-size: 18px; }
+  .card-heading { flex-wrap: wrap; }
+  .market-tabs { gap: 20px; overflow-x: auto; }
+  .odds-cell > strong { font-size: 30px; }
+  .info-button { width: 36px; height: 36px; font-size: 16px; }
+  .section-heading { flex-wrap: wrap; align-items: center; }
+  .recent-grid, .archive-grid { grid-template-columns: minmax(0, 1fr); }
+  .result-card { padding: 17px; }
+  .result-date, .team-card-bottom { flex-wrap: wrap; }
+  .result-row { font-size: 17px; }
+  .result-row small { display: inline; margin-left: 4px; }
+  .result-row > strong { font-size: 28px; }
+  .result-link { min-height: 44px; align-items: center; }
+  .club-filters { flex-wrap: wrap; }
+  .club-filters button, .lineup-tools button, .stadium-controls button { min-height: 44px; }
+  .player-role { width: 22px; height: 24px; }
+  .player-list li { padding: 10px 0; }
+  .combined-legend { gap: 10px; }
+  .combined-field .formation-name, .formation-name { font-size: 12px; line-height: 1.35; }
+  .combined-field .formation-shirt { width: 30px; height: 32px; font-size: 12px; }
+  .formation-field.combined-field { height: 720px; }
+  .formation-field.animated-field { height: 680px; }
+  .formation-source summary, .lineup-bench summary { padding: 10px 0; }
+  .stats { padding: 20px 15px; }
+  .stat-row strong { font-size: 22px; }
+  .standings-table th, .standings-table td { padding: 12px 8px; }
+  .table-team { min-height: 44px; }
+  .table-scroll { max-width: 100%; }
+  .mvp-card strong { font-size: 18px; }
+  .ratings-list li { padding: 12px 0; }
+  .ratings-list small { line-height: 1.6; }
+  .rating { flex-shrink: 0; min-width: 36px; font-size: 16px; }
+  .dialog-story { font-size: 17px !important; }
+  dialog h3 { font-size: 19px; }
+  .dialog-close { min-width: 44px; min-height: 44px; }
+  dialog .lineup-heading { flex-wrap: wrap; }
+}

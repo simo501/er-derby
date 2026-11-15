@@ -1,5 +1,36 @@
-.DS_Store
+# Build e artefatti generati
+/dist/
+/artifacts/
+coverage/
+
+# Dipendenze e cache
 node_modules/
 .cache/
-dist/
-artifacts/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+venv/
+
+# Configurazione locale e segreti
+/.openai/
+.env
+.env.*
+!.env.example
+!.env.*.example
+*.local
+
+# Log e file temporanei
+*.log
+*.tmp
+*.swp
+*.swo
+*~
+
+# Editor e sistema operativo
+.idea/
+.vscode/
+.DS_Store
+._*
+Thumbs.db
+Desktop.ini
