@@ -1,0 +1,314 @@
+{
+  "source": "https://www.transfermarkt.it/as-rom/spielplan/verein/12/saison_id/2009/plus/1",
+  "retrieved": "2026-11-15",
+  "coach": "Claudio Ranieri",
+  "season": "2009–10",
+  "counts": {
+    "4-5-1": 2,
+    "4-4-2": 17,
+    "4-1-4-1": 4,
+    "4-3-1-2": 7,
+    "4-2-3-1": 15,
+    "4-4-1-1": 2,
+    "3-5-2": 1,
+    "4-3-2-1": 1
+  },
+  "sampleSize": 49,
+  "records": [
+    {
+      "date": "dom 13/09/2009",
+      "formation": "4-5-1",
+      "coach": "Claudio Ranieri",
+      "result": "1:2"
+    },
+    {
+      "date": "dom 20/09/2009",
+      "formation": "4-4-2",
+      "coach": "Claudio Ranieri",
+      "result": "3:1"
+    },
+    {
+      "date": "mer 23/09/2009",
+      "formation": "4-1-4-1",
+      "coach": "Claudio Ranieri",
+      "result": "3:3"
+    },
+    {
+      "date": "dom 27/09/2009",
+      "formation": "4-3-1-2",
+      "coach": "Claudio Ranieri",
+      "result": "1:1"
+    },
+    {
+      "date": "dom 04/10/2009",
+      "formation": "4-4-2",
+      "coach": "Claudio Ranieri",
+      "result": "2:1"
+    },
+    {
+      "date": "dom 18/10/2009",
+      "formation": "4-4-2",
+      "coach": "Claudio Ranieri",
+      "result": "2:1"
+    },
+    {
+      "date": "dom 25/10/2009",
+      "formation": "4-4-2",
+      "coach": "Claudio Ranieri",
+      "result": "0:1"
+    },
+    {
+      "date": "mer 28/10/2009",
+      "formation": "4-2-3-1",
+      "coach": "Claudio Ranieri",
+      "result": "2:1"
+    },
+    {
+      "date": "dom 01/11/2009",
+      "formation": "4-4-2",
+      "coach": "Claudio Ranieri",
+      "result": "2:1"
+    },
+    {
+      "date": "dom 08/11/2009",
+      "formation": "4-4-2",
+      "coach": "Claudio Ranieri",
+      "result": "1:1"
+    },
+    {
+      "date": "dom 22/11/2009",
+      "formation": "4-4-2",
+      "coach": "Claudio Ranieri",
+      "result": "3:1"
+    },
+    {
+      "date": "dom 29/11/2009",
+      "formation": "4-2-3-1",
+      "coach": "Claudio Ranieri",
+      "result": "1:2"
+    },
+    {
+      "date": "dom 06/12/2009",
+      "formation": "4-4-2",
+      "coach": "Claudio Ranieri",
+      "result": "1:0"
+    },
+    {
+      "date": "dom 13/12/2009",
+      "formation": "4-1-4-1",
+      "coach": "Claudio Ranieri",
+      "result": "0:0"
+    },
+    {
+      "date": "dom 20/12/2009",
+      "formation": "4-3-1-2",
+      "coach": "Claudio Ranieri",
+      "result": "2:0"
+    },
+    {
+      "date": "mer 06/01/2010",
+      "formation": "4-3-1-2",
+      "coach": "Claudio Ranieri",
+      "result": "2:2"
+    },
+    {
+      "date": "sab 09/01/2010",
+      "formation": "4-1-4-1",
+      "coach": "Claudio Ranieri",
+      "result": "1:0"
+    },
+    {
+      "date": "dom 17/01/2010",
+      "formation": "4-4-1-1",
+      "coach": "Claudio Ranieri",
+      "result": "3:0"
+    },
+    {
+      "date": "sab 23/01/2010",
+      "formation": "4-4-2",
+      "coach": "Claudio Ranieri",
+      "result": "1:2"
+    },
+    {
+      "date": "dom 31/01/2010",
+      "formation": "4-1-4-1",
+      "coach": "Claudio Ranieri",
+      "result": "2:1"
+    },
+    {
+      "date": "dom 07/02/2010",
+      "formation": "4-2-3-1",
+      "coach": "Claudio Ranieri",
+      "result": "0:1"
+    },
+    {
+      "date": "sab 13/02/2010",
+      "formation": "4-4-2",
+      "coach": "Claudio Ranieri",
+      "result": "4:1"
+    },
+    {
+      "date": "dom 21/02/2010",
+      "formation": "4-2-3-1",
+      "coach": "Claudio Ranieri",
+      "result": "1:0"
+    },
+    {
+      "date": "dom 28/02/2010",
+      "formation": "3-5-2",
+      "coach": "Claudio Ranieri",
+      "result": "2:2"
+    },
+    {
+      "date": "sab 06/03/2010",
+      "formation": "4-4-1-1",
+      "coach": "Claudio Ranieri",
+      "result": "0:0"
+    },
+    {
+      "date": "dom 14/03/2010",
+      "formation": "4-2-3-1",
+      "coach": "Claudio Ranieri",
+      "result": "3:3"
+    },
+    {
+      "date": "sab 20/03/2010",
+      "formation": "4-3-1-2",
+      "coach": "Claudio Ranieri",
+      "result": "4:2"
+    },
+    {
+      "date": "mer 24/03/2010",
+      "formation": "4-3-1-2",
+      "coach": "Claudio Ranieri",
+      "result": "0:2"
+    },
+    {
+      "date": "sab 27/03/2010",
+      "formation": "4-5-1",
+      "coach": "Claudio Ranieri",
+      "result": "2:1"
+    },
+    {
+      "date": "sab 03/04/2010",
+      "formation": "4-4-2",
+      "coach": "Claudio Ranieri",
+      "result": "0:1"
+    },
+    {
+      "date": "dom 11/04/2010",
+      "formation": "4-4-2",
+      "coach": "Claudio Ranieri",
+      "result": "2:1"
+    },
+    {
+      "date": "dom 18/04/2010",
+      "formation": "4-3-2-1",
+      "coach": "Claudio Ranieri",
+      "result": "1:2"
+    },
+    {
+      "date": "dom 25/04/2010",
+      "formation": "4-2-3-1",
+      "coach": "Claudio Ranieri",
+      "result": "1:2"
+    },
+    {
+      "date": "sab 01/05/2010",
+      "formation": "4-2-3-1",
+      "coach": "Claudio Ranieri",
+      "result": "1:2"
+    },
+    {
+      "date": "dom 09/05/2010",
+      "formation": "4-3-1-2",
+      "coach": "Claudio Ranieri",
+      "result": "2:1"
+    },
+    {
+      "date": "dom 16/05/2010",
+      "formation": "4-4-2",
+      "coach": "Claudio Ranieri",
+      "result": "0:2"
+    },
+    {
+      "date": "gio 17/09/2009",
+      "formation": "4-3-1-2",
+      "coach": "Claudio Ranieri",
+      "result": "2:0"
+    },
+    {
+      "date": "gio 01/10/2009",
+      "formation": "4-4-2",
+      "coach": "Claudio Ranieri",
+      "result": "2:0"
+    },
+    {
+      "date": "gio 22/10/2009",
+      "formation": "4-4-2",
+      "coach": "Claudio Ranieri",
+      "result": "1:1"
+    },
+    {
+      "date": "gio 05/11/2009",
+      "formation": "4-4-2",
+      "coach": "Claudio Ranieri",
+      "result": "2:1"
+    },
+    {
+      "date": "gio 03/12/2009",
+      "formation": "4-2-3-1",
+      "coach": "Claudio Ranieri",
+      "result": "2:1"
+    },
+    {
+      "date": "mer 16/12/2009",
+      "formation": "4-4-2",
+      "coach": "Claudio Ranieri",
+      "result": "0:3"
+    },
+    {
+      "date": "gio 18/02/2010",
+      "formation": "4-2-3-1",
+      "coach": "Claudio Ranieri",
+      "result": "3:2"
+    },
+    {
+      "date": "gio 25/02/2010",
+      "formation": "4-2-3-1",
+      "coach": "Claudio Ranieri",
+      "result": "2:3"
+    },
+    {
+      "date": "mar 12/01/2010",
+      "formation": "4-2-3-1",
+      "coach": "Claudio Ranieri",
+      "result": "3:1"
+    },
+    {
+      "date": "mar 26/01/2010",
+      "formation": "4-2-3-1",
+      "coach": "Claudio Ranieri",
+      "result": "1:0"
+    },
+    {
+      "date": "gio 04/02/2010",
+      "formation": "4-2-3-1",
+      "coach": "Claudio Ranieri",
+      "result": "2:0"
+    },
+    {
+      "date": "mer 21/04/2010",
+      "formation": "4-2-3-1",
+      "coach": "Claudio Ranieri",
+      "result": "1:0"
+    },
+    {
+      "date": "mer 05/05/2010",
+      "formation": "4-2-3-1",
+      "coach": "Claudio Ranieri",
+      "result": "1:0"
+    }
+  ],
+  "formation": "4-4-2"
+}

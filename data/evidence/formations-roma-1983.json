@@ -1,0 +1,75 @@
+{
+  "source": "https://www.transfermarkt.it/as-rom/spielplan/verein/12/saison_id/1983/plus/1",
+  "retrieved": "2026-11-15",
+  "coach": "Nils Liedholm",
+  "season": "1983–84",
+  "counts": {
+    "4-3-1-2": 1,
+    "4-3-3": 6,
+    "4-4-2": 3
+  },
+  "sampleSize": 10,
+  "records": [
+    {
+      "date": "dom 04/12/1983",
+      "formation": "4-3-1-2",
+      "coach": "Nils Liedholm",
+      "result": "2:2"
+    },
+    {
+      "date": "dom 29/01/1984",
+      "formation": "4-3-3",
+      "coach": "Nils Liedholm",
+      "result": "1:1"
+    },
+    {
+      "date": "dom 26/02/1984",
+      "formation": "4-3-3",
+      "coach": "Nils Liedholm",
+      "result": "2:2"
+    },
+    {
+      "date": "dom 08/04/1984",
+      "formation": "4-4-2",
+      "coach": "Nils Liedholm",
+      "result": "0:0"
+    },
+    {
+      "date": "mer 14/09/1983",
+      "formation": "4-3-3",
+      "coach": "Nils Liedholm",
+      "result": "3:0"
+    },
+    {
+      "date": "mer 07/03/1984",
+      "formation": "4-4-2",
+      "coach": "Nils Liedholm",
+      "result": "3:0"
+    },
+    {
+      "date": "mer 25/04/1984",
+      "formation": "4-3-3",
+      "coach": "Nils Liedholm",
+      "result": "3:0"
+    },
+    {
+      "date": "mer 30/05/1984",
+      "formation": "4-3-3",
+      "coach": "Nils Liedholm",
+      "result": "5:3 d.c.r."
+    },
+    {
+      "date": "dom 04/09/1983",
+      "formation": "4-4-2",
+      "coach": "Nils Liedholm",
+      "result": "1:1"
+    },
+    {
+      "date": "gio 21/06/1984",
+      "formation": "4-3-3",
+      "coach": "Nils Liedholm",
+      "result": "1:1"
+    }
+  ],
+  "formation": "4-3-3"
+}

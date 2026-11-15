@@ -1,0 +1,366 @@
+{
+  "source": "https://www.transfermarkt.it/lazio-rom/spielplan/verein/398/saison_id/2012/plus/1",
+  "retrieved": "2026-11-15",
+  "coach": "Vladimir Petković",
+  "season": "2012–13",
+  "counts": {
+    "4-5-1": 8,
+    "4-4-2": 5,
+    "4-1-4-1": 26,
+    "4-2-3-1": 2,
+    "4-4-1-1": 1,
+    "3-5-2": 4,
+    "4-3-3": 3,
+    "5-3-2": 1,
+    "3-4-2-1": 4,
+    "4-3-1-2": 1,
+    "3-3-1-3": 1,
+    "3-4-1-2": 1
+  },
+  "sampleSize": 57,
+  "records": [
+    {
+      "date": "dom 26/08/2012",
+      "formation": "4-5-1",
+      "coach": "Vladimir Petkovic",
+      "result": "0:1"
+    },
+    {
+      "date": "dom 02/09/2012",
+      "formation": "4-5-1",
+      "coach": "Vladimir Petkovic",
+      "result": "3:0"
+    },
+    {
+      "date": "dom 16/09/2012",
+      "formation": "4-5-1",
+      "coach": "Vladimir Petkovic",
+      "result": "1:3"
+    },
+    {
+      "date": "dom 23/09/2012",
+      "formation": "4-4-2",
+      "coach": "Vladimir Petkovic",
+      "result": "0:1"
+    },
+    {
+      "date": "mer 26/09/2012",
+      "formation": "4-1-4-1",
+      "coach": "Vladimir Petkovic",
+      "result": "3:0"
+    },
+    {
+      "date": "dom 30/09/2012",
+      "formation": "4-1-4-1",
+      "coach": "Vladimir Petkovic",
+      "result": "2:1"
+    },
+    {
+      "date": "dom 07/10/2012",
+      "formation": "4-1-4-1",
+      "coach": "Vladimir Petkovic",
+      "result": "0:3"
+    },
+    {
+      "date": "sab 20/10/2012",
+      "formation": "4-1-4-1",
+      "coach": "Vladimir Petkovic",
+      "result": "3:2"
+    },
+    {
+      "date": "dom 28/10/2012",
+      "formation": "4-1-4-1",
+      "coach": "Vladimir Petkovic",
+      "result": "2:0"
+    },
+    {
+      "date": "mer 31/10/2012",
+      "formation": "4-4-2",
+      "coach": "Vladimir Petkovic",
+      "result": "1:1"
+    },
+    {
+      "date": "dom 04/11/2012",
+      "formation": "4-1-4-1",
+      "coach": "Vladimir Petkovic",
+      "result": "4:0"
+    },
+    {
+      "date": "dom 11/11/2012",
+      "formation": "4-2-3-1",
+      "coach": "Vladimir Petkovic",
+      "result": "3:2"
+    },
+    {
+      "date": "sab 17/11/2012",
+      "formation": "4-4-1-1",
+      "coach": "Vladimir Petkovic",
+      "result": "0:0"
+    },
+    {
+      "date": "mar 27/11/2012",
+      "formation": "4-1-4-1",
+      "coach": "Vladimir Petkovic",
+      "result": "3:0"
+    },
+    {
+      "date": "dom 02/12/2012",
+      "formation": "4-1-4-1",
+      "coach": "Vladimir Petkovic",
+      "result": "2:1"
+    },
+    {
+      "date": "lun 10/12/2012",
+      "formation": "4-1-4-1",
+      "coach": "Vladimir Petkovic",
+      "result": "0:0"
+    },
+    {
+      "date": "sab 15/12/2012",
+      "formation": "4-1-4-1",
+      "coach": "Vladimir Petkovic",
+      "result": "1:0"
+    },
+    {
+      "date": "sab 22/12/2012",
+      "formation": "4-1-4-1",
+      "coach": "Vladimir Petkovic",
+      "result": "0:1"
+    },
+    {
+      "date": "sab 05/01/2013",
+      "formation": "4-1-4-1",
+      "coach": "Vladimir Petkovic",
+      "result": "2:1"
+    },
+    {
+      "date": "dom 13/01/2013",
+      "formation": "4-1-4-1",
+      "coach": "Vladimir Petkovic",
+      "result": "2:0"
+    },
+    {
+      "date": "sab 19/01/2013",
+      "formation": "3-5-2",
+      "coach": "Vladimir Petkovic",
+      "result": "2:2"
+    },
+    {
+      "date": "sab 26/01/2013",
+      "formation": "4-3-3",
+      "coach": "Vladimir Petkovic",
+      "result": "0:1"
+    },
+    {
+      "date": "dom 03/02/2013",
+      "formation": "5-3-2",
+      "coach": "Vladimir Petkovic",
+      "result": "3:2"
+    },
+    {
+      "date": "sab 09/02/2013",
+      "formation": "4-1-4-1",
+      "coach": "Vladimir Petkovic",
+      "result": "1:1"
+    },
+    {
+      "date": "lun 18/02/2013",
+      "formation": "3-5-2",
+      "coach": "Vladimir Petkovic",
+      "result": "3:0"
+    },
+    {
+      "date": "lun 25/02/2013",
+      "formation": "4-1-4-1",
+      "coach": "Vladimir Petkovic",
+      "result": "2:0"
+    },
+    {
+      "date": "sab 02/03/2013",
+      "formation": "4-5-1",
+      "coach": "Vladimir Petkovic",
+      "result": "3:0"
+    },
+    {
+      "date": "dom 10/03/2013",
+      "formation": "4-5-1",
+      "coach": "Vladimir Petkovic",
+      "result": "0:2"
+    },
+    {
+      "date": "dom 17/03/2013",
+      "formation": "4-1-4-1",
+      "coach": "Vladimir Petkovic",
+      "result": "1:0"
+    },
+    {
+      "date": "sab 30/03/2013",
+      "formation": "4-1-4-1",
+      "coach": "Vladimir Petkovic",
+      "result": "2:1"
+    },
+    {
+      "date": "lun 08/04/2013",
+      "formation": "4-1-4-1",
+      "coach": "Vladimir Petkovic",
+      "result": "1:1"
+    },
+    {
+      "date": "lun 15/04/2013",
+      "formation": "3-4-2-1",
+      "coach": "Vladimir Petkovic",
+      "result": "0:2"
+    },
+    {
+      "date": "sab 20/04/2013",
+      "formation": "3-4-2-1",
+      "coach": "Vladimir Petkovic",
+      "result": "1:0"
+    },
+    {
+      "date": "dom 28/04/2013",
+      "formation": "4-1-4-1",
+      "coach": "Vladimir Petkovic",
+      "result": "0:0"
+    },
+    {
+      "date": "dom 05/05/2013",
+      "formation": "4-4-2",
+      "coach": "Vladimir Petkovic",
+      "result": "6:0"
+    },
+    {
+      "date": "mer 08/05/2013",
+      "formation": "4-4-2",
+      "coach": "Vladimir Petkovic",
+      "result": "1:3"
+    },
+    {
+      "date": "dom 12/05/2013",
+      "formation": "4-4-2",
+      "coach": "Vladimir Petkovic",
+      "result": "2:0"
+    },
+    {
+      "date": "dom 19/05/2013",
+      "formation": "3-5-2",
+      "coach": "Vladimir Petkovic",
+      "result": "1:0"
+    },
+    {
+      "date": "gio 20/09/2012",
+      "formation": "4-5-1",
+      "coach": "Vladimir Petkovic",
+      "result": "0:0"
+    },
+    {
+      "date": "gio 04/10/2012",
+      "formation": "4-1-4-1",
+      "coach": "Vladimir Petkovic",
+      "result": "1:0"
+    },
+    {
+      "date": "gio 25/10/2012",
+      "formation": "4-1-4-1",
+      "coach": "Vladimir Petkovic",
+      "result": "1:1"
+    },
+    {
+      "date": "gio 08/11/2012",
+      "formation": "4-3-1-2",
+      "coach": "Vladimir Petkovic",
+      "result": "3:0"
+    },
+    {
+      "date": "gio 22/11/2012",
+      "formation": "4-5-1",
+      "coach": "Vladimir Petkovic",
+      "result": "0:0"
+    },
+    {
+      "date": "gio 06/12/2012",
+      "formation": "3-3-1-3",
+      "coach": "Vladimir Petkovic",
+      "result": "1:4"
+    },
+    {
+      "date": "gio 14/02/2013",
+      "formation": "4-1-4-1",
+      "coach": "Vladimir Petkovic",
+      "result": "3:3"
+    },
+    {
+      "date": "gio 21/02/2013",
+      "formation": "4-1-4-1",
+      "coach": "Vladimir Petkovic",
+      "result": "2:0"
+    },
+    {
+      "date": "gio 07/03/2013",
+      "formation": "4-5-1",
+      "coach": "Vladimir Petkovic",
+      "result": "0:2"
+    },
+    {
+      "date": "gio 14/03/2013",
+      "formation": "4-1-4-1",
+      "coach": "Vladimir Petkovic",
+      "result": "3:1"
+    },
+    {
+      "date": "gio 04/04/2013",
+      "formation": "4-2-3-1",
+      "coach": "Vladimir Petkovic",
+      "result": "2:0"
+    },
+    {
+      "date": "gio 11/04/2013",
+      "formation": "3-5-2",
+      "coach": "Vladimir Petkovic",
+      "result": "1:1"
+    },
+    {
+      "date": "gio 23/08/2012",
+      "formation": "4-3-3",
+      "coach": "Vladimir Petkovic",
+      "result": "0:2"
+    },
+    {
+      "date": "gio 30/08/2012",
+      "formation": "4-3-3",
+      "coach": "Vladimir Petkovic",
+      "result": "3:1"
+    },
+    {
+      "date": "mer 19/12/2012",
+      "formation": "3-4-1-2",
+      "coach": "Vladimir Petkovic",
+      "result": "5:2 d.c.r."
+    },
+    {
+      "date": "mar 08/01/2013",
+      "formation": "4-1-4-1",
+      "coach": "Vladimir Petkovic",
+      "result": "3:0"
+    },
+    {
+      "date": "mar 22/01/2013",
+      "formation": "3-4-2-1",
+      "coach": "Vladimir Petkovic",
+      "result": "1:1"
+    },
+    {
+      "date": "mar 29/01/2013",
+      "formation": "3-4-2-1",
+      "coach": "Vladimir Petkovic",
+      "result": "2:1"
+    },
+    {
+      "date": "dom 26/05/2013",
+      "formation": "4-1-4-1",
+      "coach": "Vladimir Petkovic",
+      "result": "0:1"
+    }
+  ],
+  "formation": "4-1-4-1"
+}

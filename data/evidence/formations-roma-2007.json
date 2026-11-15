@@ -1,0 +1,352 @@
+{
+  "source": "https://www.transfermarkt.it/as-rom/spielplan/verein/12/saison_id/2007/plus/1",
+  "retrieved": "2026-11-15",
+  "coach": "Luciano Spalletti",
+  "season": "2007–08",
+  "counts": {
+    "4-2-3-1": 53,
+    "4-5-1": 1,
+    "4-1-4-1": 1,
+    "4-4-1-1": 1
+  },
+  "sampleSize": 56,
+  "records": [
+    {
+      "date": "dom 26/08/2007",
+      "formation": "4-2-3-1",
+      "coach": "Luciano Spalletti",
+      "result": "0:2"
+    },
+    {
+      "date": "dom 02/09/2007",
+      "formation": "4-2-3-1",
+      "coach": "Luciano Spalletti",
+      "result": "3:0"
+    },
+    {
+      "date": "dom 16/09/2007",
+      "formation": "4-2-3-1",
+      "coach": "Luciano Spalletti",
+      "result": "0:2"
+    },
+    {
+      "date": "dom 23/09/2007",
+      "formation": "4-2-3-1",
+      "coach": "Luciano Spalletti",
+      "result": "2:2"
+    },
+    {
+      "date": "mer 26/09/2007",
+      "formation": "4-2-3-1",
+      "coach": "Luciano Spalletti",
+      "result": "2:2"
+    },
+    {
+      "date": "sab 29/09/2007",
+      "formation": "4-2-3-1",
+      "coach": "Luciano Spalletti",
+      "result": "1:4"
+    },
+    {
+      "date": "dom 07/10/2007",
+      "formation": "4-2-3-1",
+      "coach": "Luciano Spalletti",
+      "result": "0:3"
+    },
+    {
+      "date": "sab 20/10/2007",
+      "formation": "4-2-3-1",
+      "coach": "Luciano Spalletti",
+      "result": "4:4"
+    },
+    {
+      "date": "dom 28/10/2007",
+      "formation": "4-2-3-1",
+      "coach": "Luciano Spalletti",
+      "result": "0:1"
+    },
+    {
+      "date": "mer 31/10/2007",
+      "formation": "4-2-3-1",
+      "coach": "Luciano Spalletti",
+      "result": "3:2"
+    },
+    {
+      "date": "dom 04/11/2007",
+      "formation": "4-2-3-1",
+      "coach": "Luciano Spalletti",
+      "result": "2:2"
+    },
+    {
+      "date": "mer 05/12/2007",
+      "formation": "4-2-3-1",
+      "coach": "Luciano Spalletti",
+      "result": "2:0"
+    },
+    {
+      "date": "sab 24/11/2007",
+      "formation": "4-2-3-1",
+      "coach": "Luciano Spalletti",
+      "result": "0:1"
+    },
+    {
+      "date": "dom 02/12/2007",
+      "formation": "4-2-3-1",
+      "coach": "Luciano Spalletti",
+      "result": "2:1"
+    },
+    {
+      "date": "dom 09/12/2007",
+      "formation": "4-2-3-1",
+      "coach": "Luciano Spalletti",
+      "result": "1:1"
+    },
+    {
+      "date": "dom 16/12/2007",
+      "formation": "4-5-1",
+      "coach": "Luciano Spalletti",
+      "result": "0:0"
+    },
+    {
+      "date": "sab 22/12/2007",
+      "formation": "4-2-3-1",
+      "coach": "Luciano Spalletti",
+      "result": "2:0"
+    },
+    {
+      "date": "dom 13/01/2008",
+      "formation": "4-2-3-1",
+      "coach": "Luciano Spalletti",
+      "result": "1:2"
+    },
+    {
+      "date": "dom 20/01/2008",
+      "formation": "4-2-3-1",
+      "coach": "Luciano Spalletti",
+      "result": "2:0"
+    },
+    {
+      "date": "sab 26/01/2008",
+      "formation": "4-2-3-1",
+      "coach": "Luciano Spalletti",
+      "result": "1:0"
+    },
+    {
+      "date": "dom 03/02/2008",
+      "formation": "4-2-3-1",
+      "coach": "Luciano Spalletti",
+      "result": "3:0"
+    },
+    {
+      "date": "sab 09/02/2008",
+      "formation": "4-2-3-1",
+      "coach": "Luciano Spalletti",
+      "result": "2:0"
+    },
+    {
+      "date": "sab 16/02/2008",
+      "formation": "4-2-3-1",
+      "coach": "Luciano Spalletti",
+      "result": "1:0"
+    },
+    {
+      "date": "dom 24/02/2008",
+      "formation": "4-2-3-1",
+      "coach": "Luciano Spalletti",
+      "result": "1:0"
+    },
+    {
+      "date": "mer 27/02/2008",
+      "formation": "4-2-3-1",
+      "coach": "Luciano Spalletti",
+      "result": "1:1"
+    },
+    {
+      "date": "sab 01/03/2008",
+      "formation": "4-2-3-1",
+      "coach": "Luciano Spalletti",
+      "result": "4:0"
+    },
+    {
+      "date": "dom 09/03/2008",
+      "formation": "4-2-3-1",
+      "coach": "Luciano Spalletti",
+      "result": "0:2"
+    },
+    {
+      "date": "sab 15/03/2008",
+      "formation": "4-2-3-1",
+      "coach": "Luciano Spalletti",
+      "result": "2:1"
+    },
+    {
+      "date": "mer 19/03/2008",
+      "formation": "4-2-3-1",
+      "coach": "Luciano Spalletti",
+      "result": "3:2"
+    },
+    {
+      "date": "sab 22/03/2008",
+      "formation": "4-2-3-1",
+      "coach": "Luciano Spalletti",
+      "result": "2:1"
+    },
+    {
+      "date": "sab 29/03/2008",
+      "formation": "4-2-3-1",
+      "coach": "Luciano Spalletti",
+      "result": "1:1"
+    },
+    {
+      "date": "sab 05/04/2008",
+      "formation": "4-2-3-1",
+      "coach": "Luciano Spalletti",
+      "result": "3:2"
+    },
+    {
+      "date": "dom 13/04/2008",
+      "formation": "4-2-3-1",
+      "coach": "Luciano Spalletti",
+      "result": "1:3"
+    },
+    {
+      "date": "sab 19/04/2008",
+      "formation": "4-2-3-1",
+      "coach": "Luciano Spalletti",
+      "result": "1:1"
+    },
+    {
+      "date": "dom 27/04/2008",
+      "formation": "4-2-3-1",
+      "coach": "Luciano Spalletti",
+      "result": "4:1"
+    },
+    {
+      "date": "dom 04/05/2008",
+      "formation": "4-2-3-1",
+      "coach": "Luciano Spalletti",
+      "result": "0:3"
+    },
+    {
+      "date": "dom 11/05/2008",
+      "formation": "4-2-3-1",
+      "coach": "Luciano Spalletti",
+      "result": "2:1"
+    },
+    {
+      "date": "dom 18/05/2008",
+      "formation": "4-2-3-1",
+      "coach": "Luciano Spalletti",
+      "result": "1:1"
+    },
+    {
+      "date": "mer 19/09/2007",
+      "formation": "4-2-3-1",
+      "coach": "Luciano Spalletti",
+      "result": "2:0"
+    },
+    {
+      "date": "mar 02/10/2007",
+      "formation": "4-2-3-1",
+      "coach": "Luciano Spalletti",
+      "result": "1:0"
+    },
+    {
+      "date": "mar 23/10/2007",
+      "formation": "4-2-3-1",
+      "coach": "Luciano Spalletti",
+      "result": "2:1"
+    },
+    {
+      "date": "mer 07/11/2007",
+      "formation": "4-2-3-1",
+      "coach": "Luciano Spalletti",
+      "result": "2:2"
+    },
+    {
+      "date": "mar 27/11/2007",
+      "formation": "4-2-3-1",
+      "coach": "Luciano Spalletti",
+      "result": "1:4"
+    },
+    {
+      "date": "mer 12/12/2007",
+      "formation": "4-2-3-1",
+      "coach": "Luciano Spalletti",
+      "result": "1:1"
+    },
+    {
+      "date": "mar 19/02/2008",
+      "formation": "4-2-3-1",
+      "coach": "Luciano Spalletti",
+      "result": "2:1"
+    },
+    {
+      "date": "mer 05/03/2008",
+      "formation": "4-2-3-1",
+      "coach": "Luciano Spalletti",
+      "result": "1:2"
+    },
+    {
+      "date": "mar 01/04/2008",
+      "formation": "4-2-3-1",
+      "coach": "Luciano Spalletti",
+      "result": "0:2"
+    },
+    {
+      "date": "mer 09/04/2008",
+      "formation": "4-1-4-1",
+      "coach": "Luciano Spalletti",
+      "result": "1:0"
+    },
+    {
+      "date": "dom 19/08/2007",
+      "formation": "4-2-3-1",
+      "coach": "Luciano Spalletti",
+      "result": "0:1"
+    },
+    {
+      "date": "mer 19/12/2007",
+      "formation": "4-2-3-1",
+      "coach": "Luciano Spalletti",
+      "result": "3:1"
+    },
+    {
+      "date": "mer 16/01/2008",
+      "formation": "4-2-3-1",
+      "coach": "Luciano Spalletti",
+      "result": "4:0"
+    },
+    {
+      "date": "mer 23/01/2008",
+      "formation": "4-4-1-1",
+      "coach": "Luciano Spalletti",
+      "result": "1:1"
+    },
+    {
+      "date": "mar 29/01/2008",
+      "formation": "4-2-3-1",
+      "coach": "Luciano Spalletti",
+      "result": "1:0"
+    },
+    {
+      "date": "mer 16/04/2008",
+      "formation": "4-2-3-1",
+      "coach": "Luciano Spalletti",
+      "result": "1:0"
+    },
+    {
+      "date": "gio 08/05/2008",
+      "formation": "4-2-3-1",
+      "coach": "Luciano Spalletti",
+      "result": "1:1"
+    },
+    {
+      "date": "sab 24/05/2008",
+      "formation": "4-2-3-1",
+      "coach": "Luciano Spalletti",
+      "result": "2:1"
+    }
+  ],
+  "formation": "4-2-3-1"
+}

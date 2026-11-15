@@ -1,5 +1,5 @@
 {
-  "version": "capitale-v1",
+  "version": "capitale-v2",
   "cutoff": "2025-06-30",
   "retrieved": "2026-11-15",
   "teams": [
@@ -9,7 +9,13 @@
       "year": 1941,
       "season": "1941–42",
       "coach": "Alfréd Schaffer",
-      "formation": "2-3-5",
+      "formation": "2-3-2-3",
+      "formationInfo": {
+        "kind": "reconstruction",
+        "label": "Metodo",
+        "source": "https://it.wikipedia.org/wiki/Serie_A_1941-1942",
+        "note": "Ricostruzione storica: non esiste un conteggio stagionale sufficiente dei moduli."
+      },
       "rating": 88,
       "story": "Il primo scudetto, con Amadei al centro dell’attacco.",
       "starters": [
@@ -56,25 +62,11 @@
           "label": "Bonomi"
         },
         {
-          "name": "Naim Krieziu",
-          "role": "C",
-          "number": null,
-          "line": 3,
-          "label": "Krieziu"
-        },
-        {
           "name": "Renato Cappellini",
           "role": "C",
           "number": null,
           "line": 3,
           "label": "Cappellini"
-        },
-        {
-          "name": "Amedeo Amadei",
-          "role": "A",
-          "number": null,
-          "line": 3,
-          "label": "Amadei"
         },
         {
           "name": "Aristide Coscia",
@@ -84,10 +76,24 @@
           "label": "Coscia"
         },
         {
+          "name": "Naim Krieziu",
+          "role": "C",
+          "number": null,
+          "line": 4,
+          "label": "Krieziu"
+        },
+        {
+          "name": "Amedeo Amadei",
+          "role": "A",
+          "number": null,
+          "line": 4,
+          "label": "Amadei"
+        },
+        {
           "name": "Miguel Ángel Pantó",
           "role": "A",
           "number": null,
-          "line": 3,
+          "line": 4,
           "label": "Pantó"
         }
       ],
@@ -228,7 +234,13 @@
       "year": 1960,
       "season": "1960–61",
       "coach": "Alfredo Foni",
-      "formation": "3-2-5",
+      "formation": "3-2-2-3",
+      "formationInfo": {
+        "kind": "reconstruction",
+        "label": "Sistema WM",
+        "source": "https://it.wikipedia.org/wiki/Associazione_Sportiva_Roma_1960-1961",
+        "note": "Ricostruzione storica: non esiste un conteggio stagionale sufficiente dei moduli."
+      },
       "rating": 83,
       "story": "La stagione della Coppa delle Fiere, conclusa nell’autunno 1961 con Carniglia.",
       "starters": [
@@ -275,25 +287,11 @@
           "label": "Pestrin"
         },
         {
-          "name": "Alcides Ghiggia",
-          "role": "A",
-          "number": null,
-          "line": 3,
-          "label": "Ghiggia"
-        },
-        {
           "name": "Francisco Lojacono",
           "role": "C",
           "number": null,
           "line": 3,
           "label": "Lojacono"
-        },
-        {
-          "name": "Pedro Manfredini",
-          "role": "A",
-          "number": null,
-          "line": 3,
-          "label": "Manfredini"
         },
         {
           "name": "Juan Alberto Schiaffino",
@@ -303,10 +301,24 @@
           "label": "Schiaffino"
         },
         {
+          "name": "Alcides Ghiggia",
+          "role": "A",
+          "number": null,
+          "line": 4,
+          "label": "Ghiggia"
+        },
+        {
+          "name": "Pedro Manfredini",
+          "role": "A",
+          "number": null,
+          "line": 4,
+          "label": "Manfredini"
+        },
+        {
           "name": "Arne Selmosson",
           "role": "A",
           "number": null,
-          "line": 3,
+          "line": 4,
           "label": "Selmosson"
         }
       ],
@@ -447,7 +459,19 @@
       "year": 1979,
       "season": "1979–80",
       "coach": "Nils Liedholm",
-      "formation": "4-4-2",
+      "formation": "4-3-3",
+      "formationInfo": {
+        "kind": "counted",
+        "source": "https://www.transfermarkt.it/as-rom/spielplan/verein/12/saison_id/1979/plus/1",
+        "counts": {
+          "4-3-3": 17,
+          "5-3-2": 2,
+          "4-5-1": 2
+        },
+        "sampleSize": 21,
+        "matches": 17,
+        "note": "Modulo più frequente nei tabellini disponibili di questo allenatore nella stagione. Le varianti con la stessa struttura numerica sono accorpate."
+      },
       "rating": 80,
       "story": "La Coppa Italia e l’inizio del ciclo di Liedholm.",
       "starters": [
@@ -487,13 +511,6 @@
           "label": "Spinosi"
         },
         {
-          "name": "Bruno Conti",
-          "role": "C",
-          "number": null,
-          "line": 2,
-          "label": "Bruno Conti"
-        },
-        {
           "name": "Romeo Benetti",
           "role": "C",
           "number": null,
@@ -508,18 +525,18 @@
           "label": "Di Bartolomei"
         },
         {
-          "name": "Domenico Maggiora",
-          "role": "C",
-          "number": null,
-          "line": 2,
-          "label": "Maggiora"
-        },
-        {
           "name": "Carlo Ancelotti",
           "role": "A",
           "number": null,
-          "line": 3,
+          "line": 2,
           "label": "Ancelotti"
+        },
+        {
+          "name": "Bruno Conti",
+          "role": "C",
+          "number": null,
+          "line": 3,
+          "label": "Bruno Conti"
         },
         {
           "name": "Roberto Pruzzo",
@@ -527,6 +544,13 @@
           "number": null,
           "line": 3,
           "label": "Pruzzo"
+        },
+        {
+          "name": "Roberto Scarnecchia",
+          "role": "A",
+          "number": null,
+          "line": 3,
+          "label": "Scarnecchia"
         }
       ],
       "bench": [
@@ -546,7 +570,7 @@
           "number": null
         },
         {
-          "name": "Roberto Scarnecchia",
+          "name": "Guido Ugolotti",
           "role": "A",
           "number": null
         },
@@ -687,6 +711,20 @@
       "season": "1982–83",
       "coach": "Nils Liedholm",
       "formation": "4-4-2",
+      "formationInfo": {
+        "kind": "counted",
+        "source": "https://www.transfermarkt.it/as-rom/spielplan/verein/12/saison_id/1982/plus/1",
+        "counts": {
+          "4-3-3": 2,
+          "4-2-1-3": 2,
+          "4-3-2-1": 1,
+          "4-3-1-2": 3,
+          "4-4-2": 3
+        },
+        "sampleSize": 11,
+        "matches": 3,
+        "note": "Modulo più frequente nei tabellini disponibili di questo allenatore nella stagione. Le varianti con la stessa struttura numerica sono accorpate."
+      },
       "rating": 93,
       "story": "Falcão, il gol di Pruzzo a Marassi e il secondo scudetto.",
       "starters": [
@@ -945,7 +983,19 @@
       "year": 1983,
       "season": "1983–84",
       "coach": "Nils Liedholm",
-      "formation": "4-4-2",
+      "formation": "4-3-3",
+      "formationInfo": {
+        "kind": "counted",
+        "source": "https://www.transfermarkt.it/as-rom/spielplan/verein/12/saison_id/1983/plus/1",
+        "counts": {
+          "4-3-1-2": 1,
+          "4-3-3": 6,
+          "4-4-2": 3
+        },
+        "sampleSize": 10,
+        "matches": 6,
+        "note": "Modulo più frequente nei tabellini disponibili di questo allenatore nella stagione. Le varianti con la stessa struttura numerica sono accorpate."
+      },
       "rating": 91,
       "story": "La finale di Coppa dei Campioni all’Olimpico e la Coppa Italia.",
       "starters": [
@@ -985,13 +1035,6 @@
           "label": "Nela"
         },
         {
-          "name": "Bruno Conti",
-          "role": "C",
-          "number": null,
-          "line": 2,
-          "label": "Bruno Conti"
-        },
-        {
           "name": "Toninho Cerezo",
           "role": "C",
           "number": null,
@@ -1013,11 +1056,11 @@
           "label": "Ancelotti"
         },
         {
-          "name": "Francesco Graziani",
-          "role": "A",
+          "name": "Bruno Conti",
+          "role": "C",
           "number": null,
           "line": 3,
-          "label": "Graziani"
+          "label": "Bruno Conti"
         },
         {
           "name": "Roberto Pruzzo",
@@ -1025,6 +1068,13 @@
           "number": null,
           "line": 3,
           "label": "Pruzzo"
+        },
+        {
+          "name": "Francesco Graziani",
+          "role": "A",
+          "number": null,
+          "line": 3,
+          "label": "Graziani"
         }
       ],
       "bench": [
@@ -1224,7 +1274,20 @@
       "year": 1990,
       "season": "1990–91",
       "coach": "Ottavio Bianchi",
-      "formation": "4-4-2",
+      "formation": "5-3-2",
+      "formationInfo": {
+        "kind": "counted",
+        "source": "https://www.transfermarkt.it/as-rom/spielplan/verein/12/saison_id/1990/plus/1",
+        "counts": {
+          "3-4-1-2": 6,
+          "5-4-1": 4,
+          "5-3-2": 13,
+          "4-5-1": 1
+        },
+        "sampleSize": 24,
+        "matches": 13,
+        "note": "Modulo più frequente nei tabellini disponibili di questo allenatore nella stagione. Le varianti con la stessa struttura numerica sono accorpate."
+      },
       "rating": 82,
       "story": "La Coppa Italia e la finale di Coppa UEFA, con Giannini e Völler.",
       "starters": [
@@ -1257,18 +1320,18 @@
           "label": "Nela"
         },
         {
+          "name": "Antonio Tempestilli",
+          "role": "D",
+          "number": null,
+          "line": 1,
+          "label": "Tempestilli"
+        },
+        {
           "name": "Amedeo Carboni",
           "role": "D",
           "number": null,
           "line": 1,
           "label": "Carboni"
-        },
-        {
-          "name": "Manuel Gerolin",
-          "role": "D",
-          "number": null,
-          "line": 2,
-          "label": "Gerolin"
         },
         {
           "name": "Stefano Desideri",
@@ -1484,6 +1547,17 @@
       "season": "2000–01",
       "coach": "Fabio Capello",
       "formation": "3-4-1-2",
+      "formationInfo": {
+        "kind": "counted",
+        "source": "https://www.transfermarkt.it/as-rom/spielplan/verein/12/saison_id/2000/plus/1",
+        "counts": {
+          "3-4-1-2": 43,
+          "3-4-3": 1
+        },
+        "sampleSize": 44,
+        "matches": 43,
+        "note": "Modulo più frequente nei tabellini disponibili di questo allenatore nella stagione. Le varianti con la stessa struttura numerica sono accorpate."
+      },
       "rating": 95,
       "story": "Totti, Batistuta e il terzo scudetto.",
       "starters": [
@@ -1732,7 +1806,22 @@
       "year": 2003,
       "season": "2003–04",
       "coach": "Fabio Capello",
-      "formation": "3-4-1-2",
+      "formation": "4-4-2",
+      "formationInfo": {
+        "kind": "counted",
+        "source": "https://www.transfermarkt.it/as-rom/spielplan/verein/12/saison_id/2003/plus/1",
+        "counts": {
+          "4-4-2": 18,
+          "3-4-2-1": 7,
+          "3-4-1-2": 14,
+          "3-5-2": 5,
+          "4-3-2-1": 1,
+          "4-3-1-2": 1
+        },
+        "sampleSize": 46,
+        "matches": 18,
+        "note": "Modulo più frequente nei tabellini disponibili di questo allenatore nella stagione. Le varianti con la stessa struttura numerica sono accorpate."
+      },
       "rating": 89,
       "story": "La coppia Totti–Cassano e il secondo posto in campionato.",
       "starters": [
@@ -1749,6 +1838,13 @@
           "number": 2,
           "line": 1,
           "label": "Panucci"
+        },
+        {
+          "name": "Jonathan Zebina",
+          "role": "D",
+          "number": 5,
+          "line": 1,
+          "label": "Zebina"
         },
         {
           "name": "Walter Samuel",
@@ -1786,11 +1882,11 @@
           "label": "Dacourt"
         },
         {
-          "name": "Vincent Candela",
-          "role": "D",
-          "number": 32,
+          "name": "Francisco Govinho Lima",
+          "role": "C",
+          "number": 8,
           "line": 2,
-          "label": "Candela"
+          "label": "Lima"
         },
         {
           "name": "Francesco Totti",
@@ -1803,15 +1899,8 @@
           "name": "Antonio Cassano",
           "role": "A",
           "number": 18,
-          "line": 4,
+          "line": 3,
           "label": "Cassano"
-        },
-        {
-          "name": "Vincenzo Montella",
-          "role": "A",
-          "number": 9,
-          "line": 4,
-          "label": "Montella"
         }
       ],
       "bench": [
@@ -1821,19 +1910,19 @@
           "number": 1
         },
         {
-          "name": "Jonathan Zebina",
+          "name": "Luigi Sartor",
           "role": "D",
-          "number": 5
+          "number": 20
         },
         {
-          "name": "Francisco Govinho Lima",
+          "name": "Damiano Tommasi",
           "role": "C",
-          "number": 8
+          "number": 17
         },
         {
-          "name": "John Carew",
+          "name": "Vincenzo Montella",
           "role": "A",
-          "number": 23
+          "number": 9
         },
         {
           "name": "Carlo Zotti",
@@ -2002,6 +2091,19 @@
       "season": "2007–08",
       "coach": "Luciano Spalletti",
       "formation": "4-2-3-1",
+      "formationInfo": {
+        "kind": "counted",
+        "source": "https://www.transfermarkt.it/as-rom/spielplan/verein/12/saison_id/2007/plus/1",
+        "counts": {
+          "4-2-3-1": 53,
+          "4-5-1": 1,
+          "4-1-4-1": 1,
+          "4-4-1-1": 1
+        },
+        "sampleSize": 56,
+        "matches": 53,
+        "note": "Modulo più frequente nei tabellini disponibili di questo allenatore nella stagione. Le varianti con la stessa struttura numerica sono accorpate."
+      },
       "rating": 90,
       "story": "La Coppa Italia e il calcio del capitano falso nove.",
       "starters": [
@@ -2265,7 +2367,24 @@
       "year": 2009,
       "season": "2009–10",
       "coach": "Claudio Ranieri",
-      "formation": "4-2-3-1",
+      "formation": "4-4-2",
+      "formationInfo": {
+        "kind": "counted",
+        "source": "https://www.transfermarkt.it/as-rom/spielplan/verein/12/saison_id/2009/plus/1",
+        "counts": {
+          "4-5-1": 2,
+          "4-4-2": 17,
+          "4-1-4-1": 4,
+          "4-3-1-2": 7,
+          "4-2-3-1": 15,
+          "4-4-1-1": 2,
+          "3-5-2": 1,
+          "4-3-2-1": 1
+        },
+        "sampleSize": 49,
+        "matches": 17,
+        "note": "Modulo più frequente nei tabellini disponibili di questo allenatore nella stagione. Le varianti con la stessa struttura numerica sono accorpate."
+      },
       "rating": 88,
       "story": "Una rincorsa allo scudetto rimasta nella memoria.",
       "starters": [
@@ -2305,6 +2424,13 @@
           "label": "Riise"
         },
         {
+          "name": "Rodrigo Taddei",
+          "role": "C",
+          "number": 11,
+          "line": 2,
+          "label": "Taddei"
+        },
+        {
           "name": "Daniele De Rossi",
           "role": "C",
           "number": 16,
@@ -2319,18 +2445,18 @@
           "label": "Pizarro"
         },
         {
-          "name": "Rodrigo Taddei",
-          "role": "C",
-          "number": 11,
-          "line": 3,
-          "label": "Taddei"
-        },
-        {
           "name": "Simone Perrotta",
           "role": "C",
           "number": 20,
-          "line": 3,
+          "line": 2,
           "label": "Perrotta"
+        },
+        {
+          "name": "Francesco Totti",
+          "role": "A",
+          "number": 10,
+          "line": 3,
+          "label": "Totti"
         },
         {
           "name": "Mirko Vučinić",
@@ -2338,13 +2464,6 @@
           "number": 9,
           "line": 3,
           "label": "Vučinić"
-        },
-        {
-          "name": "Francesco Totti",
-          "role": "A",
-          "number": 10,
-          "line": 4,
-          "label": "Totti"
         }
       ],
       "bench": [
@@ -2565,6 +2684,23 @@
       "season": "2016–17",
       "coach": "Luciano Spalletti",
       "formation": "4-2-3-1",
+      "formationInfo": {
+        "kind": "counted",
+        "source": "https://www.transfermarkt.it/as-rom/spielplan/verein/12/saison_id/2016/plus/1",
+        "counts": {
+          "4-3-3": 12,
+          "4-2-3-1": 18,
+          "4-1-4-1": 1,
+          "3-4-1-2": 5,
+          "4-2-1-3": 1,
+          "3-4-3": 1,
+          "3-4-2-1": 15,
+          "3-5-2": 1
+        },
+        "sampleSize": 54,
+        "matches": 18,
+        "note": "Modulo più frequente nei tabellini disponibili di questo allenatore nella stagione. Le varianti con la stessa struttura numerica sono accorpate."
+      },
       "rating": 90,
       "story": "Gli 87 punti, i gol di Džeko e Salah, il saluto a Totti.",
       "starters": [
@@ -2913,7 +3049,22 @@
       "year": 2021,
       "season": "2021–22",
       "coach": "José Mourinho",
-      "formation": "3-4-2-1",
+      "formation": "4-2-3-1",
+      "formationInfo": {
+        "kind": "counted",
+        "source": "https://www.transfermarkt.it/as-rom/spielplan/verein/12/saison_id/2021/plus/1",
+        "counts": {
+          "4-2-3-1": 19,
+          "3-4-1-2": 11,
+          "3-5-2": 12,
+          "3-4-2-1": 11,
+          "3-4-3": 1,
+          "4-3-3": 1
+        },
+        "sampleSize": 55,
+        "matches": 19,
+        "note": "Modulo più frequente nei tabellini disponibili di questo allenatore nella stagione. Le varianti con la stessa struttura numerica sono accorpate."
+      },
       "rating": 85,
       "story": "A Tirana arriva la Conference League.",
       "starters": [
@@ -2923,6 +3074,13 @@
           "number": 1,
           "line": 0,
           "label": "Rui Patrício"
+        },
+        {
+          "name": "Rick Karsdorp",
+          "role": "D",
+          "number": 2,
+          "line": 1,
+          "label": "Karsdorp"
         },
         {
           "name": "Gianluca Mancini",
@@ -2939,18 +3097,11 @@
           "label": "Smalling"
         },
         {
-          "name": "Roger Ibañez",
+          "name": "Matías Viña",
           "role": "D",
-          "number": 3,
+          "number": 5,
           "line": 1,
-          "label": "Ibañez"
-        },
-        {
-          "name": "Rick Karsdorp",
-          "role": "D",
-          "number": 2,
-          "line": 2,
-          "label": "Karsdorp"
+          "label": "Viña"
         },
         {
           "name": "Bryan Cristante",
@@ -2960,18 +3111,18 @@
           "label": "Cristante"
         },
         {
-          "name": "Sérgio Oliveira",
+          "name": "Jordan Veretout",
           "role": "C",
-          "number": 27,
+          "number": 17,
           "line": 2,
-          "label": "Oliveira"
+          "label": "Veretout"
         },
         {
-          "name": "Nicola Zalewski",
+          "name": "Nicolò Zaniolo",
           "role": "C",
-          "number": 59,
-          "line": 2,
-          "label": "Zalewski"
+          "number": 22,
+          "line": 3,
+          "label": "Zaniolo"
         },
         {
           "name": "Lorenzo Pellegrini",
@@ -2981,11 +3132,11 @@
           "label": "Pellegrini"
         },
         {
-          "name": "Nicolò Zaniolo",
+          "name": "Henrix Mkhit'aryan",
           "role": "C",
-          "number": 22,
+          "number": 77,
           "line": 3,
-          "label": "Zaniolo"
+          "label": "Mkhitaryan"
         },
         {
           "name": "Tammy Abraham",
@@ -3002,9 +3153,9 @@
           "number": 63
         },
         {
-          "name": "Matías Viña",
+          "name": "Roger Ibañez",
           "role": "D",
-          "number": 5
+          "number": 3
         },
         {
           "name": "Gonzalo Villar",
@@ -3247,7 +3398,13 @@
       "year": 1957,
       "season": "1957–58",
       "coach": "Fulvio Bernardini",
-      "formation": "3-2-5",
+      "formation": "3-2-2-3",
+      "formationInfo": {
+        "kind": "reconstruction",
+        "label": "WM elastico",
+        "source": "https://www.treccani.it/enciclopedia/fulvio-bernardini_(Enciclopedia-dello-Sport)/",
+        "note": "Ricostruzione storica: non esiste un conteggio stagionale sufficiente dei moduli."
+      },
       "rating": 80,
       "story": "Il percorso verso la prima Coppa Italia, vinta nel settembre 1958.",
       "starters": [
@@ -3294,13 +3451,6 @@
           "label": "Fuin"
         },
         {
-          "name": "Ermes Muccinelli",
-          "role": "A",
-          "number": null,
-          "line": 3,
-          "label": "Muccinelli"
-        },
-        {
           "name": "Renzo Burini",
           "role": "A",
           "number": null,
@@ -3308,25 +3458,32 @@
           "label": "Burini"
         },
         {
-          "name": "Humberto Tozzi",
+          "name": "Pasquale Vivolo",
           "role": "A",
           "number": null,
           "line": 3,
+          "label": "Vivolo"
+        },
+        {
+          "name": "Ermes Muccinelli",
+          "role": "A",
+          "number": null,
+          "line": 4,
+          "label": "Muccinelli"
+        },
+        {
+          "name": "Humberto Tozzi",
+          "role": "A",
+          "number": null,
+          "line": 4,
           "label": "Tozzi"
         },
         {
           "name": "Arne Selmosson",
           "role": "A",
           "number": null,
-          "line": 3,
+          "line": 4,
           "label": "Selmosson"
-        },
-        {
-          "name": "Pasquale Vivolo",
-          "role": "A",
-          "number": null,
-          "line": 3,
-          "label": "Vivolo"
         }
       ],
       "bench": [
@@ -3497,6 +3654,12 @@
       "season": "1973–74",
       "coach": "Tommaso Maestrelli",
       "formation": "4-3-3",
+      "formationInfo": {
+        "kind": "reconstruction",
+        "label": "4-3-3 di Maestrelli",
+        "source": "https://www.polesinesport.it/campionato-pi-bello-del-mondo-dvd-story-gazzetta-sport-vince-lazio-1973-74-di-mr-maistrelli-e-chinaglia/",
+        "note": "Ricostruzione storica: non esiste un conteggio stagionale sufficiente dei moduli."
+      },
       "rating": 93,
       "story": "Chinaglia e i ragazzi di Maestrelli: il primo scudetto.",
       "starters": [
@@ -3751,6 +3914,17 @@
       "season": "1992–93",
       "coach": "Dino Zoff",
       "formation": "4-4-2",
+      "formationInfo": {
+        "kind": "counted",
+        "source": "https://www.transfermarkt.it/lazio-rom/spielplan/verein/398/saison_id/1992/plus/1",
+        "counts": {
+          "4-4-2": 14,
+          "4-5-1": 1
+        },
+        "sampleSize": 15,
+        "matches": 14,
+        "note": "Modulo più frequente nei tabellini disponibili di questo allenatore nella stagione. Le varianti con la stessa struttura numerica sono accorpate."
+      },
       "rating": 83,
       "story": "Signori capocannoniere, Gascoigne e il ritorno in Europa.",
       "starters": [
@@ -3995,6 +4169,16 @@
       "season": "1994–95",
       "coach": "Zdeněk Zeman",
       "formation": "4-3-3",
+      "formationInfo": {
+        "kind": "counted",
+        "source": "https://www.transfermarkt.it/lazio-rom/spielplan/verein/398/saison_id/1994/plus/1",
+        "counts": {
+          "4-3-3": 15
+        },
+        "sampleSize": 15,
+        "matches": 15,
+        "note": "Modulo più frequente nei tabellini disponibili di questo allenatore nella stagione. Le varianti con la stessa struttura numerica sono accorpate."
+      },
       "rating": 88,
       "story": "Il calcio offensivo di Zeman e il secondo posto.",
       "starters": [
@@ -4244,6 +4428,20 @@
       "season": "1997–98",
       "coach": "Sven-Göran Eriksson",
       "formation": "4-4-2",
+      "formationInfo": {
+        "kind": "counted",
+        "source": "https://www.transfermarkt.it/lazio-rom/spielplan/verein/398/saison_id/1997/plus/1",
+        "counts": {
+          "4-3-1-2": 8,
+          "4-1-3-2": 1,
+          "4-4-2": 41,
+          "4-5-1": 4,
+          "4-3-2-1": 1
+        },
+        "sampleSize": 55,
+        "matches": 41,
+        "note": "Modulo più frequente nei tabellini disponibili di questo allenatore nella stagione. Le varianti con la stessa struttura numerica sono accorpate."
+      },
       "rating": 89,
       "story": "La Coppa Italia e quattro derby vinti nella stessa stagione.",
       "starters": [
@@ -4488,6 +4686,18 @@
       "season": "1998–99",
       "coach": "Sven-Göran Eriksson",
       "formation": "4-4-2",
+      "formationInfo": {
+        "kind": "counted",
+        "source": "https://www.transfermarkt.it/lazio-rom/spielplan/verein/398/saison_id/1998/plus/1",
+        "counts": {
+          "4-4-2": 44,
+          "4-4-1-1": 2,
+          "4-5-1": 4
+        },
+        "sampleSize": 50,
+        "matches": 44,
+        "note": "Modulo più frequente nei tabellini disponibili di questo allenatore nella stagione. Le varianti con la stessa struttura numerica sono accorpate."
+      },
       "rating": 93,
       "story": "La Coppa delle Coppe e la corsa al titolo con Vieri e Salas.",
       "starters": [
@@ -4762,6 +4972,20 @@
       "season": "1999–00",
       "coach": "Sven-Göran Eriksson",
       "formation": "4-4-2",
+      "formationInfo": {
+        "kind": "counted",
+        "source": "https://www.transfermarkt.it/lazio-rom/spielplan/verein/398/saison_id/1999/plus/1",
+        "counts": {
+          "4-4-2": 41,
+          "4-5-1": 11,
+          "4-4-1-1": 2,
+          "4-3-1-2": 2,
+          "5-3-2": 1
+        },
+        "sampleSize": 57,
+        "matches": 41,
+        "note": "Modulo più frequente nei tabellini disponibili di questo allenatore nella stagione. Le varianti con la stessa struttura numerica sono accorpate."
+      },
       "rating": 96,
       "story": "Scudetto, Coppa Italia e Supercoppa UEFA nell’anno del centenario.",
       "starters": [
@@ -5026,6 +5250,20 @@
       "season": "2003–04",
       "coach": "Roberto Mancini",
       "formation": "4-4-2",
+      "formationInfo": {
+        "kind": "counted",
+        "source": "https://www.transfermarkt.it/lazio-rom/spielplan/verein/398/saison_id/2003/plus/1",
+        "counts": {
+          "4-4-2": 31,
+          "4-5-1": 2,
+          "4-3-3": 15,
+          "4-4-1-1": 1,
+          "4-1-4-1": 1
+        },
+        "sampleSize": 50,
+        "matches": 31,
+        "note": "Modulo più frequente nei tabellini disponibili di questo allenatore nella stagione. Le varianti con la stessa struttura numerica sono accorpate."
+      },
       "rating": 85,
       "story": "La Coppa Italia del gruppo di Mancini.",
       "starters": [
@@ -5275,6 +5513,22 @@
       "season": "2008–09",
       "coach": "Delio Rossi",
       "formation": "4-3-1-2",
+      "formationInfo": {
+        "kind": "counted",
+        "source": "https://www.transfermarkt.it/lazio-rom/spielplan/verein/398/saison_id/2008/plus/1",
+        "counts": {
+          "4-3-1-2": 14,
+          "4-3-3": 10,
+          "4-3-2-1": 5,
+          "4-4-2": 13,
+          "4-2-1-3": 1,
+          "5-3-2": 1,
+          "4-4-1-1": 1
+        },
+        "sampleSize": 45,
+        "matches": 14,
+        "note": "Modulo più frequente nei tabellini disponibili di questo allenatore nella stagione. Le varianti con la stessa struttura numerica sono accorpate."
+      },
       "rating": 82,
       "story": "La Coppa Italia ai rigori e il talento di Zárate.",
       "starters": [
@@ -5569,6 +5823,27 @@
       "season": "2012–13",
       "coach": "Vladimir Petković",
       "formation": "4-1-4-1",
+      "formationInfo": {
+        "kind": "counted",
+        "source": "https://www.transfermarkt.it/lazio-rom/spielplan/verein/398/saison_id/2012/plus/1",
+        "counts": {
+          "4-5-1": 8,
+          "4-4-2": 5,
+          "4-1-4-1": 26,
+          "4-2-3-1": 2,
+          "4-4-1-1": 1,
+          "3-5-2": 4,
+          "4-3-3": 3,
+          "5-3-2": 1,
+          "3-4-2-1": 4,
+          "4-3-1-2": 1,
+          "3-3-1-3": 1,
+          "3-4-1-2": 1
+        },
+        "sampleSize": 57,
+        "matches": 26,
+        "note": "Modulo più frequente nei tabellini disponibili di questo allenatore nella stagione. Le varianti con la stessa struttura numerica sono accorpate."
+      },
       "rating": 86,
       "story": "Il derby di finale deciso da Lulić il 26 maggio.",
       "starters": [
@@ -5923,6 +6198,19 @@
       "season": "2018–19",
       "coach": "Simone Inzaghi",
       "formation": "3-5-2",
+      "formationInfo": {
+        "kind": "counted",
+        "source": "https://www.transfermarkt.it/lazio-rom/spielplan/verein/398/saison_id/2018/plus/1",
+        "counts": {
+          "3-5-2": 39,
+          "3-4-2-1": 5,
+          "3-4-1-2": 6,
+          "3-1-4-2": 1
+        },
+        "sampleSize": 51,
+        "matches": 39,
+        "note": "Modulo più frequente nei tabellini disponibili di questo allenatore nella stagione. Le varianti con la stessa struttura numerica sono accorpate."
+      },
       "rating": 86,
       "story": "La Coppa Italia con Milinković-Savić e Correa in finale.",
       "starters": [
@@ -6217,6 +6505,17 @@
       "season": "2019–20",
       "coach": "Simone Inzaghi",
       "formation": "3-5-2",
+      "formationInfo": {
+        "kind": "counted",
+        "source": "https://www.transfermarkt.it/lazio-rom/spielplan/verein/398/saison_id/2019/plus/1",
+        "counts": {
+          "3-5-2": 46,
+          "3-4-1-2": 1
+        },
+        "sampleSize": 47,
+        "matches": 46,
+        "note": "Modulo più frequente nei tabellini disponibili di questo allenatore nella stagione. Le varianti con la stessa struttura numerica sono accorpate."
+      },
       "rating": 90,
       "story": "La Supercoppa e i 36 gol in campionato di Immobile.",
       "starters": [
@@ -6495,6 +6794,12 @@
       "source": "https://it.wikipedia.org/wiki/Societ%C3%A0_Sportiva_Lazio_2019-2020"
     }
   ],
+  "model": {
+    "historyWeight": 0.35,
+    "exploratoryWeight": 0.15,
+    "strengthWeight": 0.018,
+    "maxGoals": 8
+  },
   "history": {
     "source": "https://en.wikipedia.org/wiki/Derby_della_Capitale",
     "matches": [

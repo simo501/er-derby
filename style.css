@@ -161,6 +161,7 @@ main { max-width: 1376px; margin: auto; padding: 39px 28px 55px; }
 .odds-footnote { font-size: 8px; color: var(--muted); border-top: 1px solid var(--line); padding-top: 12px; margin-top: 13px; }
 .history-card { border-top: 4px solid #484b4d; }
 .history-card p { font-size: 10px; color: var(--muted); margin-top: 9px; }
+.history-card .model-balance { border-top: 1px solid var(--line); padding-top: 12px; font-size: 9px; line-height: 1.8; color: #c3bdab; }
 .history-totals { display: grid; grid-template-columns: repeat(3, 1fr); margin-top: 17px; }
 .history-totals > div { display: flex; flex-direction: column; gap: 5px; }
 .history-totals > div:nth-child(2) { text-align: center; }
@@ -202,6 +203,36 @@ main { max-width: 1376px; margin: auto; padding: 39px 28px 55px; }
 .event.goal { background: linear-gradient(90deg, #c7ad7012, transparent); }
 .lineups { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); padding: 17px 22px 22px; gap: 30px; }
 .lineup { min-width: 0; }
+.lineup-tools { display: flex; justify-content: space-between; gap: 12px; padding: 15px 22px 0; }
+.lineup-view-switch { display: flex; border: 1px solid #414647; }
+.lineup-tools button { padding: 8px 12px; font-size: 10px; font-weight: 700; color: var(--muted); }
+.lineup-tools button[aria-pressed=true] { background: #343731; color: #eee6d3; }
+.lineup-heading > div { min-width: 0; }
+.formation-badge { margin-left: auto; padding: 4px 5px; font-size: 12px; color: #d3c8b0; white-space: nowrap; border-bottom: 1px solid #6b6659; }
+.formation-field { position: relative; width: 100%; aspect-ratio: 3 / 4; min-height: 330px; overflow: hidden; isolation: isolate; background: repeating-linear-gradient(0deg, #24382d 0%, #24382d 10%, #293e32 10%, #293e32 20%); border: 1px solid #4c6153; }
+.formation-boundary { position: absolute; inset: 5% 4%; border: 1px solid #cfdfd452; }
+.formation-halfway { position: absolute; left: 0; top: 50%; width: 100%; border-top: 1px solid #cfdfd452; }
+.formation-circle { position: absolute; left: 50%; top: 50%; width: 28%; aspect-ratio: 1; transform: translate(-50%,-50%); border: 1px solid #cfdfd452; border-radius: 50%; }
+.formation-area { position: absolute; left: 23%; width: 54%; height: 17%; border: 1px solid #cfdfd452; }
+.formation-area.top { top: -1px; }
+.formation-area.bottom { bottom: -1px; }
+.formation-direction { position: absolute; top: 4px; left: 50%; transform: translateX(-50%); font-size: 7px; letter-spacing: 1px; color: #c0d2c2; }
+.formation-player { position: absolute; left: var(--player-x); top: var(--player-y); width: var(--player-space); transform: translate(-50%,-50%); display: flex; align-items: center; flex-direction: column; gap: 4px; min-width: 0; text-align: center; z-index: 1; }
+.formation-shirt { display: grid; place-items: center; width: 33px; height: 34px; flex-shrink: 0; background: #96312c; color: #f5d58a; font-size: 11px; font-weight: 800; padding: 4px 0 0; clip-path: polygon(28% 0, 40% 7%, 60% 7%, 72% 0, 100% 17%, 89% 39%, 78% 32%, 78% 100%, 22% 100%, 22% 32%, 11% 39%, 0 17%); }
+.formation-field.lazio .formation-shirt { background: #a3d8ed; color: #1b3542; }
+.formation-field .formation-shirt.keeper { background: #dfbf65; color: #222a22; }
+.formation-name { display: block; max-width: 100%; min-width: 0; padding: 2px 3px; color: #f1f2eb; background: #101b13d9; font-size: 9px; line-height: 1.35; overflow-wrap: anywhere; }
+.formation-note { margin: 10px 0 5px; font-size: 9px; line-height: 1.7; color: #c3bdab; }
+.formation-source { color: var(--muted); font-size: 9px; line-height: 1.8; }
+.formation-source summary, .lineup-bench summary { cursor: pointer; padding: 6px 0; }
+.formation-source p { font-size: 10px; line-height: 1.8; margin: 8px 0; color: var(--muted); }
+.formation-source a { display: inline-block; color: var(--gold); margin: 5px 0; }
+.lineup-bench { border-top: 1px solid var(--line); margin-top: 12px; padding-top: 7px; font-size: 10px; }
+.lineup-list-view { display: none; }
+body[data-lineup-view=list] .lineup-pitch-view { display: none; }
+body[data-lineup-view=list] .lineup-list-view { display: block; }
+.team-formation-detail { max-width: 420px; margin: 18px auto; }
+dialog .lineup-tools { padding-left: 0; padding-right: 0; }
 .lineup-heading { display: flex; align-items: center; gap: 10px; margin-bottom: 17px; }
 .lineup-heading h3 { font-size: 12px; font-weight: 800; }
 .lineup-heading h3 span { color: var(--muted); font-weight: 400; }
@@ -291,6 +322,37 @@ dialog .dialog-story { color: var(--text); font-size: 16px; }
 .dialog-commentary { max-height: 300px; padding: 0; }
 dialog .lineups { padding: 0; gap: 25px; }
 dialog .small-muted { font-size: 10px; }
+
+/* One shared pitch: the home XI occupies the top half, the away XI the bottom. */
+.match-lineups { display: block; }
+.lineup-details { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: 26px; margin-top: 22px; }
+.combined-pitch-view { max-width: 520px; margin: 0 auto; }
+.combined-legend { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: 14px; margin-bottom: 12px; }
+.combined-legend > span { display: flex; align-items: center; flex-wrap: wrap; gap: 6px; min-width: 0; }
+.combined-legend > span:last-child { justify-content: flex-end; text-align: right; }
+.combined-legend b { font-size: 11px; }
+.combined-legend small { font-size: 8px; color: var(--muted); }
+.combined-legend .mini-crest { width: 22px; height: 25px; }
+.formation-field.combined-field { aspect-ratio: auto; height: 640px; min-height: 0; max-height: none; }
+.combined-field .formation-boundary { inset: 3% 4%; }
+.combined-field .formation-player.lazio .formation-shirt { background: #a3d8ed; color: #1b3542; }
+.combined-field .formation-player .formation-shirt.keeper { background: #dfbf65; color: #222a22; }
+.combined-field .formation-shirt { width: 30px; height: 30px; font-size: 10px; }
+.combined-field .formation-name { font-size: 9px; }
+.venue-label { display: block; font-size: 7px; font-weight: 700; letter-spacing: 1px; color: var(--muted); margin-bottom: 8px; }
+.scoreboard .roma-side { grid-column: 1; grid-row: 1; }
+.scoreboard .score-center { grid-column: 2; grid-row: 1; }
+.scoreboard .lazio-side { grid-column: 3; grid-row: 1; }
+.scoreboard[data-home=lazio] .roma-side { grid-column: 3; }
+.scoreboard[data-home=lazio] .lazio-side { grid-column: 1; }
+.scoreboard[data-home=lazio] .score { flex-direction: row-reverse; }
+.scorers .scorer-list.roma { grid-column: 1; grid-row: 1; }
+.scorers .scorer-list.lazio { grid-column: 2; grid-row: 1; }
+.scorers[data-home=lazio] .scorer-list.roma { grid-column: 2; }
+.scorers[data-home=lazio] .scorer-list.lazio { grid-column: 1; }
+.odds-grid.result[data-home=lazio] .odds-cell:first-child { border-top-color: #8bc7de; }
+.odds-grid.result[data-home=lazio] .odds-cell:nth-child(3) { border-top-color: #d79168; }
+
 @keyframes goal-glow { 50% { box-shadow: inset 0 0 65px #c7b17a55; } }
 
 @media (max-width: 1150px) {
@@ -485,6 +547,25 @@ dialog .small-muted { font-size: 10px; }
   .next-pair { gap: 7px; font-size: 8px; }
   .next-pair b { font-size: 11px; }
   .tabs { gap: 18px; padding-left: 13px; padding-right: 13px; }
+}
+@media (max-width: 700px) {
+  .lineups { grid-template-columns: minmax(0, 1fr); }
+  .lineup-tools { padding-left: 13px; padding-right: 13px; }
+  .formation-field { min-height: 350px; max-height: 520px; }
+  .formation-name { font-size: 10px; }
+  .formation-badge { font-size: 14px; }
+  .lineup-heading h3 { font-size: 13px; }
+  .lineup-heading p { font-size: 10px; }
+  .formation-note, .formation-source { font-size: 10px; }
+}
+@media (max-width: 700px) {
+  .lineup-details { grid-template-columns: minmax(0,1fr); gap: 25px; }
+  .formation-field.combined-field { height: 580px; min-height: 0; max-height: none; }
+  .combined-field .formation-name { font-size: 8px; padding-left: 2px; padding-right: 2px; }
+  .combined-field .formation-shirt { width: 27px; height: 28px; font-size: 9px; }
+  .combined-legend { gap: 9px; }
+  .combined-legend b { font-size: 10px; }
+  .combined-legend small { font-size: 7px; }
 }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }

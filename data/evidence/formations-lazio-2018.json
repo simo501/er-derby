@@ -1,0 +1,322 @@
+{
+  "source": "https://www.transfermarkt.it/lazio-rom/spielplan/verein/398/saison_id/2018/plus/1",
+  "retrieved": "2026-11-15",
+  "coach": "Simone Inzaghi",
+  "season": "2018–19",
+  "counts": {
+    "3-5-2": 39,
+    "3-4-2-1": 5,
+    "3-4-1-2": 6,
+    "3-1-4-2": 1
+  },
+  "sampleSize": 51,
+  "records": [
+    {
+      "date": "sab 18/08/2018",
+      "formation": "3-5-2",
+      "coach": "Simone Inzaghi",
+      "result": "1:2"
+    },
+    {
+      "date": "sab 25/08/2018",
+      "formation": "3-5-2",
+      "coach": "Simone Inzaghi",
+      "result": "2:0"
+    },
+    {
+      "date": "dom 02/09/2018",
+      "formation": "3-5-2",
+      "coach": "Simone Inzaghi",
+      "result": "1:0"
+    },
+    {
+      "date": "dom 16/09/2018",
+      "formation": "3-5-2",
+      "coach": "Simone Inzaghi",
+      "result": "0:1"
+    },
+    {
+      "date": "dom 23/09/2018",
+      "formation": "3-5-2",
+      "coach": "Simone Inzaghi",
+      "result": "4:1"
+    },
+    {
+      "date": "mer 26/09/2018",
+      "formation": "3-5-2",
+      "coach": "Simone Inzaghi",
+      "result": "1:2"
+    },
+    {
+      "date": "sab 29/09/2018",
+      "formation": "3-5-2",
+      "coach": "Simone Inzaghi",
+      "result": "3:1"
+    },
+    {
+      "date": "dom 07/10/2018",
+      "formation": "3-5-2",
+      "coach": "Simone Inzaghi",
+      "result": "1:0"
+    },
+    {
+      "date": "dom 21/10/2018",
+      "formation": "3-5-2",
+      "coach": "Simone Inzaghi",
+      "result": "0:2"
+    },
+    {
+      "date": "lun 29/10/2018",
+      "formation": "3-5-2",
+      "coach": "Simone Inzaghi",
+      "result": "0:3"
+    },
+    {
+      "date": "dom 04/11/2018",
+      "formation": "3-5-2",
+      "coach": "Simone Inzaghi",
+      "result": "4:1"
+    },
+    {
+      "date": "dom 11/11/2018",
+      "formation": "3-4-2-1",
+      "coach": "Simone Inzaghi",
+      "result": "1:1"
+    },
+    {
+      "date": "dom 25/11/2018",
+      "formation": "3-5-2",
+      "coach": "Simone Inzaghi",
+      "result": "1:1"
+    },
+    {
+      "date": "dom 02/12/2018",
+      "formation": "3-5-2",
+      "coach": "Simone Inzaghi",
+      "result": "1:1"
+    },
+    {
+      "date": "sab 08/12/2018",
+      "formation": "3-5-2",
+      "coach": "Simone Inzaghi",
+      "result": "2:2"
+    },
+    {
+      "date": "lun 17/12/2018",
+      "formation": "3-5-2",
+      "coach": "Simone Inzaghi",
+      "result": "1:0"
+    },
+    {
+      "date": "sab 22/12/2018",
+      "formation": "3-4-1-2",
+      "coach": "Simone Inzaghi",
+      "result": "3:1"
+    },
+    {
+      "date": "mer 26/12/2018",
+      "formation": "3-5-2",
+      "coach": "Simone Inzaghi",
+      "result": "0:2"
+    },
+    {
+      "date": "sab 29/12/2018",
+      "formation": "3-4-2-1",
+      "coach": "Simone Inzaghi",
+      "result": "1:1"
+    },
+    {
+      "date": "dom 20/01/2019",
+      "formation": "3-5-2",
+      "coach": "Simone Inzaghi",
+      "result": "2:1"
+    },
+    {
+      "date": "dom 27/01/2019",
+      "formation": "3-5-2",
+      "coach": "Simone Inzaghi",
+      "result": "1:2"
+    },
+    {
+      "date": "lun 04/02/2019",
+      "formation": "3-4-1-2",
+      "coach": "Simone Inzaghi",
+      "result": "0:1"
+    },
+    {
+      "date": "gio 07/02/2019",
+      "formation": "3-5-2",
+      "coach": "Simone Inzaghi",
+      "result": "1:0"
+    },
+    {
+      "date": "dom 17/02/2019",
+      "formation": "3-5-2",
+      "coach": "Simone Inzaghi",
+      "result": "2:1"
+    },
+    {
+      "date": "mer 17/04/2019",
+      "formation": "3-5-2",
+      "coach": "Simone Inzaghi",
+      "result": "2:0"
+    },
+    {
+      "date": "sab 02/03/2019",
+      "formation": "3-5-2",
+      "coach": "Simone Inzaghi",
+      "result": "3:0"
+    },
+    {
+      "date": "dom 10/03/2019",
+      "formation": "3-5-2",
+      "coach": "Simone Inzaghi",
+      "result": "1:1"
+    },
+    {
+      "date": "dom 17/03/2019",
+      "formation": "3-5-2",
+      "coach": "Simone Inzaghi",
+      "result": "4:1"
+    },
+    {
+      "date": "dom 31/03/2019",
+      "formation": "3-4-1-2",
+      "coach": "Simone Inzaghi",
+      "result": "0:1"
+    },
+    {
+      "date": "mer 03/04/2019",
+      "formation": "3-4-2-1",
+      "coach": "Simone Inzaghi",
+      "result": "1:0"
+    },
+    {
+      "date": "dom 07/04/2019",
+      "formation": "3-5-2",
+      "coach": "Simone Inzaghi",
+      "result": "2:2"
+    },
+    {
+      "date": "sab 13/04/2019",
+      "formation": "3-5-2",
+      "coach": "Simone Inzaghi",
+      "result": "1:0"
+    },
+    {
+      "date": "sab 20/04/2019",
+      "formation": "3-4-1-2",
+      "coach": "Simone Inzaghi",
+      "result": "1:2"
+    },
+    {
+      "date": "dom 28/04/2019",
+      "formation": "3-5-2",
+      "coach": "Simone Inzaghi",
+      "result": "1:2"
+    },
+    {
+      "date": "dom 05/05/2019",
+      "formation": "3-5-2",
+      "coach": "Simone Inzaghi",
+      "result": "1:3"
+    },
+    {
+      "date": "sab 11/05/2019",
+      "formation": "3-4-2-1",
+      "coach": "Simone Inzaghi",
+      "result": "1:2"
+    },
+    {
+      "date": "lun 20/05/2019",
+      "formation": "3-5-2",
+      "coach": "Simone Inzaghi",
+      "result": "3:3"
+    },
+    {
+      "date": "dom 26/05/2019",
+      "formation": "3-5-2",
+      "coach": "Simone Inzaghi",
+      "result": "3:1"
+    },
+    {
+      "date": "gio 20/09/2018",
+      "formation": "3-5-2",
+      "coach": "Simone Inzaghi",
+      "result": "2:1"
+    },
+    {
+      "date": "gio 04/10/2018",
+      "formation": "3-5-2",
+      "coach": "Simone Inzaghi",
+      "result": "4:1"
+    },
+    {
+      "date": "gio 25/10/2018",
+      "formation": "3-5-2",
+      "coach": "Simone Inzaghi",
+      "result": "1:3"
+    },
+    {
+      "date": "gio 08/11/2018",
+      "formation": "3-5-2",
+      "coach": "Simone Inzaghi",
+      "result": "2:1"
+    },
+    {
+      "date": "gio 29/11/2018",
+      "formation": "3-4-1-2",
+      "coach": "Simone Inzaghi",
+      "result": "2:0"
+    },
+    {
+      "date": "gio 13/12/2018",
+      "formation": "3-5-2",
+      "coach": "Simone Inzaghi",
+      "result": "1:2"
+    },
+    {
+      "date": "gio 14/02/2019",
+      "formation": "3-4-1-2",
+      "coach": "Simone Inzaghi",
+      "result": "0:1"
+    },
+    {
+      "date": "mer 20/02/2019",
+      "formation": "3-1-4-2",
+      "coach": "Simone Inzaghi",
+      "result": "2:0"
+    },
+    {
+      "date": "sab 12/01/2019",
+      "formation": "3-5-2",
+      "coach": "Simone Inzaghi",
+      "result": "4:1"
+    },
+    {
+      "date": "gio 31/01/2019",
+      "formation": "3-4-2-1",
+      "coach": "Simone Inzaghi",
+      "result": "4:5 d.c.r."
+    },
+    {
+      "date": "mar 26/02/2019",
+      "formation": "3-5-2",
+      "coach": "Simone Inzaghi",
+      "result": "0:0"
+    },
+    {
+      "date": "mer 24/04/2019",
+      "formation": "3-5-2",
+      "coach": "Simone Inzaghi",
+      "result": "0:1"
+    },
+    {
+      "date": "mer 15/05/2019",
+      "formation": "3-5-2",
+      "coach": "Simone Inzaghi",
+      "result": "0:2"
+    }
+  ],
+  "formation": "3-5-2"
+}

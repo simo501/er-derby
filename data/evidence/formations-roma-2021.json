@@ -1,0 +1,348 @@
+{
+  "source": "https://www.transfermarkt.it/as-rom/spielplan/verein/12/saison_id/2021/plus/1",
+  "retrieved": "2026-11-15",
+  "coach": "José Mourinho",
+  "season": "2021–22",
+  "counts": {
+    "4-2-3-1": 19,
+    "3-4-1-2": 11,
+    "3-5-2": 12,
+    "3-4-2-1": 11,
+    "3-4-3": 1,
+    "4-3-3": 1
+  },
+  "sampleSize": 55,
+  "records": [
+    {
+      "date": "dom 22/08/2021",
+      "formation": "4-2-3-1",
+      "coach": "José Mourinho",
+      "result": "3:1"
+    },
+    {
+      "date": "dom 29/08/2021",
+      "formation": "4-2-3-1",
+      "coach": "José Mourinho",
+      "result": "0:4"
+    },
+    {
+      "date": "dom 12/09/2021",
+      "formation": "4-2-3-1",
+      "coach": "José Mourinho",
+      "result": "2:1"
+    },
+    {
+      "date": "dom 19/09/2021",
+      "formation": "4-2-3-1",
+      "coach": "José Mourinho",
+      "result": "3:2"
+    },
+    {
+      "date": "gio 23/09/2021",
+      "formation": "4-2-3-1",
+      "coach": "José Mourinho",
+      "result": "1:0"
+    },
+    {
+      "date": "dom 26/09/2021",
+      "formation": "4-2-3-1",
+      "coach": "José Mourinho",
+      "result": "3:2"
+    },
+    {
+      "date": "dom 03/10/2021",
+      "formation": "4-2-3-1",
+      "coach": "José Mourinho",
+      "result": "2:0"
+    },
+    {
+      "date": "dom 17/10/2021",
+      "formation": "4-2-3-1",
+      "coach": "José Mourinho",
+      "result": "1:0"
+    },
+    {
+      "date": "dom 24/10/2021",
+      "formation": "4-2-3-1",
+      "coach": "José Mourinho",
+      "result": "0:0"
+    },
+    {
+      "date": "mer 27/10/2021",
+      "formation": "4-2-3-1",
+      "coach": "José Mourinho",
+      "result": "1:2"
+    },
+    {
+      "date": "dom 31/10/2021",
+      "formation": "4-2-3-1",
+      "coach": "José Mourinho",
+      "result": "1:2"
+    },
+    {
+      "date": "dom 07/11/2021",
+      "formation": "3-4-1-2",
+      "coach": "José Mourinho",
+      "result": "3:2"
+    },
+    {
+      "date": "dom 21/11/2021",
+      "formation": "3-5-2",
+      "coach": "José Mourinho",
+      "result": "0:2"
+    },
+    {
+      "date": "dom 28/11/2021",
+      "formation": "3-5-2",
+      "coach": "José Mourinho",
+      "result": "1:0"
+    },
+    {
+      "date": "mer 01/12/2021",
+      "formation": "3-5-2",
+      "coach": "José Mourinho",
+      "result": "1:0"
+    },
+    {
+      "date": "sab 04/12/2021",
+      "formation": "3-5-2",
+      "coach": "José Mourinho",
+      "result": "0:3"
+    },
+    {
+      "date": "lun 13/12/2021",
+      "formation": "3-5-2",
+      "coach": "José Mourinho",
+      "result": "2:0"
+    },
+    {
+      "date": "sab 18/12/2021",
+      "formation": "3-5-2",
+      "coach": "José Mourinho",
+      "result": "1:4"
+    },
+    {
+      "date": "mer 22/12/2021",
+      "formation": "3-5-2",
+      "coach": "José Mourinho",
+      "result": "1:1"
+    },
+    {
+      "date": "gio 06/01/2022",
+      "formation": "3-5-2",
+      "coach": "José Mourinho",
+      "result": "3:1"
+    },
+    {
+      "date": "dom 09/01/2022",
+      "formation": "4-2-3-1",
+      "coach": "José Mourinho",
+      "result": "3:4"
+    },
+    {
+      "date": "dom 16/01/2022",
+      "formation": "4-2-3-1",
+      "coach": "José Mourinho",
+      "result": "1:0"
+    },
+    {
+      "date": "dom 23/01/2022",
+      "formation": "3-4-1-2",
+      "coach": "José Mourinho",
+      "result": "2:4"
+    },
+    {
+      "date": "sab 05/02/2022",
+      "formation": "3-4-1-2",
+      "coach": "José Mourinho",
+      "result": "0:0"
+    },
+    {
+      "date": "dom 13/02/2022",
+      "formation": "3-4-1-2",
+      "coach": "José Mourinho",
+      "result": "2:2"
+    },
+    {
+      "date": "sab 19/02/2022",
+      "formation": "3-4-2-1",
+      "coach": "José Mourinho",
+      "result": "2:2"
+    },
+    {
+      "date": "dom 27/02/2022",
+      "formation": "3-4-2-1",
+      "coach": "José Mourinho",
+      "result": "0:1"
+    },
+    {
+      "date": "sab 05/03/2022",
+      "formation": "3-5-2",
+      "coach": "José Mourinho",
+      "result": "1:0"
+    },
+    {
+      "date": "dom 13/03/2022",
+      "formation": "3-4-1-2",
+      "coach": "José Mourinho",
+      "result": "1:1"
+    },
+    {
+      "date": "dom 20/03/2022",
+      "formation": "3-4-2-1",
+      "coach": "José Mourinho",
+      "result": "3:0"
+    },
+    {
+      "date": "dom 03/04/2022",
+      "formation": "3-4-2-1",
+      "coach": "José Mourinho",
+      "result": "0:1"
+    },
+    {
+      "date": "dom 10/04/2022",
+      "formation": "3-4-1-2",
+      "coach": "José Mourinho",
+      "result": "2:1"
+    },
+    {
+      "date": "lun 18/04/2022",
+      "formation": "3-4-1-2",
+      "coach": "José Mourinho",
+      "result": "1:1"
+    },
+    {
+      "date": "sab 23/04/2022",
+      "formation": "3-4-2-1",
+      "coach": "José Mourinho",
+      "result": "3:1"
+    },
+    {
+      "date": "dom 01/05/2022",
+      "formation": "3-4-2-1",
+      "coach": "José Mourinho",
+      "result": "0:0"
+    },
+    {
+      "date": "lun 09/05/2022",
+      "formation": "3-4-2-1",
+      "coach": "José Mourinho",
+      "result": "2:0"
+    },
+    {
+      "date": "sab 14/05/2022",
+      "formation": "3-4-2-1",
+      "coach": "José Mourinho",
+      "result": "1:1"
+    },
+    {
+      "date": "ven 20/05/2022",
+      "formation": "3-4-1-2",
+      "coach": "José Mourinho",
+      "result": "0:3"
+    },
+    {
+      "date": "gio 16/09/2021",
+      "formation": "4-2-3-1",
+      "coach": "José Mourinho",
+      "result": "5:1"
+    },
+    {
+      "date": "gio 30/09/2021",
+      "formation": "4-2-3-1",
+      "coach": "José Mourinho",
+      "result": "0:3"
+    },
+    {
+      "date": "gio 21/10/2021",
+      "formation": "4-2-3-1",
+      "coach": "José Mourinho",
+      "result": "6:1"
+    },
+    {
+      "date": "gio 04/11/2021",
+      "formation": "4-2-3-1",
+      "coach": "José Mourinho",
+      "result": "2:2"
+    },
+    {
+      "date": "gio 25/11/2021",
+      "formation": "3-5-2",
+      "coach": "José Mourinho",
+      "result": "4:0"
+    },
+    {
+      "date": "gio 09/12/2021",
+      "formation": "3-4-1-2",
+      "coach": "José Mourinho",
+      "result": "2:3"
+    },
+    {
+      "date": "gio 10/03/2022",
+      "formation": "3-4-1-2",
+      "coach": "José Mourinho",
+      "result": "0:1"
+    },
+    {
+      "date": "gio 17/03/2022",
+      "formation": "3-4-3",
+      "coach": "José Mourinho",
+      "result": "1:1"
+    },
+    {
+      "date": "gio 07/04/2022",
+      "formation": "3-4-2-1",
+      "coach": "José Mourinho",
+      "result": "2:1"
+    },
+    {
+      "date": "gio 14/04/2022",
+      "formation": "3-5-2",
+      "coach": "José Mourinho",
+      "result": "4:0"
+    },
+    {
+      "date": "gio 28/04/2022",
+      "formation": "3-4-1-2",
+      "coach": "José Mourinho",
+      "result": "1:1"
+    },
+    {
+      "date": "gio 05/05/2022",
+      "formation": "3-4-2-1",
+      "coach": "José Mourinho",
+      "result": "1:0"
+    },
+    {
+      "date": "mer 25/05/2022",
+      "formation": "3-5-2",
+      "coach": "José Mourinho",
+      "result": "1:0"
+    },
+    {
+      "date": "gio 19/08/2021",
+      "formation": "4-2-3-1",
+      "coach": "José Mourinho",
+      "result": "1:2"
+    },
+    {
+      "date": "gio 26/08/2021",
+      "formation": "4-2-3-1",
+      "coach": "José Mourinho",
+      "result": "3:0"
+    },
+    {
+      "date": "gio 20/01/2022",
+      "formation": "4-3-3",
+      "coach": "José Mourinho",
+      "result": "3:1"
+    },
+    {
+      "date": "mar 08/02/2022",
+      "formation": "3-4-2-1",
+      "coach": "José Mourinho",
+      "result": "2:0"
+    }
+  ],
+  "formation": "4-2-3-1"
+}

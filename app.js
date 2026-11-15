@@ -18,13 +18,14 @@
   let selectedMarket = 'result';
   let selectedTab = 'cronaca';
   let page = '';
+  document.body.dataset.lineupView = 'pitch';
 
   function badge(club) {
     return `<img class="mini-crest ${club}" src="assets/${club}.${club === 'roma' ? 'svg' : 'png'}" alt="" width="28" height="32">`;
   }
 
   function pairLabel(game) {
-    return `<span class="roma-color">ROMA <b>${escape(game.roma.season)}</b></span><span class="versus">vs</span><span class="lazio-color">LAZIO <b>${escape(game.lazio.season)}</b></span>`;
+    return `<span class="${game.home}-color">${game.home.toUpperCase()} <b>${escape(game[game.home].season)}</b></span><span class="versus">vs</span><span class="${game.away}-color">${game.away.toUpperCase()} <b>${escape(game[game.away].season)}</b></span>`;
   }
 
   function openDialog(content) {
@@ -36,14 +37,56 @@
     return players.map(p => `<li><span class="player-role">${p.role}</span><span>${escape(p.name)}</span><span class="player-number">${p.number ?? '—'}</span></li>`).join('');
   }
 
-  function lineup(team, includeBench = true) {
-    return `<div class="lineup"><div class="lineup-heading">${badge(team.club)}<div><h3>${team.club.toUpperCase()} <span>${team.season}</span></h3><p>${escape(team.coach)} · ${team.formation}</p></div></div><ol class="player-list">${playerRows(team.starters)}</ol>${includeBench ? `<h4>RISERVE DELLA STAGIONE</h4><ol class="player-list bench">${playerRows(team.bench)}</ol>` : ''}<button class="text-button" data-team="${team.id}">Storia e rosa completa ↗</button></div>`;
+  function lineupControls() {
+    const view = document.body.dataset.lineupView;
+    return `<div class="lineup-tools"><div class="lineup-view-switch" role="group" aria-label="Visualizzazione della formazione"><button data-lineup-view="pitch" aria-pressed="${view === 'pitch'}">In campo</button><button data-lineup-view="list" aria-pressed="${view === 'list'}">Elenco</button></div></div>`;
+  }
+
+  function formationMarkers(team, half = null) {
+    const rows = [1, ...team.formation.split('-').map(Number)];
+    return rows.flatMap((count, line) => {
+      const players = team.starters.filter(player => player.line === line);
+      return players.map((player, index) => {
+        const x = half === 'bottom' ? (index + 0.5) * 100 / count : 100 - (index + 0.5) * 100 / count;
+        const depth = line / (rows.length - 1);
+        const y = half === 'top' ? 5 + depth * 38 : half === 'bottom' ? 95 - depth * 38 : 91 - depth * 80;
+        const number = player.number ?? player.role;
+        return `<div class="formation-player ${team.club}" role="group" aria-label="${escape(player.name)}, ${team.club.toUpperCase()}, ${roles[player.role]}${player.number ? ', numero ' + player.number : ''}" style="--player-x:${x}%;--player-y:${y}%;--player-space:${Math.min(31, 94 / count)}%"><span class="formation-shirt ${line === 0 ? 'keeper' : ''}" aria-hidden="true">${escape(number)}</span><span class="formation-name" title="${escape(player.name)}">${escape(player.label)}</span></div>`;
+      });
+    }).join('');
+  }
+
+  function fieldLines() {
+    return '<div class="formation-boundary" aria-hidden="true"><span class="formation-halfway"></span><span class="formation-circle"></span><span class="formation-area top"></span><span class="formation-area bottom"></span></div>';
+  }
+
+  function formationPitch(team) {
+    return `<div class="formation-field ${team.club}" role="group" aria-label="${team.club.toUpperCase()} ${team.season}, modulo ${team.formation}">${fieldLines()}<span class="formation-direction" aria-hidden="true">ATTACCO ↑</span>${formationMarkers(team)}</div>`;
+  }
+
+  function matchLineups(game, includeBench = true) {
+    const home = game[game.home];
+    const away = game[game.away];
+    return `<div class="lineup-pitch-view combined-pitch-view"><div class="combined-legend"><span>${badge(game.home)}<b>${game.home.toUpperCase()}</b> <small>${home.formation} · CASA</small></span><span>${badge(game.away)}<b>${game.away.toUpperCase()}</b> <small>${away.formation} · TRASFERTA</small></span></div><div class="formation-field combined-field" role="group" aria-label="Formazioni contrapposte: ${game.home.toUpperCase()} ${home.formation} e ${game.away.toUpperCase()} ${away.formation}, 22 giocatori sullo stesso campo">${fieldLines()}${formationMarkers(home, 'top')}${formationMarkers(away, 'bottom')}</div></div><div class="lineup-details">${lineup(home, includeBench, false)}${lineup(away, includeBench, false)}</div>`;
+  }
+
+  function formationNote(team) {
+    const info = team.formationInfo;
+    if (info.kind === 'reconstruction') {
+      return `<p class="formation-note">${escape(info.label)} · ricostruzione storica</p><details class="formation-source"><summary>Come è stato scelto il modulo</summary><p>${escape(info.note)}</p><a href="${escape(info.source)}" target="_blank" rel="noreferrer">Riferimento storico ↗</a></details>`;
+    }
+    const ranking = Object.entries(info.counts).sort((a, b) => b[1] - a[1]).map(([shape, n]) => `${shape}: ${n}`).join(' · ');
+    return `<p class="formation-note">Modulo prevalente: ${info.matches} su ${info.sampleSize} tabellini disponibili</p><details class="formation-source"><summary>I moduli di ${escape(team.coach)}</summary><p>${escape(info.note)} Il conteggio comprende le competizioni ufficiali; gli archivi più vecchi sono parziali. In caso di parità si mantiene l’assetto rappresentativo.</p><p>${escape(ranking)}</p><a href="${escape(info.source)}" target="_blank" rel="noreferrer">Tabellini della stagione ↗</a></details>`;
+  }
+
+  function lineup(team, includeBench = true, showPitch = true) {
+    return `<div class="lineup" data-lineup-team="${team.club}"><div class="lineup-heading">${badge(team.club)}<div><h3>${team.club.toUpperCase()} <span>${team.season}</span></h3><p>${escape(team.coach)}</p></div><strong class="formation-badge">${team.formation}</strong></div>${showPitch ? `<div class="lineup-pitch-view">${formationPitch(team)}</div>` : ''}<div class="lineup-list-view"><ol class="player-list">${playerRows(team.starters)}</ol></div>${formationNote(team)}${includeBench ? `<details class="lineup-bench"><summary>Panchina · ${team.bench.length}</summary><ol class="player-list bench">${playerRows(team.bench)}</ol></details>` : ''}<button class="text-button" data-team="${team.id}">Le maglie, gli uomini, la storia ↗</button></div>`;
   }
 
   function showTeam(id) {
     const team = data.teams.find(t => t.id === id);
     if (!team) return;
-    openDialog(`<div class="eyebrow ${team.club}-color">ARCHIVIO DELLE SQUADRE</div><h2 id="dialog-title">${team.club.toUpperCase()} ${team.season}</h2><p class="dialog-story">${escape(team.story)}</p><p>${escape(team.coach)} · Modulo rappresentativo ${team.formation}</p><div class="rating-note">Forza del simulatore <b>${team.rating}/100</b><span>Valutazione editoriale, non una statistica storica.</span></div><h3>Undici rappresentativo</h3><ol class="player-list">${playerRows(team.starters)}</ol><h3>Rosa documentata · ${team.roster.length} giocatori</h3><p class="small-muted">P portiere · D difensore · C centrocampista · A attaccante. “—” indica un numero non disponibile. La rosa può comprendere trasferimenti durante la stagione.</p><ol class="player-list roster">${playerRows(team.roster)}</ol><a class="source-link" href="${escape(team.source)}" target="_blank" rel="noreferrer">Fonte della rosa: archivio stagionale Wikipedia ↗</a><p class="small-muted">Fonte consultata il 15 novembre 2026. Undici e riserve sono selezioni editoriali; non si effettuano sostituzioni.</p>`);
+    openDialog(`<div class="eyebrow ${team.club}-color">ARCHIVIO DELLE CURVE</div><h2 id="dialog-title">${team.club.toUpperCase()} ${team.season}</h2><p class="dialog-story">${escape(team.story)}</p><p>${escape(team.coach)} · ${team.formation}</p><div class="rating-note">Forza del simulatore <b>${team.rating}/100</b><span>Valutazione editoriale, non una statistica storica.</span></div><h3>Undici maglie, una curva alle spalle.</h3>${lineupControls()}<div class="team-formation-detail"><div class="lineup-pitch-view">${formationPitch(team)}</div><div class="lineup-list-view"><ol class="player-list">${playerRows(team.starters)}</ol></div>${formationNote(team)}</div><h3>Rosa documentata · ${team.roster.length} giocatori</h3><p class="small-muted">P portiere · D difensore · C centrocampista · A attaccante. “—” indica un numero non disponibile. La rosa può comprendere trasferimenti durante la stagione.</p><ol class="player-list roster">${playerRows(team.roster)}</ol><a class="source-link" href="${escape(team.source)}" target="_blank" rel="noreferrer">Fonte della rosa: archivio stagionale Wikipedia ↗</a><p class="small-muted">Fonte consultata il 15 novembre 2026. Undici e riserve sono selezioni editoriali; non si effettuano sostituzioni.</p>`);
   }
 
   function showArchived(slot) {
@@ -52,7 +95,7 @@
     const game = engine.createMatch(slot);
     const final = engine.snapshot(game, LIVE);
     const goals = final.events.filter(e => e.type === 'goal');
-    openDialog(`<div class="eyebrow">DERBY VIRTUALE · ${dateFormat.format(game.start)} ${timeFormat.format(game.start)}</div><h2 id="dialog-title">Roma ${game.score.roma} – ${game.score.lazio} Lazio</h2><div class="archive-pair">${pairLabel(game)}</div><p>Simulazione conclusa · ${escape(data.version)}</p><h3>I gol</h3>${goals.length ? goals.map(e => `<p class="goal-line ${e.club}-color">${e.minute}′ &nbsp; ${escape(e.player)} <span>· assist ${escape(e.assist)}</span></p>`).join('') : '<p>Nessun gol. Le difese hanno avuto la meglio.</p>'}<h3>Le formazioni</h3><div class="lineups">${lineup(game.roma, false)}${lineup(game.lazio, false)}</div><h3>Gli episodi</h3><ol class="commentary dialog-commentary">${final.events.filter(e => !['build', 'kickoff'].includes(e.type)).reverse().map(eventRow).join('')}</ol>`);
+    openDialog(`<div class="eyebrow">DERBY VIRTUALE · ${dateFormat.format(game.start)} ${timeFormat.format(game.start)}</div><h2 id="dialog-title">${game.home.toUpperCase()} ${game.score[game.home]} – ${game.score[game.away]} ${game.away.toUpperCase()}</h2><div class="archive-pair">${pairLabel(game)}</div><p>Simulazione conclusa · ${escape(data.version)}</p><h3>I gol</h3>${goals.length ? goals.map(e => `<p class="goal-line ${e.club}-color">${e.minute}′ &nbsp; ${escape(e.player)} <span>· assist ${escape(e.assist)}</span></p>`).join('') : '<p>Nessun gol. Le difese hanno avuto la meglio.</p>'}<h3>Le formazioni</h3>${lineupControls()}<div class="lineups match-lineups">${matchLineups(game, false)}</div><h3>Gli episodi</h3><ol class="commentary dialog-commentary">${final.events.filter(e => !['build', 'kickoff'].includes(e.type)).reverse().map(eventRow).join('')}</ol>`);
   }
 
   function eventRow(event) {
@@ -60,7 +103,8 @@
   }
 
   function archiveCard(game) {
-    return `<button class="result-card" data-archive="${game.slot}" aria-label="Dettaglio Roma ${game.roma.season} ${game.score.roma} a ${game.score.lazio} Lazio ${game.lazio.season}"><div class="result-date">${dateFormat.format(game.start)} · ${timeFormat.format(game.start)} <span>FINALE</span></div><div class="result-row">${badge('roma')}<span>Roma <small>${game.roma.season}</small></span><strong>${game.score.roma}</strong></div><div class="result-row">${badge('lazio')}<span>Lazio <small>${game.lazio.season}</small></span><strong>${game.score.lazio}</strong></div><span class="result-link">Rivedi la partita <b>↗</b></span></button>`;
+    const row = club => `<div class="result-row">${badge(club)}<span>${club === 'roma' ? 'Roma' : 'Lazio'} <small>${game[club].season}</small></span><strong>${game.score[club]}</strong></div>`;
+    return `<button class="result-card" data-archive="${game.slot}" aria-label="Dettaglio ${game.home} ${game[game.home].season} ${game.score[game.home]} a ${game.score[game.away]} ${game.away} ${game[game.away].season}"><div class="result-date">${dateFormat.format(game.start)} · ${timeFormat.format(game.start)} <span>FINALE</span></div>${row(game.home)}${row(game.away)}<span class="result-link">Rivedi la partita <b>↗</b></span></button>`;
   }
 
   function updateRelated() {
@@ -68,7 +112,7 @@
     if (page === 'archivio') renderArchive();
     $('schedule').innerHTML = Array.from({ length: 3 }, (_, i) => {
       const future = engine.createMatch(match.slot + i + 2);
-      return `<div class="schedule-row"><time>${timeFormat.format(future.start)}</time><div><span>Roma <b>${future.roma.season}</b></span><span>Lazio <b>${future.lazio.season}</b></span></div><span class="schedule-dot">↗</span></div>`;
+      return `<div class="schedule-row"><time>${timeFormat.format(future.start)}</time><div><span>${future.home === 'roma' ? 'Roma' : 'Lazio'} <b>${future[future.home].season}</b></span><span>${future.away === 'roma' ? 'Roma' : 'Lazio'} <b>${future[future.away].season}</b></span></div><span class="schedule-dot">↗</span></div>`;
     }).join('');
     $('next-time').textContent = `${timeFormat.format(nextMatch.start)} · ROMA`;
     $('next-pair').innerHTML = pairLabel(nextMatch);
@@ -87,16 +131,19 @@
     const forNext = snapshot.finished;
     const game = forNext ? nextMatch : match;
     const markets = game.odds;
+    const home = game.home;
+    const away = game.away;
     $('odds-title').textContent = forNext ? 'Quote del prossimo derby' : 'Le probabilità';
-    $('odds-caption').textContent = `${game.roma.season} × ${game.lazio.season} · quote prepartita`;
+    $('odds-caption').textContent = `${home === 'roma' ? 'Roma' : 'Lazio'} ${game[home].season} × ${away === 'roma' ? 'Roma' : 'Lazio'} ${game[away].season} · prepartita`;
     const cell = (label, p, caption = '') => `<div class="odds-cell"><span>${label}</span><strong>${(1 / p).toFixed(2).replace('.', ',')}</strong><small>${(p * 100).toFixed(1).replace('.', ',')}%${caption ? ' · ' + caption : ''}</small></div>`;
     $('odds').className = `odds-grid ${selectedMarket}`;
+    $('odds').dataset.home = home;
     if (selectedMarket === 'result') {
-      $('odds').innerHTML = cell('1 · ROMA', markets.roma) + cell('X · PARI', markets.draw) + cell('2 · LAZIO', markets.lazio) + `<div class="market-label">DOPPIA CHANCE</div>` + cell('1X', markets['1X']) + cell('12', markets['12']) + cell('X2', markets['X2']);
+      $('odds').innerHTML = cell(`1 · ${home.toUpperCase()}`, markets[home]) + cell('X · PARI', markets.draw) + cell(`2 · ${away.toUpperCase()}`, markets[away]) + `<div class="market-label">DOPPIA CHANCE</div>` + cell('1X', markets['1X']) + cell('12', markets['12']) + cell('X2', markets['X2']);
     } else if (selectedMarket === 'goals') {
       $('odds').innerHTML = cell('OVER 2,5', markets.over) + cell('UNDER 2,5', markets.under) + cell('GOL', markets.goal) + cell('NO GOL', markets.noGoal);
     } else {
-      $('odds').innerHTML = markets.exact.slice(0, 9).map(s => cell(`${s.roma} – ${s.lazio}`, s.probability)).join('') + '<p class="exact-note">I nove punteggi più probabili. Il primo numero è sempre della Roma.</p>';
+      $('odds').innerHTML = markets.exact.slice(0, 9).map(s => cell(`${s[home]} – ${s[away]}`, s.probability)).join('') + '<p class="exact-note">I nove punteggi più probabili. Il primo numero è della squadra di casa.</p>';
     }
   }
 
@@ -115,6 +162,7 @@
     $('commentary').innerHTML = notable.slice().reverse().map(eventRow).join('');
     $('roma-score').textContent = snapshot.stats.roma.goals;
     $('lazio-score').textContent = snapshot.stats.lazio.goals;
+    document.querySelector('.score').setAttribute('aria-label', `${match.home} ${snapshot.stats[match.home].goals}, ${match.away} ${snapshot.stats[match.away].goals}`);
     $('scorers').innerHTML = ['roma', 'lazio'].map(club => {
       const goals = events.filter(event => event.club === club && event.type === 'goal');
       return `<ul class="scorer-list ${club}" aria-label="Marcatori ${club}">${goals.length ? goals.map(event => `<li><span class="scorer-name">${escape(event.player)}</span><time>${event.minute}′</time></li>`).join('') : '<li class="no-goals">Nessuna rete</li>'}</ul>`;
@@ -158,7 +206,11 @@
         $(`${club}-season`).textContent = match[club].season;
         $(`${club}-coach`).textContent = match[club].coach;
       }
-      $('lineups').innerHTML = lineup(match.roma) + lineup(match.lazio);
+      $('lineups').innerHTML = matchLineups(match);
+      document.querySelector('.scoreboard').dataset.home = match.home;
+      $('scorers').dataset.home = match.home;
+      $('roma-venue').textContent = match.home === 'roma' ? 'IN CASA' : 'IN TRASFERTA';
+      $('lazio-venue').textContent = match.home === 'lazio' ? 'IN CASA' : 'IN TRASFERTA';
       updateRelated();
     }
     snapshot = engine.snapshot(match, pos.elapsed);
@@ -207,6 +259,11 @@
   }
 
   document.addEventListener('click', event => {
+    const lineupView = event.target.closest('button[data-lineup-view]');
+    if (lineupView) {
+      document.body.dataset.lineupView = lineupView.dataset.lineupView;
+      document.querySelectorAll('button[data-lineup-view]').forEach(button => button.setAttribute('aria-pressed', String(button.dataset.lineupView === lineupView.dataset.lineupView)));
+    }
     const tab = event.target.closest('[data-tab]');
     if (tab) activateTab(tab.dataset.tab);
     const market = event.target.closest('[data-market]');
@@ -243,10 +300,12 @@
       if (event.clientX < box.left || event.clientX > box.right || event.clientY < box.top || event.clientY > box.bottom) event.target.close();
     }
   });
-  $('odds-info').addEventListener('click', () => openDialog('<div class="eyebrow">LEGGERE LE PROBABILITÀ</div><h2 id="dialog-title">Una quota racconta una possibilità.</h2><p>Una probabilità del 40% corrisponde a una quota teorica di 2,50: 1 ÷ 0,40. Il modello non aggiunge margini commerciali.</p><p>1 indica la vittoria della Roma; X il pareggio; 2 la vittoria della Lazio. Gol significa che segnano entrambe; over 2,5 significa almeno tre reti complessive.</p><p>Le quote sono calcolate prima dell’incontro e restano fisse durante la diretta. A fine partita il pannello passa al prossimo derby. Le percentuali visualizzate sono arrotondate.</p><p>Risultati esatti: vengono mostrati soltanto i nove punteggi più probabili, perciò le percentuali non sommano al 100%.</p><p>Non sono quote per incontri reali. Nessuna scommessa: qui si guarda soltanto il calcio immaginato.</p>'));
+  $('odds-info').addEventListener('click', () => openDialog('<div class="eyebrow">LEGGERE LE PROBABILITÀ</div><h2 id="dialog-title">Una quota racconta una possibilità.</h2><p>Una probabilità del 40% corrisponde a una quota teorica di 2,50: 1 ÷ 0,40. Il modello non aggiunge margini commerciali.</p><p>1 indica la vittoria della squadra di casa; X il pareggio; 2 la vittoria della squadra in trasferta. Roma e Lazio si alternano in casa a ogni incontro. Gol significa che segnano entrambe; over 2,5 significa almeno tre reti complessive.</p><p>Le quote sono calcolate prima dell’incontro e restano fisse durante la diretta. A fine partita il pannello passa al prossimo derby. Le percentuali visualizzate sono arrotondate.</p><p>Risultati esatti: vengono mostrati soltanto i nove punteggi più probabili, perciò le percentuali non sommano al 100%.</p><p>Non sono quote per incontri reali. Nessuna scommessa: qui si guarda soltanto il calcio immaginato.</p>'));
   window.addEventListener('hashchange', route);
   document.addEventListener('visibilitychange', () => { if (!document.hidden) refresh(); });
   window.addEventListener('pageshow', refresh);
+  $('lineup-controls').innerHTML = lineupControls();
+  $('model-balance').textContent = `Media attesa del simulatore: Roma ${(engine.target.roma * 100).toFixed(1).replace('.', ',')}% · X ${(engine.target.draw * 100).toFixed(1).replace('.', ',')}% · Lazio ${(engine.target.lazio * 100).toFixed(1).replace('.', ',')}%.`;
   renderTeams();
   refresh();
   route();

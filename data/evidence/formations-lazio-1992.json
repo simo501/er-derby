@@ -1,0 +1,104 @@
+{
+  "source": "https://www.transfermarkt.it/lazio-rom/spielplan/verein/398/saison_id/1992/plus/1",
+  "retrieved": "2026-11-15",
+  "coach": "Dino Zoff",
+  "season": "1992–93",
+  "counts": {
+    "4-4-2": 14,
+    "4-5-1": 1
+  },
+  "sampleSize": 15,
+  "records": [
+    {
+      "date": "dom 06/09/1992",
+      "formation": "4-4-2",
+      "coach": "Dino Zoff",
+      "result": "3:3"
+    },
+    {
+      "date": "dom 27/09/1992",
+      "formation": "4-4-2",
+      "coach": "Dino Zoff",
+      "result": "1:1"
+    },
+    {
+      "date": "dom 04/10/1992",
+      "formation": "4-4-2",
+      "coach": "Dino Zoff",
+      "result": "5:2"
+    },
+    {
+      "date": "dom 18/10/1992",
+      "formation": "4-4-2",
+      "coach": "Dino Zoff",
+      "result": "5:3"
+    },
+    {
+      "date": "dom 25/10/1992",
+      "formation": "4-4-2",
+      "coach": "Dino Zoff",
+      "result": "3:0"
+    },
+    {
+      "date": "dom 29/11/1992",
+      "formation": "4-5-1",
+      "coach": "Dino Zoff",
+      "result": "1:1"
+    },
+    {
+      "date": "dom 24/01/1993",
+      "formation": "4-4-2",
+      "coach": "Dino Zoff",
+      "result": "1:1"
+    },
+    {
+      "date": "dom 31/01/1993",
+      "formation": "4-4-2",
+      "coach": "Dino Zoff",
+      "result": "2:1"
+    },
+    {
+      "date": "dom 07/03/1993",
+      "formation": "4-4-2",
+      "coach": "Dino Zoff",
+      "result": "2:1"
+    },
+    {
+      "date": "dom 14/03/1993",
+      "formation": "4-4-2",
+      "coach": "Dino Zoff",
+      "result": "2:2"
+    },
+    {
+      "date": "dom 21/03/1993",
+      "formation": "4-4-2",
+      "coach": "Dino Zoff",
+      "result": "2:2"
+    },
+    {
+      "date": "dom 18/04/1993",
+      "formation": "4-4-2",
+      "coach": "Dino Zoff",
+      "result": "0:0"
+    },
+    {
+      "date": "dom 06/06/1993",
+      "formation": "4-4-2",
+      "coach": "Dino Zoff",
+      "result": "4:1"
+    },
+    {
+      "date": "mer 27/01/1993",
+      "formation": "4-4-2",
+      "coach": "Dino Zoff",
+      "result": "2:2"
+    },
+    {
+      "date": "mer 10/02/1993",
+      "formation": "4-4-2",
+      "coach": "Dino Zoff",
+      "result": "3:2"
+    }
+  ],
+  "formation": "4-4-2"
+}

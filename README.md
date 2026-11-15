@@ -27,7 +27,7 @@ npm run build
 
 L’epoca fissa è il 1 gennaio 2025 UTC; `slot = floor((Date.now() - epoch) / 300000)`. L’offset nel ciclo determina la fase. I primi 43 secondi rappresentano il primo tempo, i successivi quattro l’intervallo, gli ultimi 43 il secondo tempo. A 90 secondi arriva il triplice fischio; a 300 parte il prossimo derby.
 
-Ogni blocco di 144 slot contiene tutti gli abbinamenti Roma × Lazio, mescolati con Fisher–Yates e un generatore con seed. Ogni coppia appare una sola volta per blocco; stagioni adiacenti possono ripetersi contro avversari diversi. Il seed di ciascuna partita include versione e slot. Non si usa `Math.random()`.
+Ogni blocco di 144 slot contiene tutti gli abbinamenti Roma × Lazio, mescolati con Fisher–Yates e un generatore con seed. Ogni coppia appare una sola volta per blocco; stagioni adiacenti possono ripetersi contro avversari diversi. La parità dello slot determina la squadra in casa: Roma negli slot pari, Lazio negli slot dispari. Tabellone, programma, archivio, campo e quote seguono casa/trasferta. Il seed di ciascuna partita include versione e slot. Non si usa `Math.random()`.
 
 Il browser ricostruisce subito il copione completo, poi mostra solo gli eventi con `at <= elapsed`. Il risultato completo è conoscibile ispezionando il codice: in un’app statica non è possibile nasconderlo a chi controlla il proprio browser. L’interfaccia non anticipa gli esiti futuri. Non esistono denaro o scommesse.
 
@@ -35,9 +35,9 @@ L’ingresso a partita iniziata, il ritorno da una scheda sospesa e anche i salt
 
 ## Modello e quote
 
-I target sono 68/184 Roma, 65/184 pareggio, 51/184 Lazio. Per ogni coppia si applica `exp(±0.025 × differenzaForza)` ai pesi di vittoria. Fattori globali vengono calibrati iterativamente affinché la media sui 144 abbinamenti sia uguale ai target. Il pareggio resta parte del modello.
+Il campione storico resta 68/184 Roma, 65/184 pareggio, 51/184 Lazio. Il modello v2 conserva il 35% del vantaggio storico e mescola il restante 65% con la distribuzione speculare neutrale: target Roma 33,95%, pareggio 35,33%, Lazio 30,72%. Per ogni coppia si applica `exp(±0.018 × differenzaForza)` ai pesi di vittoria. Fattori globali vengono calibrati iterativamente affinché la media sui 144 abbinamenti sia uguale ai target. Il pareggio resta parte del modello.
 
-Ogni punteggio ha probabilità `P(esito della coppia) × frequenzaStorica(punteggio | esito)`. Da questa distribuzione si estraggono il risultato e tutte le quote: 1X2, doppia chance, gol/no gol, over/under 2,5 e risultati esatti. La quota teorica è `1/P`, senza margine commerciale. Le quote sono fisse prepartita, e a fine gara il pannello passa alla partita successiva.
+Ogni punteggio ha probabilità `P(esito della coppia) × (0.85 × PstoricaRiequilibrata(punteggio | esito) + 0.15 × Ppoisson(punteggio | esito))`. La componente storica usa 67,5% del conteggio originale e 32,5% del conteggio speculare: ciò riduce anche l’asimmetria delle goleade. I parametri Poisson sono le medie gol di questo campione riequilibrato. La matrice 0–8 × 0–8 è normalizzata separatamente per vittorie Roma, pari e vittorie Lazio: nuovi punteggi restano possibili senza alterare i target 1X2. Anche le azioni non decisive vengono attribuite a ciascun club con probabilità 50%. Da questa distribuzione si estraggono il risultato e tutte le quote: 1X2, doppia chance, gol/no gol, over/under 2,5 e risultati esatti. La quota teorica è `1/P`, senza margine commerciale. Le quote sono fisse prepartita, e a fine gara il pannello passa alla partita successiva.
 
 I marcatori sono estratti solo dagli undici; gli attaccanti hanno peso 7, i centrocampisti 3, i difensori 1. Gli assist non possono coincidere con il marcatore. I gol vengono distribuiti lungo il copione, le altre azioni generano parate, tiri fuori, angoli, intercetti e ammonizioni. Non ci sono sostituzioni, espulsioni, infortuni o supplementari. Le statistiche sono conteggi dai soli eventi visibili; “attacchi sviluppati” non è possesso palla. La forza tra epoche e i pesi individuali sono stime editoriali: non costituiscono previsioni per gare reali.
 
@@ -48,3 +48,11 @@ Il calendario è bilanciato in aspettativa, gli esiti estratti oscillano: nessun
 Vedere [data/SOURCES.md](data/SOURCES.md) e i collegamenti nella scheda di ogni squadra. L’archivio storico è congelato al 30 giugno 2025; non pretende di includere i derby successivi. Gli undici sono rappresentativi delle stagioni, non tabellini certificati di partite specifiche. L’app è indipendente dai due club; gli stemmi ufficiali sono attribuiti in `data/SOURCES.md`.
 
 Per aggiornare i contenuti: conservare nuovi estratti con fonte e data, modificare selezione e criteri, rigenerare gli export e cambiare `version`. Rieseguire i test e distribuire tutti i file insieme. Per evolvere il modello si possono aggiungere dati individuali di presenze/gol verificati; oggi non sono utilizzati e non vengono inventati.
+
+## Formazioni sul campo
+
+La scheda Formazioni e i dettagli delle squadre consentono di alternare campo ed elenco. I giocatori sono disposti per `starters[].line`, con nomi e numeri documentati (in assenza del numero, la lettera di ruolo). Roma e Lazio sono contrapposte sullo stesso campo con tutti e 22 i giocatori visibili, anche su telefono. La scheda della singola squadra mantiene il proprio campo dedicato.
+
+Per 20 stagioni, `formationInfo` contiene il conteggio dei moduli nei tabellini disponibili del solo allenatore rappresentato, considerando le competizioni ufficiali. Si sceglie il massimo, accorpando varianti con identica struttura numerica; in parità si mantiene il modulo rappresentativo. I conteggi più vecchi possono essere parziali. Per Roma 1941–42 e 1960–61 e Lazio 1957–58 e 1973–74 si dichiara una ricostruzione storica, senza inventare un primato statistico.
+
+Gli estratti fattuali sono in `data/evidence/formations-*.json`. `scripts/research_formations.py` è uno strumento di raccolta separato (richiede requests e beautifulsoup4), non necessario per eseguire o costruire il sito. `npm run data` riutilizza gli estratti salvati, senza rete.

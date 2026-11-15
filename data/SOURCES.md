@@ -1,6 +1,6 @@
 # Dati e provenienza
 
-Snapshot del simulatore `capitale-v1`. Raccolta: 15 novembre 2026. Limite temporale dei risultati: 30 giugno 2025. Nessun aggiornamento di rete durante il funzionamento.
+Snapshot del simulatore `capitale-v2`. Raccolta: 15 novembre 2026. Limite temporale dei risultati: 30 giugno 2025. Nessun aggiornamento di rete durante il funzionamento.
 
 ## Risultati del derby
 
@@ -8,13 +8,13 @@ Fonte: [Derby della Capitale, Official match results](https://en.wikipedia.org/w
 
 184 incontri giocati: 68 vittorie Roma, 65 pareggi, 51 vittorie Lazio. Includiamo campionato e Coppa Italia dal dicembre 1929; escludiamo amichevoli, tornei bellici, gare sospese poi rigiocate e il risultato a tavolino del 7 settembre 1969. La partita di Coppa Italia del 25 aprile 1962 è registrata 0–0, senza trasformare il successo ai rigori in una vittoria. Per questo i nostri totali differiscono dai riepiloghi che includono risultati assegnati o rigori. Nel campione selezionato non ci sono punteggi decisi da gol nei supplementari.
 
-I risultati sono normalizzati sempre nell’ordine Roma–Lazio, anche quando la Lazio era in casa. `home` conserva il club formalmente ospitante. Il modello non applica un bonus casa: gli abbinamenti sono virtuali nello stesso stadio.
+I risultati sono normalizzati sempre nell’ordine Roma–Lazio, anche quando la Lazio era in casa. `home` conserva il club formalmente ospitante. Le squadre virtuali si alternano in casa a ogni slot: i numeri 1 e 2 delle quote seguono la squadra ospitante e quella in trasferta. Il modello non applica un bonus casa, essendo lo stesso stadio: la parità dello slot cambia l’ordine visivo, non i pesi sportivi.
 
 ## Rose e undici
 
 24 rose, 12 per club. Ogni oggetto squadra in `dataset.json` include il collegamento alla voce stagionale consultata (`source`); `evidence/<club>-<anno>.txt` conserva l’estratto utilizzato. I contributori sono accessibili tramite la cronologia di ogni voce. I nomi e le categorie P/D/C/A sono normalizzati dalla sezione Rosa. Un numero assente resta `null`: non inventiamo numeri di maglia per le vecchie stagioni.
 
-Gli undici, i moduli, i cinque nomi della panchina e la forza di squadra sono selezioni editoriali. L’app non afferma che ogni undici corrisponda a una specifica partita storica. La rosa documentata può includere trasferimenti e giovani senza presenze; le riserve sono consultabili ma non entrano in campo. I ruoli tattici dell’undici possono differire dalle categorie generiche della fonte (per esempio terzini impiegati come quinti o Di Bartolomei come libero).
+Gli undici, i cinque nomi della panchina e la forza di squadra sono selezioni editoriali. I moduli sono ricavati dai tabellini disponibili per 20 stagioni; per quattro stagioni più antiche sono ricostruzioni storiche dichiarate. L’app non afferma che ogni undici corrisponda a una specifica partita storica. La rosa documentata può includere trasferimenti e giovani senza presenze; le riserve sono consultabili ma non entrano in campo. I ruoli tattici dell’undici possono differire dalle categorie generiche della fonte (per esempio terzini impiegati come quinti o Di Bartolomei come libero).
 
 Attenzione alle competizioni a cavallo di annata: Roma 1960–61 è la rosa del campionato, senza gli acquisti dell’estate 1961 che la fonte elenca separatamente per le finali della Coppa delle Fiere; Lazio 1957–58 è la rosa della stagione in cui iniziò la Coppa Italia 1958, non l’undici della finale di settembre. Gli allenatori indicati sono quelli dell’epoca rappresentata, anche quando si sono avvicendati nel corso dell’annata.
 
@@ -30,7 +30,7 @@ Riscontri ufficiali per il contesto storico:
 
 ## Dati reali e stime
 
-Il motore usa i risultati effettivi per le frequenze 1X2 e per i punteggi condizionati all’esito. Non usa statistiche individuali storiche per assegnare i gol: i pesi di ruolo (attaccanti 7, centrocampisti 3, difensori 1) sono convenzioni del gioco. La forza delle stagioni è una stima editoriale, non un dato estratto dalle fonti. Azioni, assist, tiri e cartellini sono inventati dal simulatore e poi conteggiati coerentemente.
+Il campione storico non viene modificato. Il modello v2 mantiene il 35% del vantaggio storico tra i club e avvicina il restante 65% a una distribuzione neutrale con gli stessi pareggi. I punteggi condizionati all’esito combinano 85% di frequenze storiche riequilibrate (67,5% originale e 32,5% speculare) e 15% di distribuzione Poisson, normalizzata per esito e limitata a 0–8 gol per squadra. Questo permette punteggi inediti, con quote coerenti e target 1X2 preservati. Non usa statistiche individuali storiche per assegnare i gol: i pesi di ruolo (attaccanti 7, centrocampisti 3, difensori 1) sono convenzioni del gioco. La forza delle stagioni è una stima editoriale, non un dato estratto dalle fonti. Azioni, assist, tiri e cartellini sono inventati dal simulatore e poi conteggiati coerentemente.
 
 ## Riproduzione e attribuzione
 
@@ -46,3 +46,11 @@ Stemmi ufficiali dei club (marchi dei rispettivi titolari), inclusi localmente p
 - S.S. Lazio: [sito ufficiale](https://www.sslazio.it/), file `https://www.sslazio.it/images/logo.png`.
 
 La grafica si ispira alle curve e alle fanzine del tifo romano. Non è un prodotto ufficiale dei club o della Lega Serie A.
+
+## Moduli degli allenatori
+
+Per ciascuna stagione sono stati consultati i calendari dettagliati di Transfermarkt (`/spielplan/verein/12` per Roma e `/spielplan/verein/398` per Lazio, con `saison_id` e `plus/1`). Ogni file `evidence/formations-<club>-<anno>.json` conserva URL, data di raccolta, righe fattuali e conteggio filtrato per l’allenatore indicato nella squadra. Non si tratta del modulo preferito sull’intera carriera, ma del più frequente nei tabellini disponibili di quella stagione e di quel tecnico. Le etichette con uguale struttura numerica vengono accorpate; un pari merito mantiene il modulo rappresentativo.
+
+20 squadre usano questa frequenza osservata. Per Roma 1941–42, Roma 1960–61, Lazio 1957–58 e Lazio 1973–74 manca un campione sufficiente: Metodo 2-3-2-3, WM 3-2-2-3 e 4-3-3 di Maestrelli sono rappresentazioni storiche, non mode statistiche certificate. Le posizioni sono ricostruzioni editoriali coerenti con il modulo e i giocatori della rosa. Ogni scheda espone la distinzione, il campione e il collegamento alla fonte. Per Foni 1960–61 la disposizione WM è una ricostruzione dai ruoli della rosa; non è documentabile un conteggio del modulo prevalente.
+
+Riferimenti aggiuntivi: [Roma nel campionato 1941–42](https://it.wikipedia.org/wiki/Serie_A_1941-1942), [Bernardini e il WM](https://www.treccani.it/enciclopedia/fulvio-bernardini_(Enciclopedia-dello-Sport)/), [Lazio di Maestrelli: formazione base](https://www.polesinesport.it/campionato-pi-bello-del-mondo-dvd-story-gazzetta-sport-vince-lazio-1973-74-di-mr-maistrelli-e-chinaglia/).

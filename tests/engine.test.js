@@ -16,6 +16,14 @@ test('balanced, sourced rosters and valid historical sample', () => {
     assert.equal(team.bench.length, 5);
     assert.equal(new Set([...team.starters, ...team.bench].map(p => p.name)).size, 16);
     assert.equal(team.starters[0].role, 'P');
+    const rows = [1, ...team.formation.split('-').map(Number)];
+    assert.equal(rows.reduce((sum, n) => sum + n, 0), 11);
+    for (let line = 0; line < rows.length; line++) assert.equal(team.starters.filter(p => p.line === line).length, rows[line]);
+    if (team.formationInfo.kind === 'counted') {
+      const info = team.formationInfo;
+      assert.equal(info.counts[team.formation], Math.max(...Object.values(info.counts)));
+      assert.equal(Object.values(info.counts).reduce((a,b) => a+b, 0), info.sampleSize);
+    } else assert.equal(team.formationInfo.kind, 'reconstruction');
     assert.ok(team.source.startsWith('https://it.wikipedia.org/wiki/'));
     for (const player of [...team.starters, ...team.bench]) assert.ok(team.roster.some(p => p.name === player.name));
   }
@@ -69,7 +77,22 @@ test('every block visits all 144 pairings exactly once', () => {
   }
 });
 
-test('calibration preserves historical frequencies; all markets agree with score distribution', () => {
+test('home club alternates every match and double chances follow home/away', () => {
+  for (let slot = -2; slot < 300; slot++) {
+    const pair = engine.pairing(slot);
+    const next = engine.pairing(slot + 1);
+    assert.notEqual(pair.home, next.home);
+    assert.notEqual(pair.home, pair.away);
+    const market = engine.markets(pair);
+    assert.ok(Math.abs(market['1X'] - market[pair.home] - market.draw) < 1e-12);
+    assert.ok(Math.abs(market['X2'] - market[pair.away] - market.draw) < 1e-12);
+    const match = engine.createMatch(slot);
+    assert.equal(match.home, pair.home);
+    assert.equal(match.away, pair.away);
+  }
+});
+
+test('calibration preserves softened targets; all markets agree with score distribution', () => {
   const mean = { roma: 0, draw: 0, lazio: 0 };
   for (const pair of engine.pairs) {
     const p = engine.probabilities(pair);
@@ -85,6 +108,23 @@ test('calibration preserves historical frequencies; all markets agree with score
     assert.ok(Math.abs(market.goal + market.noGoal - 1) < 1e-12);
   }
   for (const key of Object.keys(mean)) assert.ok(Math.abs(mean[key] - engine.target[key]) < 1e-10);
+});
+
+test('historical edge is softened, draw frequency stays intact and new scorelines are possible', () => {
+  const historicalGap = engine.historical.roma - engine.historical.lazio;
+  const newGap = engine.target.roma - engine.target.lazio;
+  assert.ok(newGap > 0 && newGap < historicalGap);
+  assert.ok(Math.abs(newGap - historicalGap * data.model.historyWeight) < 1e-12);
+  assert.ok(Math.abs(engine.target.draw - engine.historical.draw) < 1e-12);
+  const historicalScores = new Set(data.history.scores.map(s => `${s.roma}:${s.lazio}`));
+  for (const pair of engine.pairs) {
+    const cells = engine.distribution(pair);
+    assert.equal(cells.length, 81);
+    assert.ok(cells.every(s => s.probability > 0 && Number.isFinite(s.probability)));
+    const novel = cells.filter(s => !historicalScores.has(`${s.roma}:${s.lazio}`));
+    assert.ok(novel.reduce((sum, s) => sum + s.probability, 0) > 0);
+    assert.ok(cells.find(s => s.roma === 8 && s.lazio === 8).probability < 1e-8);
+  }
 });
 
 test('5000 matches: goal chronology, named players, half-time and stats are coherent', () => {

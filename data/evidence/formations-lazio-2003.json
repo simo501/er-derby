@@ -1,0 +1,317 @@
+{
+  "source": "https://www.transfermarkt.it/lazio-rom/spielplan/verein/398/saison_id/2003/plus/1",
+  "retrieved": "2026-11-15",
+  "coach": "Roberto Mancini",
+  "season": "2003–04",
+  "counts": {
+    "4-4-2": 31,
+    "4-5-1": 2,
+    "4-3-3": 15,
+    "4-4-1-1": 1,
+    "4-1-4-1": 1
+  },
+  "sampleSize": 50,
+  "records": [
+    {
+      "date": "dom 31/08/2003",
+      "formation": "4-4-2",
+      "coach": "Roberto Mancini",
+      "result": "4:1"
+    },
+    {
+      "date": "sab 13/09/2003",
+      "formation": "4-4-2",
+      "coach": "Roberto Mancini",
+      "result": "1:2"
+    },
+    {
+      "date": "dom 21/09/2003",
+      "formation": "4-4-2",
+      "coach": "Roberto Mancini",
+      "result": "2:3"
+    },
+    {
+      "date": "dom 28/09/2003",
+      "formation": "4-4-2",
+      "coach": "Roberto Mancini",
+      "result": "2:2"
+    },
+    {
+      "date": "dom 05/10/2003",
+      "formation": "4-4-2",
+      "coach": "Roberto Mancini",
+      "result": "1:0"
+    },
+    {
+      "date": "dom 19/10/2003",
+      "formation": "4-4-2",
+      "coach": "Roberto Mancini",
+      "result": "1:0"
+    },
+    {
+      "date": "dom 26/10/2003",
+      "formation": "4-4-2",
+      "coach": "Roberto Mancini",
+      "result": "2:1"
+    },
+    {
+      "date": "sab 01/11/2003",
+      "formation": "4-4-2",
+      "coach": "Roberto Mancini",
+      "result": "1:2"
+    },
+    {
+      "date": "dom 09/11/2003",
+      "formation": "4-5-1",
+      "coach": "Roberto Mancini",
+      "result": "2:0"
+    },
+    {
+      "date": "dom 23/11/2003",
+      "formation": "4-4-2",
+      "coach": "Roberto Mancini",
+      "result": "3:1"
+    },
+    {
+      "date": "sab 29/11/2003",
+      "formation": "4-4-2",
+      "coach": "Roberto Mancini",
+      "result": "3:0"
+    },
+    {
+      "date": "sab 06/12/2003",
+      "formation": "4-3-3",
+      "coach": "Roberto Mancini",
+      "result": "2:0"
+    },
+    {
+      "date": "dom 14/12/2003",
+      "formation": "4-3-3",
+      "coach": "Roberto Mancini",
+      "result": "0:1"
+    },
+    {
+      "date": "dom 21/12/2003",
+      "formation": "4-4-1-1",
+      "coach": "Roberto Mancini",
+      "result": "2:1"
+    },
+    {
+      "date": "mar 06/01/2004",
+      "formation": "4-3-3",
+      "coach": "Roberto Mancini",
+      "result": "2:1"
+    },
+    {
+      "date": "dom 11/01/2004",
+      "formation": "4-1-4-1",
+      "coach": "Roberto Mancini",
+      "result": "0:1"
+    },
+    {
+      "date": "sab 17/01/2004",
+      "formation": "4-3-3",
+      "coach": "Roberto Mancini",
+      "result": "1:1"
+    },
+    {
+      "date": "dom 25/01/2004",
+      "formation": "4-4-2",
+      "coach": "Roberto Mancini",
+      "result": "0:1"
+    },
+    {
+      "date": "dom 01/02/2004",
+      "formation": "4-4-2",
+      "coach": "Roberto Mancini",
+      "result": "1:1"
+    },
+    {
+      "date": "dom 08/02/2004",
+      "formation": "4-3-3",
+      "coach": "Roberto Mancini",
+      "result": "0:3"
+    },
+    {
+      "date": "sab 14/02/2004",
+      "formation": "4-3-3",
+      "coach": "Roberto Mancini",
+      "result": "3:0"
+    },
+    {
+      "date": "dom 22/02/2004",
+      "formation": "4-3-3",
+      "coach": "Roberto Mancini",
+      "result": "0:0"
+    },
+    {
+      "date": "dom 29/02/2004",
+      "formation": "4-3-3",
+      "coach": "Roberto Mancini",
+      "result": "0:1"
+    },
+    {
+      "date": "gio 25/03/2004",
+      "formation": "4-4-2",
+      "coach": "Roberto Mancini",
+      "result": "2:1"
+    },
+    {
+      "date": "dom 14/03/2004",
+      "formation": "4-3-3",
+      "coach": "Roberto Mancini",
+      "result": "2:2"
+    },
+    {
+      "date": "mer 21/04/2004",
+      "formation": "4-4-2",
+      "coach": "Roberto Mancini",
+      "result": "1:1"
+    },
+    {
+      "date": "dom 28/03/2004",
+      "formation": "4-4-2",
+      "coach": "Roberto Mancini",
+      "result": "1:2"
+    },
+    {
+      "date": "dom 04/04/2004",
+      "formation": "4-4-2",
+      "coach": "Roberto Mancini",
+      "result": "5:2"
+    },
+    {
+      "date": "sab 10/04/2004",
+      "formation": "4-4-2",
+      "coach": "Roberto Mancini",
+      "result": "1:0"
+    },
+    {
+      "date": "dom 18/04/2004",
+      "formation": "4-3-3",
+      "coach": "Roberto Mancini",
+      "result": "4:2"
+    },
+    {
+      "date": "dom 25/04/2004",
+      "formation": "4-4-2",
+      "coach": "Roberto Mancini",
+      "result": "0:0"
+    },
+    {
+      "date": "dom 02/05/2004",
+      "formation": "4-4-2",
+      "coach": "Roberto Mancini",
+      "result": "1:1"
+    },
+    {
+      "date": "dom 09/05/2004",
+      "formation": "4-3-3",
+      "coach": "Roberto Mancini",
+      "result": "2:1"
+    },
+    {
+      "date": "dom 16/05/2004",
+      "formation": "4-4-2",
+      "coach": "Roberto Mancini",
+      "result": "2:1"
+    },
+    {
+      "date": "mar 16/09/2003",
+      "formation": "4-4-2",
+      "coach": "Roberto Mancini",
+      "result": "0:2"
+    },
+    {
+      "date": "mer 01/10/2003",
+      "formation": "4-4-2",
+      "coach": "Roberto Mancini",
+      "result": "2:2"
+    },
+    {
+      "date": "mer 22/10/2003",
+      "formation": "4-4-2",
+      "coach": "Roberto Mancini",
+      "result": "2:1"
+    },
+    {
+      "date": "mar 04/11/2003",
+      "formation": "4-4-2",
+      "coach": "Roberto Mancini",
+      "result": "0:4"
+    },
+    {
+      "date": "mer 26/11/2003",
+      "formation": "4-4-2",
+      "coach": "Roberto Mancini",
+      "result": "1:1"
+    },
+    {
+      "date": "mar 09/12/2003",
+      "formation": "4-4-2",
+      "coach": "Roberto Mancini",
+      "result": "1:0"
+    },
+    {
+      "date": "mer 13/08/2003",
+      "formation": "4-4-2",
+      "coach": "Roberto Mancini",
+      "result": "3:1"
+    },
+    {
+      "date": "mer 27/08/2003",
+      "formation": "4-4-2",
+      "coach": "Roberto Mancini",
+      "result": "0:1"
+    },
+    {
+      "date": "mer 03/12/2003",
+      "formation": "4-3-3",
+      "coach": "Roberto Mancini",
+      "result": "0:2"
+    },
+    {
+      "date": "mer 17/12/2003",
+      "formation": "4-5-1",
+      "coach": "Roberto Mancini",
+      "result": "1:0"
+    },
+    {
+      "date": "mer 14/01/2004",
+      "formation": "4-4-2",
+      "coach": "Roberto Mancini",
+      "result": "2:0"
+    },
+    {
+      "date": "mar 20/01/2004",
+      "formation": "4-4-2",
+      "coach": "Roberto Mancini",
+      "result": "1:1"
+    },
+    {
+      "date": "gio 05/02/2004",
+      "formation": "4-3-3",
+      "coach": "Roberto Mancini",
+      "result": "1:2"
+    },
+    {
+      "date": "mer 11/02/2004",
+      "formation": "4-3-3",
+      "coach": "Roberto Mancini",
+      "result": "4:0"
+    },
+    {
+      "date": "mer 17/03/2004",
+      "formation": "4-3-3",
+      "coach": "Roberto Mancini",
+      "result": "2:0"
+    },
+    {
+      "date": "mer 12/05/2004",
+      "formation": "4-4-2",
+      "coach": "Roberto Mancini",
+      "result": "2:2"
+    }
+  ],
+  "formation": "4-4-2"
+}

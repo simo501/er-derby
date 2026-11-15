@@ -58,14 +58,46 @@
     const lazio = data.teams.filter(team => team.club === 'lazio');
     if (roma.length !== lazio.length || !roma.length) throw new Error('Dataset sbilanciato');
     const total = Object.values(data.history.counts).reduce((a, b) => a + b, 0);
-    const target = Object.fromEntries(Object.entries(data.history.counts).map(([key, n]) => [key, n / total]));
+    const historical = Object.fromEntries(Object.entries(data.history.counts).map(([key, n]) => [key, n / total]));
+    const settings = data.model;
+    const historyWeight = settings.historyWeight;
+    const exploratoryWeight = settings.exploratoryWeight;
+    // Mix the real score sample with its mirror: preserve draws, soften the
+    // historical club advantage without modifying the archived real results.
+    const historicalScores = new Map(data.history.scores.map(s => [`${s.roma}:${s.lazio}`, s.count]));
+    const effectiveCounts = { roma: 0, draw: 0, lazio: 0 };
+    const scoreWeights = [];
+    let meanRoma = 0;
+    let meanLazio = 0;
+    const originalWeight = (1 + historyWeight) / 2;
+    for (let r = 0; r <= settings.maxGoals; r++) {
+      for (let l = 0; l <= settings.maxGoals; l++) {
+        const count = originalWeight * (historicalScores.get(`${r}:${l}`) || 0)
+          + (1 - originalWeight) * (historicalScores.get(`${l}:${r}`) || 0);
+        effectiveCounts[outcome(r, l)] += count;
+        meanRoma += r * count / total;
+        meanLazio += l * count / total;
+        scoreWeights.push({ roma: r, lazio: l, count });
+      }
+    }
+    const target = Object.fromEntries(Object.entries(effectiveCounts).map(([key, n]) => [key, n / total]));
+    const poisson = (goals, mean) => {
+      let value = Math.exp(-mean);
+      for (let i = 1; i <= goals; i++) value *= mean / i;
+      return value;
+    };
+    const exploratoryTotals = { roma: 0, draw: 0, lazio: 0 };
+    for (const cell of scoreWeights) {
+      cell.exploratory = poisson(cell.roma, meanRoma) * poisson(cell.lazio, meanLazio);
+      exploratoryTotals[outcome(cell.roma, cell.lazio)] += cell.exploratory;
+    }
     const pairs = roma.flatMap(r => lazio.map(l => ({ roma: r, lazio: l })));
     const biases = { roma: 1, draw: 1, lazio: 1 };
 
     function probabilities(pair) {
       // Editorial season strength has a bounded effect. Intercepts below restore
-      // the historical frequencies across the equally likely 144 pairings.
-      const delta = (pair.roma.rating - pair.lazio.rating) * 0.025;
+      // the softened historical frequencies across the 144 equally likely pairs.
+      const delta = (pair.roma.rating - pair.lazio.rating) * settings.strengthWeight;
       const weights = { roma: target.roma * Math.exp(delta) * biases.roma,
         draw: target.draw * biases.draw, lazio: target.lazio * Math.exp(-delta) * biases.lazio };
       const sum = weights.roma + weights.draw + weights.lazio;
@@ -95,14 +127,19 @@
           [schedule[i], schedule[j]] = [schedule[j], schedule[i]];
         }
       }
-      return schedule[((slot % pairs.length) + pairs.length) % pairs.length];
+      const pair = schedule[((slot % pairs.length) + pairs.length) % pairs.length];
+      const home = slot % 2 === 0 ? 'roma' : 'lazio';
+      return { ...pair, home, away: home === 'roma' ? 'lazio' : 'roma' };
     }
 
     function distribution(pair) {
       const probabilitiesForPair = probabilities(pair);
-      return data.history.scores.map(score => {
+      return scoreWeights.map(score => {
         const result = outcome(score.roma, score.lazio);
-        return { ...score, probability: probabilitiesForPair[result] * score.count / data.history.counts[result] };
+        const empirical = score.count / effectiveCounts[result];
+        const exploratory = score.exploratory / exploratoryTotals[result];
+        return { roma: score.roma, lazio: score.lazio,
+          probability: probabilitiesForPair[result] * ((1 - exploratoryWeight) * empirical + exploratoryWeight * exploratory) };
       });
     }
 
@@ -110,7 +147,9 @@
       const cells = distribution(pair);
       const sum = predicate => cells.filter(predicate).reduce((value, cell) => value + cell.probability, 0);
       const p = probabilities(pair);
-      return { ...p, '1X': p.roma + p.draw, 'X2': p.draw + p.lazio, '12': p.roma + p.lazio,
+      const home = pair.home || 'roma';
+      const away = home === 'roma' ? 'lazio' : 'roma';
+      return { ...p, '1X': p[home] + p.draw, 'X2': p.draw + p[away], '12': p.roma + p.lazio,
         over: sum(s => s.roma + s.lazio >= 3), under: sum(s => s.roma + s.lazio < 3),
         goal: sum(s => s.roma > 0 && s.lazio > 0), noGoal: sum(s => !s.roma || !s.lazio),
         exact: [...cells].sort((a, b) => b.probability - a.probability) };
@@ -120,10 +159,10 @@
       const pair = pairing(slot);
       const random = randomFrom(`${data.version}:match:${slot}`);
       const score = pick(distribution(pair), random, cell => cell.probability);
-      const events = [{ at: 0, minute: 0, type: 'kickoff', title: 'Il derby comincia.', text: 'Due epoche, un solo Olimpico. Si parte!' },
-        { at: 43000, minute: 45, type: 'halftime', title: 'Intervallo', text: 'Quattro secondi per riprendere fiato. Poi si torna in campo.' },
-        { at: 47000, minute: 45, type: 'kickoff', title: 'Comincia il secondo tempo', text: 'Altri quarantacinque minuti per scrivere questo derby.' },
-        { at: LIVE, minute: 90, type: 'fulltime', title: 'Triplice fischio', text: 'Il derby entra nell’archivio. La prossima sfida è già pronta.' }];
+      const events = [{ at: 0, minute: 0, type: 'kickoff', title: 'Il derby comincia.', text: 'Le curve si alzano. Ventidue in campo, una città divisa.' },
+        { at: 43000, minute: 45, type: 'halftime', title: 'Intervallo', text: 'Fiato corto, sciarpe alte. La partita non è finita.' },
+        { at: 47000, minute: 45, type: 'kickoff', title: 'Comincia il secondo tempo', text: 'Si riparte. Nessuno abbassa la voce.' },
+        { at: LIVE, minute: 90, type: 'fulltime', title: 'Triplice fischio', text: 'Il risultato resta. Le curve non si fermano.' }];
       const slots = Array.from({ length: 25 }, (_, i) => i);
       const goals = new Map();
       for (const club of ['roma', 'lazio']) {
@@ -134,7 +173,7 @@
       }
       const booked = new Set();
       for (let index = 0; index < 25; index++) {
-        const club = goals.get(index) || (random() < 0.51 ? 'roma' : 'lazio');
+        const club = goals.get(index) || (random() < 0.5 ? 'roma' : 'lazio');
         const team = pair[club];
         const opponent = pair[club === 'roma' ? 'lazio' : 'roma'];
         const outfield = team.starters.slice(1);
@@ -189,7 +228,7 @@
         halftime: elapsed >= 43000 && elapsed < 47000, finished: elapsed >= LIVE };
     }
 
-    return { pairing, probabilities, distribution, markets, createMatch, snapshot, target, pairs };
+    return { pairing, probabilities, distribution, markets, createMatch, snapshot, target, historical, pairs };
   }
 
   root.DerbyEngine = { CYCLE, LIVE, EPOCH, position, minuteAt, timeAt, randomFrom, createEngine };

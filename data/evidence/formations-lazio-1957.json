@@ -1,0 +1,19 @@
+{
+  "source": "https://www.transfermarkt.it/lazio-rom/spielplan/verein/398/saison_id/1957/plus/1",
+  "retrieved": "2026-11-15",
+  "coach": "Fulvio Bernardini",
+  "season": "1957–58",
+  "counts": {
+    "3-4-2-1": 1
+  },
+  "sampleSize": 1,
+  "records": [
+    {
+      "date": "mer 24/09/1958",
+      "formation": "3-4-2-1",
+      "coach": "Fulvio Bernardini",
+      "result": "1:0"
+    }
+  ],
+  "formation": "3-4-2-1"
+}

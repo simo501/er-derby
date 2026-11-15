@@ -34,6 +34,26 @@ SELECTION = [
 ('lazio',2019,'Simone Inzaghi','3-5-2',90,'La Supercoppa e i 36 gol in campionato di Immobile.','Strakosha/Patric,Acerbi,Radu/Lazzari,Milinković-Savić,Lucas Leiva,Luis Alberto,Lulić/Correa,Immobile'),
 ]
 
+# Counts come from the represented coach's available official season match logs.
+# Older archives lack enough tactical records: retain an explicit reconstruction.
+FORMATION_XI = {
+ 'roma-1941': ('2-3-2-3','Masetti/Brunella,Andreoli/Donati,Mornese,Bonomi/Cappellini,Coscia/Krieziu,Amadei,Pantó'),
+ 'roma-1960': ('3-2-2-3','Cudicini/Fontana,Losi,Corsini/Guarnacci,Pestrin/Lojacono,Schiaffino/Ghiggia,Manfredini,Selmosson'),
+ 'roma-1979': ('4-3-3','Tancredi/Peccenini,Santarini,Turone,Spinosi/Benetti,Di Bartolomei,Ancelotti/Bruno Conti,Pruzzo,Scarnecchia'),
+ 'roma-1983': ('4-3-3','Tancredi/Nappi,Righetti,Di Bartolomei,Nela/Cerezo,Falcão,Ancelotti/Bruno Conti,Pruzzo,Graziani'),
+ 'roma-1990': ('5-3-2','Cervone/Berthold,Aldair,Nela,Tempestilli,Carboni/Desideri,Giannini,Di Mauro/Rizzitelli,Völler'),
+ 'roma-2003': ('4-4-2','Pelizzoli/Panucci,Zebina,Samuel,Chivu/Mancini,Emerson,Dacourt,Lima/Totti,Cassano'),
+ 'roma-2009': ('4-4-2','Júlio Sérgio/Cassetti,Burdisso,Juan,Riise/Taddei,De Rossi,Pizarro,Perrotta/Totti,Vučinić'),
+ 'roma-2021': ('4-2-3-1',"Rui Patrício/Karsdorp,Mancini,Smalling,Viña/Cristante,Veretout/Zaniolo,Pellegrini,Mkhit/Abraham"),
+ 'lazio-1957': ('3-2-2-3','Lovati/Molino,Lo Buono,Eufemi/Carradori,Fuin/Burini,Vivolo/Muccinelli,Tozzi,Selmosson'),
+}
+HISTORICAL_FORMATIONS = {
+ 'roma-1941': ('Metodo', 'https://it.wikipedia.org/wiki/Serie_A_1941-1942'),
+ 'roma-1960': ('Sistema WM', 'https://it.wikipedia.org/wiki/Associazione_Sportiva_Roma_1960-1961'),
+ 'lazio-1957': ('WM elastico', 'https://www.treccani.it/enciclopedia/fulvio-bernardini_(Enciclopedia-dello-Sport)/'),
+ 'lazio-1973': ('4-3-3 di Maestrelli', 'https://www.polesinesport.it/campionato-pi-bello-del-mondo-dvd-story-gazzetta-sport-vince-lazio-1973-74-di-mr-maistrelli-e-chinaglia/'),
+}
+
 def normalized(s):
     return s.casefold().replace('’', "'").strip()
 
@@ -54,6 +74,20 @@ def roster_from_evidence(text):
 
 teams = []
 for club, year, coach, formation, rating, story, selection in SELECTION:
+    team_id = f'{club}-{year}'
+    evidence_path = ROOT / f'data/evidence/formations-{team_id}.json'
+    evidence = json.loads(evidence_path.read_text())
+    if team_id in FORMATION_XI:
+        formation, selection = FORMATION_XI[team_id]
+    if team_id in HISTORICAL_FORMATIONS:
+        label, source = HISTORICAL_FORMATIONS[team_id]
+        formation_info = dict(kind='reconstruction', label=label, source=source,
+                              note='Ricostruzione storica: non esiste un conteggio stagionale sufficiente dei moduli.')
+    else:
+        assert evidence['formation'] == formation, (team_id, evidence['formation'], formation)
+        formation_info = dict(kind='counted', source=evidence['source'], counts=evidence['counts'],
+                              sampleSize=evidence['sampleSize'], matches=evidence['counts'][formation],
+                              note='Modulo più frequente nei tabellini disponibili di questo allenatore nella stagione. Le varianti con la stessa struttura numerica sono accorpate.')
     text = (ROOT / f'data/evidence/{club}-{year}.txt').read_text()
     roster = roster_from_evidence(text)
     starters = []
@@ -65,7 +99,7 @@ for club, year, coach, formation, rating, story, selection in SELECTION:
             assert len(candidates) == 1, (club, year, query, candidates)
             player = dict(candidates[0])
             player['line'] = group_index
-            player['label'] = query
+            player['label'] = {'Mkhit': 'Mkhitaryan'}.get(query, query)
             starters.append(player)
     assert len(starters) == 11 and len({p['name'] for p in starters}) == 11
     assert starters[0]['role'] == 'P'
@@ -78,7 +112,7 @@ for club, year, coach, formation, rating, story, selection in SELECTION:
             remaining.remove(candidate)
     bench += remaining[:5-len(bench)]
     teams.append(dict(id=f'{club}-{year}', club=club, year=year, season=f'{year}–{str(year+1)[-2:]}',
-                      coach=coach, formation=formation, rating=rating, story=story,
+                      coach=coach, formation=formation, formationInfo=formation_info, rating=rating, story=story,
                       starters=starters, bench=bench, roster=roster,
                       source=text.splitlines()[0].removeprefix('Fonte: ')))
 
@@ -106,7 +140,8 @@ assert len(matches) == 184, len(matches)
 assert len({m['date'] for m in matches}) == len(matches)
 counts = Counter('roma' if m['roma']>m['lazio'] else 'lazio' if m['lazio']>m['roma'] else 'draw' for m in matches)
 histogram = Counter((m['roma'],m['lazio']) for m in matches)
-dataset = dict(version='capitale-v1', cutoff='2025-06-30', retrieved='2026-11-15', teams=teams,
+dataset = dict(version='capitale-v2', cutoff='2025-06-30', retrieved='2026-11-15', teams=teams,
+               model=dict(historyWeight=0.35, exploratoryWeight=0.15, strengthWeight=0.018, maxGoals=8),
                history=dict(source='https://en.wikipedia.org/wiki/Derby_della_Capitale', matches=matches,
                             counts=dict(counts), scores=[dict(roma=r,lazio=l,count=n) for (r,l),n in sorted(histogram.items())]))
 (ROOT / 'data/dataset.json').write_text(json.dumps(dataset, ensure_ascii=False, indent=2)+'\n')

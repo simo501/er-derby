@@ -1,0 +1,103 @@
+{
+  "source": "https://www.transfermarkt.it/lazio-rom/spielplan/verein/398/saison_id/1994/plus/1",
+  "retrieved": "2026-11-15",
+  "coach": "Zdeněk Zeman",
+  "season": "1994–95",
+  "counts": {
+    "4-3-3": 15
+  },
+  "sampleSize": 15,
+  "records": [
+    {
+      "date": "dom 04/09/1994",
+      "formation": "4-3-3",
+      "coach": "Zdenek Zeman",
+      "result": "0:1"
+    },
+    {
+      "date": "dom 18/09/1994",
+      "formation": "4-3-3",
+      "coach": "Zdenek Zeman",
+      "result": "2:1"
+    },
+    {
+      "date": "dom 25/09/1994",
+      "formation": "4-3-3",
+      "coach": "Zdenek Zeman",
+      "result": "2:2"
+    },
+    {
+      "date": "dom 11/12/1994",
+      "formation": "4-3-3",
+      "coach": "Zdenek Zeman",
+      "result": "3:4"
+    },
+    {
+      "date": "dom 08/01/1995",
+      "formation": "4-3-3",
+      "coach": "Zdenek Zeman",
+      "result": "3:1"
+    },
+    {
+      "date": "dom 19/02/1995",
+      "formation": "4-3-3",
+      "coach": "Zdenek Zeman",
+      "result": "4:0"
+    },
+    {
+      "date": "dom 26/02/1995",
+      "formation": "4-3-3",
+      "coach": "Zdenek Zeman",
+      "result": "2:0"
+    },
+    {
+      "date": "dom 30/04/1995",
+      "formation": "4-3-3",
+      "coach": "Zdenek Zeman",
+      "result": "0:0"
+    },
+    {
+      "date": "dom 07/05/1995",
+      "formation": "4-3-3",
+      "coach": "Zdenek Zeman",
+      "result": "0:3"
+    },
+    {
+      "date": "dom 21/05/1995",
+      "formation": "4-3-3",
+      "coach": "Zdenek Zeman",
+      "result": "1:0"
+    },
+    {
+      "date": "mar 22/11/1994",
+      "formation": "4-3-3",
+      "coach": "Zdenek Zeman",
+      "result": "1:2"
+    },
+    {
+      "date": "mar 06/12/1994",
+      "formation": "4-3-3",
+      "coach": "Zdenek Zeman",
+      "result": "2:1"
+    },
+    {
+      "date": "mar 14/03/1995",
+      "formation": "4-3-3",
+      "coach": "Zdenek Zeman",
+      "result": "2:0"
+    },
+    {
+      "date": "mer 08/03/1995",
+      "formation": "4-3-3",
+      "coach": "Zdenek Zeman",
+      "result": "0:1"
+    },
+    {
+      "date": "mar 11/04/1995",
+      "formation": "4-3-3",
+      "coach": "Zdenek Zeman",
+      "result": "2:1"
+    }
+  ],
+  "formation": "4-3-3"
+}
