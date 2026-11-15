@@ -7,7 +7,7 @@ destination = root / 'dist'
 if destination.exists():
     shutil.rmtree(destination)
 destination.mkdir(exist_ok=True)
-for name in ['index.html', 'style.css', 'engine.js', 'app.js']:
+for name in ['index.html', 'style.css', 'engine.js', 'audio.js', 'app.js']:
     shutil.copy2(root / name, destination / name)
 shutil.copytree(root / 'assets', destination / 'assets', dirs_exist_ok=True)
 (destination / 'data').mkdir(exist_ok=True)

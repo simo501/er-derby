@@ -1,5 +1,5 @@
 {
-  "version": "capitale-v2",
+  "version": "capitale-v3",
   "cutoff": "2025-06-30",
   "retrieved": "2026-11-15",
   "teams": [
@@ -6798,7 +6798,13 @@
     "historyWeight": 0.35,
     "exploratoryWeight": 0.15,
     "strengthWeight": 0.018,
-    "maxGoals": 8
+    "maxGoals": 8,
+    "disciplineRate": 0.18,
+    "redRetention": 0.62,
+    "freshGoalChances": [
+      0.06,
+      0.035
+    ]
   },
   "history": {
     "source": "https://en.wikipedia.org/wiki/Derby_della_Capitale",

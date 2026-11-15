@@ -140,8 +140,8 @@ assert len(matches) == 184, len(matches)
 assert len({m['date'] for m in matches}) == len(matches)
 counts = Counter('roma' if m['roma']>m['lazio'] else 'lazio' if m['lazio']>m['roma'] else 'draw' for m in matches)
 histogram = Counter((m['roma'],m['lazio']) for m in matches)
-dataset = dict(version='capitale-v2', cutoff='2025-06-30', retrieved='2026-11-15', teams=teams,
-               model=dict(historyWeight=0.35, exploratoryWeight=0.15, strengthWeight=0.018, maxGoals=8),
+dataset = dict(version='capitale-v3', cutoff='2025-06-30', retrieved='2026-11-15', teams=teams,
+               model=dict(historyWeight=0.35, exploratoryWeight=0.15, strengthWeight=0.018, maxGoals=8, disciplineRate=0.18, redRetention=0.62, freshGoalChances=[0.06, 0.035]),
                history=dict(source='https://en.wikipedia.org/wiki/Derby_della_Capitale', matches=matches,
                             counts=dict(counts), scores=[dict(roma=r,lazio=l,count=n) for (r,l),n in sorted(histogram.items())]))
 (ROOT / 'data/dataset.json').write_text(json.dumps(dataset, ensure_ascii=False, indent=2)+'\n')

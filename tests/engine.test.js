@@ -119,8 +119,8 @@ test('historical edge is softened, draw frequency stays intact and new scoreline
   const historicalScores = new Set(data.history.scores.map(s => `${s.roma}:${s.lazio}`));
   for (const pair of engine.pairs) {
     const cells = engine.distribution(pair);
-    assert.equal(cells.length, 81);
-    assert.ok(cells.every(s => s.probability > 0 && Number.isFinite(s.probability)));
+    assert.equal(cells.length, 144);
+    assert.ok(cells.every(s => s.probability >= 0 && Number.isFinite(s.probability)));
     const novel = cells.filter(s => !historicalScores.has(`${s.roma}:${s.lazio}`));
     assert.ok(novel.reduce((sum, s) => sum + s.probability, 0) > 0);
     assert.ok(cells.find(s => s.roma === 8 && s.lazio === 8).probability < 1e-8);
@@ -133,17 +133,26 @@ test('5000 matches: goal chronology, named players, half-time and stats are cohe
     const match = engine.createMatch(slot);
     const final = engine.snapshot(match, LIVE);
     const yellow = new Set();
+    const active={roma:new Set(match.roma.starters.map(p=>p.name)),lazio:new Set(match.lazio.starters.map(p=>p.name))};
     for (let i = 0; i < match.events.length; i++) {
       const event = match.events[i];
       if (i) assert.ok(event.at >= match.events[i - 1].at);
       if (!event.club) continue;
       assert.ok(event.at > 0 && event.at < LIVE);
       assert.ok(event.at < 43000 || event.at >= 47000, 'no actions during interval');
-      assert.ok(match[event.club].starters.some(p => p.name === event.player));
+      if(event.type==='sub') {
+        assert.ok(active[event.club].has(event.outgoing.name));
+        assert.ok(!active[event.club].has(event.incoming.name));
+        assert.ok(match[event.club].bench.some(p=>p.name===event.incoming.name));
+        active[event.club].delete(event.outgoing.name);active[event.club].add(event.incoming.name);
+      }
+      assert.ok(active[event.club].has(event.player),event.type+': '+event.player);
+      if(event.type==='red')active[event.club].delete(event.player);
+      if(event.assist)assert.ok(active[event.club].has(event.assist));
       assert.notEqual(event.player, event.assist);
       if (event.type === 'yellow') {
-        assert.ok(!yellow.has(event.player));
-        yellow.add(event.player);
+        assert.ok(!yellow.has(event.club+event.player));
+        yellow.add(event.club+event.player);
       }
     }
     for (const club of ['roma', 'lazio']) {
@@ -155,4 +164,49 @@ test('5000 matches: goal chronology, named players, half-time and stats are cohe
   }
   for (const key of Object.keys(results)) assert.ok(Math.abs(results[key] / 5000 - engine.target[key]) < 0.025);
   console.log('5000 matches:', results);
+});
+
+test('cards and fresh substitutes change subsequent goals without rewriting earlier action', () => {
+  let redChanges=0,subChanges=0,redMatches=0;
+  for(let slot=0;slot<1000;slot++) {
+    const game=engine.createMatch(slot);
+    const red=game.events.find(e=>e.type==='red');
+    const noRed=engine.createMatch(slot,{discipline:'none'});
+    const noSubs=engine.createMatch(slot,{substitutions:false});
+    if(red) {
+      redMatches++;
+      assert.equal(JSON.stringify(game.events.filter(e=>e.at<red.at)),JSON.stringify(noRed.events.filter(e=>e.at<red.at)));
+      const other=red.club==='roma'?'lazio':'roma';
+      assert.ok(game.score[red.club]<=noRed.score[red.club]);
+      assert.ok(game.score[other]>=noRed.score[other]);
+      if(JSON.stringify(game.score)!==JSON.stringify(noRed.score)) redChanges++;
+      assert.equal(engine.snapshot(game,red.at).lineups[red.club].length,10);
+    }
+    assert.equal(game.events.filter(e=>e.type==='sub').length,4);
+    for(const club of ['roma','lazio']) assert.ok(game.score[club]>=noSubs.score[club]);
+    if(JSON.stringify(game.score)!==JSON.stringify(noSubs.score)) subChanges++;
+    const report=engine.report(game);
+    assert.equal(report.players.length,26);
+    assert.ok(report.players.some(p=>p.name===report.mvp.name&&p.club===report.mvp.club));
+    for(const player of report.players) assert.ok(player.rating===null||(player.rating>=3&&player.rating<=10));
+  }
+  assert.ok(redMatches>100&&redChanges>10);
+  assert.ok(subChanges>50);
+  console.log('Causal episodes in 1000 matches:',{redMatches,redChanges,subChanges});
+});
+
+test('daily standings: Rome midnight, only completed games, points/goals accounting and DST', () => {
+  const midnight=Date.UTC(2026,10,14,23); // 15 November, 00:00 in Rome.
+  assert.equal(engine.dailyStandings(midnight+LIVE-1).matches,0);
+  assert.equal(engine.dailyStandings(midnight+LIVE).matches,1);
+  const day=engine.dailyStandings(midnight+6*CYCLE+LIVE);
+  assert.equal(day.matches,7);
+  assert.equal(day.teams.reduce((sum,t)=>sum+t.played,0),14);
+  assert.equal(day.teams.reduce((sum,t)=>sum+t.gf,0),day.scorers.reduce((sum,p)=>sum+p.goals,0));
+  assert.equal(day.teams.reduce((sum,t)=>sum+t.gf,0),day.teams.reduce((sum,t)=>sum+t.ga,0));
+  for(const t of day.teams){assert.equal(t.points,t.won*3+t.drawn);assert.equal(t.played,t.won+t.drawn+t.lost);}
+  const spring=engine.dailyStandings(Date.UTC(2026,2,29,21,59,59));
+  assert.equal(spring.end-spring.start,23*3600000);assert.equal(spring.matches,276);
+  const autumn=engine.dailyStandings(Date.UTC(2026,9,25,22,59,59));
+  assert.equal(autumn.end-autumn.start,25*3600000);assert.equal(autumn.matches,300);
 });

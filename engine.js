@@ -94,24 +94,71 @@
     const pairs = roma.flatMap(r => lazio.map(l => ({ roma: r, lazio: l })));
     const biases = { roma: 1, draw: 1, lazio: 1 };
 
-    function probabilities(pair) {
+    function baselineProbabilities(pair) {
       // Editorial season strength has a bounded effect. Intercepts below restore
       // the softened historical frequencies across the 144 equally likely pairs.
       const delta = (pair.roma.rating - pair.lazio.rating) * settings.strengthWeight;
-      const weights = { roma: target.roma * Math.exp(delta) * biases.roma,
-        draw: target.draw * biases.draw, lazio: target.lazio * Math.exp(-delta) * biases.lazio };
+      const weights = { roma: baselineTarget.roma * Math.exp(delta) * biases.roma,
+        draw: baselineTarget.draw * biases.draw, lazio: baselineTarget.lazio * Math.exp(-delta) * biases.lazio };
       const sum = weights.roma + weights.draw + weights.lazio;
       return Object.fromEntries(Object.entries(weights).map(([key, value]) => [key, value / sum]));
     }
 
+    const categories = ['roma', 'draw', 'lazio'];
+    const scenarios = [{ club: null, minute: 90, weight: 1 - settings.disciplineRate }];
+    for (const club of ['roma', 'lazio']) for (const minute of [30, 55, 70]) {
+      scenarios.push({ club, minute, weight: settings.disciplineRate / 6 });
+    }
+    const maxScore = settings.maxGoals + 3;
+    const scoreKey = (r, l) => r * (maxScore + 1) + l;
+    const finalCells = Array.from({length: (maxScore + 1) ** 2}, (_, i) => ({ roma: Math.floor(i / (maxScore + 1)), lazio: i % (maxScore + 1) }));
+    const conditional = Object.fromEntries(categories.map(key => [key, new Float64Array(finalCells.length)]));
+    function goalKernel(n, club, scenario) {
+      const survival = scenario.club === club ? 1 - ((89 - scenario.minute) / 87) * (1 - settings.redRetention) : 1;
+      const weights = Array.from({length: n + 1}, (_, k) => {
+        let combinations = 1;
+        for (let i = 1; i <= k; i++) combinations *= (n - i + 1) / i;
+        return combinations * survival ** k * (1 - survival) ** (n - k);
+      });
+      const extras = [...settings.freshGoalChances];
+      if (scenario.club && scenario.club !== club) extras.push(0.28 * (90 - scenario.minute) / 90);
+      for (const chance of extras) {
+        weights.push(0);
+        for (let k = weights.length - 1; k >= 0; k--) weights[k] = (weights[k] || 0) * (1 - chance) + (k ? weights[k - 1] * chance : 0);
+      }
+      return weights;
+    }
+    for (const cell of scoreWeights) {
+      const key = outcome(cell.roma, cell.lazio);
+      const prior = (1 - exploratoryWeight) * cell.count / effectiveCounts[key] + exploratoryWeight * cell.exploratory / exploratoryTotals[key];
+      for (const scenario of scenarios) {
+        const r = goalKernel(cell.roma, 'roma', scenario);
+        const l = goalKernel(cell.lazio, 'lazio', scenario);
+        for (let i = 0; i < r.length; i++) for (let j = 0; j < l.length; j++) conditional[key][scoreKey(i,j)] += prior * scenario.weight * r[i] * l[j];
+      }
+    }
+    const response = Object.fromEntries(categories.map(key => [key, {roma:0, draw:0, lazio:0}]));
+    for (const key of categories) finalCells.forEach((cell, i) => { response[key][outcome(cell.roma, cell.lazio)] += conditional[key][i]; });
+    // Correct the starting weights for the exact marginal effects of cards and
+    // fresh substitutes, so quoted odds and long-run club balance remain aligned.
+    const baselineTarget = {...target};
+    for (let i = 0; i < 200; i++) {
+      const actual = Object.fromEntries(categories.map(key => [key, categories.reduce((sum, from) => sum + baselineTarget[from] * response[from][key], 0)]));
+      if (categories.every(key => Math.abs(actual[key] - target[key]) < 1e-13)) break;
+      for (const key of categories) baselineTarget[key] += target[key] - actual[key];
+    }
     for (let iteration = 0; iteration < 300; iteration++) {
       const mean = { roma: 0, draw: 0, lazio: 0 };
       for (const pair of pairs) {
-        const p = probabilities(pair);
-        for (const key of Object.keys(mean)) mean[key] += p[key] / pairs.length;
+        const p = baselineProbabilities(pair);
+        for (const key of categories) mean[key] += p[key] / pairs.length;
       }
-      if (Object.keys(mean).every(key => Math.abs(mean[key] - target[key]) < 1e-13)) break;
-      for (const key of Object.keys(mean)) biases[key] *= target[key] / mean[key];
+      if (categories.every(key => Math.abs(mean[key] - baselineTarget[key]) < 1e-13)) break;
+      for (const key of categories) biases[key] *= baselineTarget[key] / mean[key];
+    }
+    function probabilities(pair) {
+      const p = baselineProbabilities(pair);
+      return Object.fromEntries(categories.map(key => [key, categories.reduce((sum, from) => sum + p[from] * response[from][key], 0)]));
     }
 
     let scheduleBlock;
@@ -132,15 +179,14 @@
       return { ...pair, home, away: home === 'roma' ? 'lazio' : 'roma' };
     }
 
+    const distributionCache = new Map();
     function distribution(pair) {
-      const probabilitiesForPair = probabilities(pair);
-      return scoreWeights.map(score => {
-        const result = outcome(score.roma, score.lazio);
-        const empirical = score.count / effectiveCounts[result];
-        const exploratory = score.exploratory / exploratoryTotals[result];
-        return { roma: score.roma, lazio: score.lazio,
-          probability: probabilitiesForPair[result] * ((1 - exploratoryWeight) * empirical + exploratoryWeight * exploratory) };
-      });
+      const key = `${pair.roma.id}:${pair.lazio.id}`;
+      if (!distributionCache.has(key)) {
+        const p = baselineProbabilities(pair);
+        distributionCache.set(key, finalCells.map((cell,i) => ({...cell, probability: categories.reduce((sum, from) => sum + p[from] * conditional[from][i], 0)})));
+      }
+      return distributionCache.get(key);
     }
 
     function markets(pair) {
@@ -155,80 +201,210 @@
         exact: [...cells].sort((a, b) => b.probability - a.probability) };
     }
 
-    function createMatch(slot) {
+    function createMatch(slot, overrides = {}) {
       const pair = pairing(slot);
       const random = randomFrom(`${data.version}:match:${slot}`);
-      const score = pick(distribution(pair), random, cell => cell.probability);
-      const events = [{ at: 0, minute: 0, type: 'kickoff', title: 'Il derby comincia.', text: 'Le curve si alzano. Ventidue in campo, una città divisa.' },
-        { at: 43000, minute: 45, type: 'halftime', title: 'Intervallo', text: 'Fiato corto, sciarpe alte. La partita non è finita.' },
-        { at: 47000, minute: 45, type: 'kickoff', title: 'Comincia il secondo tempo', text: 'Si riparte. Nessuno abbassa la voce.' },
-        { at: LIVE, minute: 90, type: 'fulltime', title: 'Triplice fischio', text: 'Il risultato resta. Le curve non si fermano.' }];
-      const slots = Array.from({ length: 25 }, (_, i) => i);
-      const goals = new Map();
-      for (const club of ['roma', 'lazio']) {
-        for (let i = 0; i < score[club]; i++) {
-          const index = Math.floor(random() * slots.length);
-          goals.set(slots.splice(index, 1)[0], club);
+      const p = baselineProbabilities(pair);
+      const baseCells = scoreWeights.map(cell => {
+        const key = outcome(cell.roma, cell.lazio);
+        return {...cell, probability: p[key] * ((1 - exploratoryWeight) * cell.count / effectiveCounts[key] + exploratoryWeight * cell.exploratory / exploratoryTotals[key])};
+      });
+      const baseline = pick(baseCells, random, cell => cell.probability);
+      const scenario = overrides.discipline === 'none' ? scenarios[0] : pick(scenarios, randomFrom(`${data.version}:discipline:${slot}`), s => s.weight);
+      const active = {roma: pair.roma.starters.map(p => ({...p})), lazio: pair.lazio.starters.map(p => ({...p}))};
+      const unused = {roma: pair.roma.bench.filter(p => p.role !== 'P').map(p => ({...p})), lazio: pair.lazio.bench.filter(p => p.role !== 'P').map(p => ({...p}))};
+      const score = {roma:0, lazio:0};
+      const drafts = [];
+      const events = [
+        {at:0, minute:0, type:'kickoff', title:'Il derby comincia.', text:'Le curve si alzano. Ventidue in campo, una città divisa.'},
+        {at:43000, minute:45, type:'halftime', title:'Intervallo', text:'Fiato corto, sciarpe alte. La partita non è finita.'},
+        {at:47000, minute:45, type:'kickoff', title:'Comincia il secondo tempo', text:'Si riparte. Nessuno abbassa la voce.'},
+        {at:LIVE, minute:90, type:'fulltime', title:'Triplice fischio', text:'Il risultato resta. Le curve non si fermano.'}
+      ];
+      const atMinute = minute => minute <= 45 ? Math.min(42999,Math.round(timeAt(minute))) : Math.round(timeAt(minute));
+      for (const club of ['roma','lazio']) {
+        for (let i=0; i<baseline[club]; i++) {
+          const roll = randomFrom(`${data.version}:goal:${slot}:${club}:${i}`);
+          const minute = 2 + roll() * 87;
+          if (scenario.club === club && minute > scenario.minute && roll() > settings.redRetention) continue;
+          drafts.push({type:'goal', club, minute, at:atMinute(minute)});
+        }
+        for (const [i,minute] of [55,70].entries()) {
+          drafts.push({type:'sub', club, minute, at:atMinute(minute)});
+          const fresh = randomFrom(`${data.version}:fresh:${slot}:${club}:${i}`);
+          if (overrides.substitutions !== false && fresh() < settings.freshGoalChances[i]) {
+            const goalMinute = minute + 1 + fresh() * (88-minute);
+            drafts.push({type:'goal', club, minute:goalMinute, at:atMinute(goalMinute)});
+          }
+        }
+        if (scenario.club && scenario.club !== club) {
+          const advantage = randomFrom(`${data.version}:advantage:${slot}:${club}`);
+          if (advantage() < 0.28 * (90-scenario.minute)/90) {
+            const minute = scenario.minute + 1 + advantage() * (88-scenario.minute);
+            drafts.push({type:'goal', club, minute, at:atMinute(minute)});
+          }
         }
       }
+      if (scenario.club) drafts.push({type:'red', club:scenario.club, minute:scenario.minute, at:atMinute(scenario.minute)});
+      for (let i=0; i<22; i++) {
+        const roll = randomFrom(`${data.version}:chance:${slot}:${i}`);
+        const minute = 2 + i * 3.9 + roll()*1.1;
+        drafts.push({type:'chance', club:roll()<0.5?'roma':'lazio', minute, at:atMinute(minute)});
+      }
+      const priority = {sub:0,red:1,chance:2,goal:3};
+      drafts.sort((a,b) => a.at-b.at || priority[a.type]-priority[b.type] || (a.club<b.club?-1:a.club>b.club?1:0));
       const booked = new Set();
-      for (let index = 0; index < 25; index++) {
-        const club = goals.get(index) || (random() < 0.5 ? 'roma' : 'lazio');
-        const team = pair[club];
-        const opponent = pair[club === 'roma' ? 'lazio' : 'roma'];
-        const outfield = team.starters.slice(1);
-        const shooter = pick(outfield, random, p => p.role === 'A' ? 7 : p.role === 'C' ? 3 : 1);
-        const assist = pick(outfield.filter(p => p.name !== shooter.name), random, p => p.role === 'C' ? 3 : 1);
-        const defender = pick(opponent.starters.slice(1), random, p => p.role === 'D' ? 4 : 1);
-        const minute = 2 + index * 3.5 + random() * 1.6;
-        const at = minute <= 45 ? Math.min(42999, Math.round(timeAt(minute))) : Math.round(timeAt(minute));
-        const roll = random();
-        let type = goals.has(index) ? 'goal' : roll < 0.35 ? 'save' : roll < 0.60 ? 'miss' : roll < 0.76 ? 'corner' : roll < 0.88 ? 'yellow' : 'defence';
-        if (type === 'yellow' && booked.has(shooter.name)) type = 'defence';
-        if (type === 'yellow') booked.add(shooter.name);
-        const common = { club, player: shooter.name, assist: assist.name, minute: Math.floor(minute), at,
-          x: club === 'roma' ? 72 + random() * 17 : 11 + random() * 17, y: 22 + random() * 56 };
-        const attackAt = at >= 47000 ? Math.max(47000, at - 1900) : at - 1900;
-        const attack = { ...common, at: attackAt, minute: Math.floor(minuteAt(attackAt)), type: 'build', title: `${assist.label} cerca ${shooter.label}`,
-          text: `${assist.name} porta avanti il pallone e serve ${shooter.name}.`, x: club === 'roma' ? 57 : 43 };
+      let lastChange = 0;
+      for (const [index,draft] of drafts.entries()) {
+        const {club,at} = draft;
+        const other = club==='roma'?'lazio':'roma';
+        const roll = randomFrom(`${data.version}:actors:${slot}:${index}`);
+        const outfield = active[club].filter(p => p.role!=='P');
+        if (draft.type === 'sub') {
+          if (overrides.substitutions === false || !unused[club].length) continue;
+          const incoming = unused[club].pop();
+          const sameRole = outfield.filter(p => p.role===incoming.role);
+          const outgoing = pick(sameRole.length?sameRole:outfield,roll);
+          const positionIndex = active[club].findIndex(p => p.name===outgoing.name);
+          incoming.line = outgoing.line;
+          incoming.positionName = outgoing.positionName || outgoing.name;
+          active[club][positionIndex] = incoming;
+          events.push({...draft, minute:Math.floor(draft.minute), player:incoming.name, incoming:{...incoming}, outgoing:{...outgoing}, title:`Entra ${incoming.name}`, text:`${pair[club].coach} cambia: esce ${outgoing.name}, entra ${incoming.name}. Gambe fresche per il finale.`});
+          lastChange=at;
+          continue;
+        }
+        const player = pick(outfield,roll,p => p.role==='A'?7:p.role==='C'?3:1);
+        if (draft.type==='red') {
+          active[club] = active[club].filter(p => p.name!==player.name);
+          events.push({...draft, minute:Math.floor(draft.minute), player:player.name, title:`Espulso ${player.label || player.name}`, text:`${player.name} lascia il campo: ${club.toUpperCase()} in dieci. ${booked.has(club+player.name)?'Seconda ammonizione.':'Rosso diretto.'}`});
+          lastChange=at;
+          continue;
+        }
+        const assist = pick(outfield.filter(p => p.name!==player.name),roll);
+        const defender = pick(active[other].filter(p => p.role!=='P'),roll,p=>p.role==='D'?4:1);
+        const keeper = active[other].find(p=>p.role==='P');
+        const value = roll();
+        let type = draft.type==='goal'?'goal':value<0.34?'save':value<0.59?'miss':value<0.75?'corner':value<0.86?'yellow':'defence';
+        if(type==='yellow' && booked.has(club+player.name)) type='defence';
+        if(type==='yellow') booked.add(club+player.name);
+        const common = {club,player:player.name,assist:assist.name,defender:defender.name,keeper:keeper.name,minute:Math.floor(draft.minute),at,x:club===pair.home?75:25,y:25+roll()*50};
+        if(type!=='yellow') {
+          // Build-ups never cross a possible roster change, including in the
+          // counterfactual run without a card. Earlier visible action is fixed.
+          const barrier = [30,55,70].map(atMinute).filter(change=>change<=at).reduce((latest,change)=>Math.max(latest,change),0);
+          const attackAt = Math.max(at-1600,lastChange+1,barrier+1,at>=47000?47000:0);
+          events.push({...common,at:Math.min(attackAt,at),minute:Math.floor(minuteAt(Math.min(attackAt,at))),type:'build',title:`${assist.label || assist.name} cerca ${player.label || player.name}`,text:`${assist.name} avanza e serve ${player.name}.`,x:club===pair.home?56:44});
+        }
         const variants = {
-          goal: [`Gol di ${shooter.label}!`, `${assist.name} trova ${shooter.name}: conclusione vincente, ${opponent.starters[0].label} è battuto!`],
-          save: [`${opponent.starters[0].label} dice no`, `${shooter.name} calcia su invito di ${assist.name}. ${opponent.starters[0].name} para e tiene il risultato.`],
-          miss: [`${shooter.label}, di poco fuori`, `${assist.name} apre lo spazio. Il tiro di ${shooter.name} finisce oltre il palo.`],
-          corner: ['Calcio d’angolo', `${defender.name} chiude il cross di ${shooter.name}. Il pallone termina in angolo.`],
-          yellow: [`Ammonito ${shooter.label}`, `${shooter.name} ferma fallosamente ${defender.name}. L’arbitro estrae il giallo.`],
-          defence: [`${defender.label} chiude tutto`, `${shooter.name} cerca il varco, ma ${defender.name} intercetta e allontana.`]
+          goal:[`Gol di ${player.label || player.name}!`,`${assist.name} trova ${player.name}: conclusione vincente, ${keeper.name} è battuto!`],
+          save:[`${keeper.label || keeper.name} dice no`,`${player.name} calcia: ${keeper.name} para e tiene il risultato.`],
+          miss:[`${player.label || player.name}, di poco fuori`,`${assist.name} apre lo spazio. Il tiro di ${player.name} finisce oltre il palo.`],
+          corner:['Calcio d’angolo',`${defender.name} chiude il cross di ${player.name}. Pallone in angolo.`],
+          yellow:[`Ammonito ${player.label || player.name}`,`${player.name} ferma fallosamente ${defender.name}. L’arbitro estrae il giallo.`],
+          defence:[`${defender.label || defender.name} chiude tutto`,`${player.name} cerca il varco, ${defender.name} intercetta e allontana.`]
         };
-        if (type !== 'yellow') events.push(attack);
-        events.push({ ...common, type, title: variants[type][0], text: variants[type][1] });
+        if(type==='goal') score[club]++;
+        events.push({...common,type,title:variants[type][0],text:variants[type][1]});
       }
-      events.sort((a, b) => a.at - b.at);
-      return { slot, start: EPOCH + slot * CYCLE, ...pair, score: { roma: score.roma, lazio: score.lazio },
-        odds: markets(pair), events };
+      events.sort((a,b)=>a.at-b.at);
+      return {slot,start:EPOCH+slot*CYCLE,...pair,score,odds:markets(pair),events};
     }
 
-    function snapshot(match, elapsed) {
-      const visible = match.events.filter(event => event.at <= elapsed);
-      const stats = { roma: { goals: 0, shots: 0, onTarget: 0, corners: 0, yellow: 0, attacks: 0 },
-        lazio: { goals: 0, shots: 0, onTarget: 0, corners: 0, yellow: 0, attacks: 0 } };
-      for (const event of visible) {
-        if (!event.club) continue;
-        const s = stats[event.club];
-        if (event.type === 'build') s.attacks++;
-        if (['goal', 'save', 'miss'].includes(event.type)) s.shots++;
-        if (['goal', 'save'].includes(event.type)) s.onTarget++;
-        if (event.type === 'goal') s.goals++;
-        if (event.type === 'corner') s.corners++;
-        if (event.type === 'yellow') s.yellow++;
+    function snapshot(match,elapsed) {
+      const visible = match.events.filter(event=>event.at<=elapsed);
+      const lineups = {roma:match.roma.starters.map(p=>({...p})),lazio:match.lazio.starters.map(p=>({...p}))};
+      const stats = {roma:{goals:0,shots:0,onTarget:0,corners:0,yellow:0,red:0,substitutions:0,attacks:0},lazio:{goals:0,shots:0,onTarget:0,corners:0,yellow:0,red:0,substitutions:0,attacks:0}};
+      for(const event of visible) {
+        if(!event.club) continue;
+        const s=stats[event.club];
+        if(event.type==='sub') {
+          const index=lineups[event.club].findIndex(p=>p.name===event.outgoing.name);
+          if(index>=0) lineups[event.club][index]={...event.incoming};
+          s.substitutions++;
+        }
+        if(event.type==='red') {lineups[event.club]=lineups[event.club].filter(p=>p.name!==event.player);s.red++;}
+        if(event.type==='build') s.attacks++;
+        if(['goal','save','miss'].includes(event.type)) s.shots++;
+        if(['goal','save'].includes(event.type)) s.onTarget++;
+        if(event.type==='goal') s.goals++;
+        if(event.type==='corner') s.corners++;
+        if(event.type==='yellow') s.yellow++;
       }
-      const attacks = stats.roma.attacks + stats.lazio.attacks;
-      stats.roma.pressure = attacks ? Math.round(stats.roma.attacks / attacks * 100) : 50;
-      stats.lazio.pressure = 100 - stats.roma.pressure;
-      return { events: visible, stats, minute: Math.floor(minuteAt(elapsed)),
-        halftime: elapsed >= 43000 && elapsed < 47000, finished: elapsed >= LIVE };
+      const attacks=stats.roma.attacks+stats.lazio.attacks;
+      stats.roma.pressure=attacks?Math.round(stats.roma.attacks/attacks*100):50;
+      stats.lazio.pressure=100-stats.roma.pressure;
+      return {events:visible,stats,lineups,minute:Math.floor(minuteAt(elapsed)),halftime:elapsed>=43000&&elapsed<47000,finished:elapsed>=LIVE};
     }
 
-    return { pairing, probabilities, distribution, markets, createMatch, snapshot, target, historical, pairs };
+    function report(match) {
+      const players=[];
+      const key=(club,name)=>club+':'+name;
+      const indexed=new Map();
+      for(const club of ['roma','lazio']) for(const p of match[club].starters) {
+        const entry={...p,club,goals:0,assists:0,saves:0,points:6,entered:0,exited:90,red:false};
+        players.push(entry);indexed.set(key(club,p.name),entry);
+      }
+      for(const event of match.events) {
+        if(!event.club) continue;
+        const club=event.club;
+        if(event.type==='sub') {
+          indexed.get(key(club,event.outgoing.name)).exited=event.minute;
+          const entry={...event.incoming,club,goals:0,assists:0,saves:0,points:6,entered:event.minute,exited:90,red:false};
+          players.push(entry);indexed.set(key(club,entry.name),entry);
+          continue;
+        }
+        const player=indexed.get(key(club,event.player));
+        const opposite=club==='roma'?'lazio':'roma';
+        if(event.type==='goal') {player.goals++;player.points+=1.05;const assist=indexed.get(key(club,event.assist));assist.assists++;assist.points+=0.45;indexed.get(key(opposite,event.keeper)).points-=0.3;}
+        if(event.type==='save') {const keeper=indexed.get(key(opposite,event.keeper));keeper.saves++;keeper.points+=0.18;player.points+=0.03;}
+        if(event.type==='miss') player.points-=0.06;
+        if(event.type==='defence') indexed.get(key(opposite,event.defender)).points+=0.12;
+        if(event.type==='yellow') player.points-=0.25;
+        if(event.type==='red') {player.red=true;player.points-=1.4;player.exited=event.minute;}
+      }
+      for(const player of players) {player.minutes=player.exited-player.entered;player.rating=player.minutes<10&&!player.goals&&!player.assists&&!player.red?null:Math.round(Math.max(3,Math.min(10,player.points))*10)/10;delete player.points;}
+      const ranked=players.filter(p=>p.rating!==null).sort((a,b)=>b.rating-a.rating||b.goals-a.goals||b.assists-a.assists||(a.name<b.name?-1:a.name>b.name?1:0));
+      const mvp=ranked[0];
+      const winner=outcome(match.score.roma,match.score.lazio);
+      const text=winner==='draw'?'Nessuna curva si prende la città: finisce in parità.':`${winner.toUpperCase()} si prende il derby. L’altra curva aspetta la rivincita.`;
+      return {players,mvp,summary:`${text} ${mvp.name} è il migliore in campo con ${mvp.rating.toFixed(1)}.`};
+    }
+
+    let standingsCache;
+    function dailyStandings(now) {
+      const dateParts = new Intl.DateTimeFormat('en-CA',{timeZone:'Europe/Rome',year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(now);
+      const get=type=>Number(dateParts.find(p=>p.type===type).value);
+      const midnight=Date.UTC(get('year'),get('month')-1,get('day'));
+      const romeHour=stamp=>Number(new Intl.DateTimeFormat('en-GB',{timeZone:'Europe/Rome',hour:'2-digit',hourCycle:'h23'}).format(stamp));
+      const start=midnight-romeHour(midnight)*3600000;
+      const nextMidnight=midnight+86400000;
+      const end=nextMidnight-romeHour(nextMidnight)*3600000;
+      const first=Math.ceil((start-EPOCH)/CYCLE);
+      const last=Math.floor((Math.min(now,end)-LIVE-EPOCH)/CYCLE);
+      const cacheKey=`${start}:${last}`;
+      if(standingsCache?.key===cacheKey) return standingsCache.value;
+      const rows=data.teams.map(team=>({id:team.id,club:team.club,season:team.season,played:0,points:0,won:0,drawn:0,lost:0,gf:0,ga:0}));
+      const byId=new Map(rows.map(row=>[row.id,row]));
+      const scorerMap=new Map();
+      for(let slot=first;slot<=last;slot++) {
+        const game=createMatch(slot);
+        for(const club of ['roma','lazio']) {
+          const row=byId.get(game[club].id);const opponent=club==='roma'?'lazio':'roma';row.played++;row.gf+=game.score[club];row.ga+=game.score[opponent];
+          if(game.score[club]>game.score[opponent]) {row.won++;row.points+=3;} else if(game.score[club]===game.score[opponent]) {row.drawn++;row.points++;} else row.lost++;
+        }
+        for(const event of game.events.filter(e=>e.type==='goal')) {
+          const key=event.club+':'+event.player;
+          if(!scorerMap.has(key)) scorerMap.set(key,{club:event.club,name:event.player,goals:0});
+          scorerMap.get(key).goals++;
+        }
+      }
+      rows.sort((a,b)=>b.points-a.points||(b.gf-b.ga)-(a.gf-a.ga)||b.gf-a.gf||(a.id<b.id?-1:a.id>b.id?1:0));
+      const scorers=[...scorerMap.values()].sort((a,b)=>b.goals-a.goals||(a.name<b.name?-1:a.name>b.name?1:0));
+      const value={start,end,matches:Math.max(0,last-first+1),teams:rows,scorers};
+      standingsCache={key:cacheKey,value};return value;
+    }
+
+    return { pairing, probabilities, distribution, markets, createMatch, snapshot, target, historical, pairs, report, dailyStandings };
   }
 
   root.DerbyEngine = { CYCLE, LIVE, EPOCH, position, minuteAt, timeAt, randomFrom, createEngine };
