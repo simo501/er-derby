@@ -46,6 +46,7 @@ small { font-size: 12px; }
 .topbar a:hover { color: var(--yellow); }
 .header-clock { margin-left: auto; display: flex; align-items: center; gap: 8px; font-size: 8px; font-weight: 700; letter-spacing: .5px; white-space: nowrap; color: #969b9e; }
 .header-clock time { font-size: 17px; color: var(--text); font-weight: 700; font-variant-numeric: tabular-nums; margin-left: 10px; }
+.app-version { margin-left: 10px; padding: 2px 6px; border: 1px solid var(--line); color: var(--muted); font-size: 13px; font-variant-numeric: tabular-nums; letter-spacing: 0; }
 .status-dot { width: 6px; height: 6px; display: inline-block; flex-shrink: 0; border-radius: 50%; background: #b4c5a7; }
 .topbar .status-dot { background: #b4c5a7; }
 main { max-width: 1376px; margin: auto; padding: 39px 28px 55px; }
@@ -374,8 +375,8 @@ dialog .small-muted { font-size: 10px; }
   footer { margin-left: 28px; margin-right: 28px; }
 }
 @media (max-width: 900px) {
-  .header-clock { display: none; }
-  .topbar { justify-content: space-between; gap: 25px; }
+  .header-clock { display: flex; }
+  .topbar { justify-content: space-between; gap: 25px; flex-wrap: wrap; }
   .topbar nav { gap: 20px; font-size: 11px; }
   .brand { font-size: 15px; }
   .edition { display: none; }
