@@ -1,4 +1,4 @@
-# Derby infinito
+# er derby
 
 Simulatore statico Roma–Lazio: una partita ogni cinque minuti, 90 secondi di diretta e 210 secondi di postpartita/attesa. Gli spettatori possono esplorare quote, cronaca, statistiche, rose e archivio; non possono alterare il gioco.
 

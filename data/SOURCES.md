@@ -45,4 +45,4 @@ Stemmi ufficiali dei club (marchi dei rispettivi titolari), inclusi localmente p
 - AS Roma: [FootyLogos, stemma corrente](https://www.footylogos.com/logos/roma), file `https://www.footylogos.com/downloads/logo/roma-logo-footylogos.svg` (credito: FootyLogos.com).
 - S.S. Lazio: [sito ufficiale](https://www.sslazio.it/), file `https://www.sslazio.it/images/logo.png`.
 
-La grafica si ispira agli album di figurine e al calcio italiano; non è un prodotto ufficiale dei club, di Panini o della Lega Serie A.
+La grafica si ispira alle curve e alle fanzine del tifo romano. Non è un prodotto ufficiale dei club o della Lega Serie A.

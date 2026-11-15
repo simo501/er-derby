@@ -80,7 +80,7 @@
   }
 
   function renderTeams(club = 'all') {
-    $('teams').innerHTML = data.teams.filter(t => club === 'all' || t.club === club).map(team => `<button class="team-card ${team.club}" data-team="${team.id}"><div class="team-card-top"><span>COLLEZIONE CAPITALE</span><span class="sticker-number">N° ${String(data.teams.indexOf(team) + 1).padStart(2, '0')}</span></div><div class="team-card-art">${badge(team.club)}<div><span>${team.club.toUpperCase()}</span><strong class="team-year">${team.season}</strong></div></div><h2>${escape(team.coach)}</h2><p>${escape(team.story)}</p><div class="team-card-bottom"><span>${team.formation} · ${team.roster.length} GIOCATORI</span><span>Esplora ↗</span></div></button>`).join('');
+    $('teams').innerHTML = data.teams.filter(t => club === 'all' || t.club === club).map(team => `<button class="team-card ${team.club}" data-team="${team.id}"><div class="team-card-top"><span>${team.club === 'roma' ? 'MEMORIA DELLA SUD' : 'MEMORIA DELLA NORD'}</span><span class="archive-number">N° ${String(data.teams.indexOf(team) + 1).padStart(2, '0')}</span></div><div class="team-card-art">${badge(team.club)}<div><span>${team.club.toUpperCase()}</span><strong class="team-year">${team.season}</strong></div></div><h2>${escape(team.coach)}</h2><p>${escape(team.story)}</p><div class="team-card-bottom"><span>${team.formation} · ${team.roster.length} GIOCATORI</span><span>Esplora ↗</span></div></button>`).join('');
   }
 
   function renderOdds() {
